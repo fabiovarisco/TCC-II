@@ -12,6 +12,7 @@ import traci  # noqa
 from TrafficLightStatic import TrafficLightStatic
 from TrafficLight import TrafficLight
 from TrafficLightControllerFXM import TrafficLightControllerFXM
+from TrafficLightControllerWebsterLike import TrafficLightControllerWebsterLike
 
 
 class Simulation(object):
@@ -36,8 +37,8 @@ class Simulation(object):
 
         # this is the normal way of using traci. sumo is started as a
         # subprocess and then the python script connects and runs
-        traci.start([sumoBinary, "-c", "data/cross.sumocfg",
-                                 "--tripinfo-output", "tripinfo.xml"])
+        traci.start([sumoBinary, "-c", "simulation_files/sumocfgs/grid10.sumocfg",
+                                 "--tripinfo-output", "tripinfo_grid10.xml"])
 
         self._preRun()
         self._run()
@@ -45,7 +46,7 @@ class Simulation(object):
     def _preRun(self):
         self.trafficLights = []
         for id in traci.trafficlight.getIDList():
-            self.trafficLights.append(TrafficLight(id, TrafficLightControllerFXM))
+            self.trafficLights.append(TrafficLight(id, TrafficLightControllerWebsterLike))
 
     def _run(self):
         """execute the TraCI control loop"""

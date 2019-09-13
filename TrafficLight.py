@@ -9,7 +9,6 @@ class TrafficLight(object):
     def __init__(self, id, TrafficLightController):
         super(TrafficLight, self).__init__()
         self.id = id
-        self.controller = TrafficLightController(self);
         links = tTL.getControlledLinks(self.id)
         self.incoming = {}
         self.outgoing = {}
@@ -31,12 +30,17 @@ class TrafficLight(object):
             if (len(self.outgoing[phaseId]) == 0): raise Exception(f"No outgoing lanes for phase {phaseId} in traffic light {self.id}")
 
             phaseId += 1
+        self.controller = TrafficLightController(self);
+
 
     def getId(self):
         return self.id
 
     def getPhaseNumber(self):
         return len(self.incoming)
+
+    def getPhase(self):
+        return tTL.getPhase(self.id)
 
     def setPhase(self, phaseIndex):
         tTL.setPhase(self.id, phaseIndex)
@@ -61,6 +65,8 @@ class TrafficLight(object):
                 max = pMax
         return max
 
-
     def step(self, step):
+        for lanes in self.incoming.values():
+            for l in lanes:
+                l.step(step)
         self.controller.step(step)
