@@ -32,3 +32,6 @@ class Lane(object):
         newVehicleIDs = self.getLastStepVehicleIDs()
         self.deltaNumber = np.sum(np.isin(newVehicleIDs, self.previousStepVehicleIDs))
         self.previousStepVehicleIDs = newVehicleIDs
+
+    def getWidth(self):
+        return tLane.getWidth(self.id)

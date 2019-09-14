@@ -18,9 +18,9 @@ class TrafficLight(object):
             self.incoming[phaseId] = []
             self.outgoing[phaseId] = []
             # Incoming links
-            print(phase)
+            #print(phase)
             for l in phase:
-                print(f"Incoming lane: {l[0]}")
+                #print(f"Incoming lane: {l[0]}")
                 self.incoming[phaseId].append(Lane(l[0]))
                 self.outgoing[phaseId].append(Lane(l[1]))
             #for l in directions[1]:
