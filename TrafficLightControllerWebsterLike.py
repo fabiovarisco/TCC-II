@@ -30,17 +30,8 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
         super(TrafficLightControllerWebsterLike, self).__init__(trafficLight)
 
         print('Phase number: ', self.trafficLight.getPhaseNumber())
-        for p in range(0, self.trafficLight.getPhaseNumber()):
-            for l in self.trafficLight.incoming[p]:
-                self.lanewidth = l.getLaneWidth()
-                self.vehicleNumber[l.id] = 0
-                self.queueLength[l.id] = 0
-                laneWidth = l.getLaneWidth()
-                self.saturationFlow[l.id] = 525 * laneWidth
-                self.laneWidth[l.id] = laneWidth
-                self.vehicleFlow[l.id] = 0
-        
 
+        self._initBaseIndicators()
 
     def step(self, step):
         self._gatherLaneStats(step)
@@ -52,6 +43,16 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
             self._startCycle(step)
         elif (step - self.startPhaseStep) > self.phaseLengths[self.currentPhase]:
             self._advancePhase(step)
+
+    def _initBaseIndicators():
+        for p in range(0, self.trafficLight.getPhaseNumber()):
+            for l in self.trafficLight.incoming[p]:
+                self.vehicleNumber[l.id] = 0
+                self.queueLength[l.id] = 0
+                laneWidth = l.getWidth()
+                self.saturationFlow[l.id] = 525 * laneWidth
+                self.laneWidth[l.id] = laneWidth
+                self.vehicleFlow[l.id] = 0
 
     def _startCycle(self, step):    
         self.startCycleStep = step
