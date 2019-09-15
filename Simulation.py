@@ -17,7 +17,7 @@ from TrafficLightControllerWebsterLike import TrafficLightControllerWebsterLike
 
 class Simulation(object):
 
-    self.indicators = []
+    indicators = []
 
     """docstring for Simulation."""
     def __init__(self, runID, options):

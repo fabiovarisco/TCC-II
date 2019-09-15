@@ -8,22 +8,22 @@ TL_TOTAL_LOST_TIME = (4 * 2) + 4 # (4s * no. of stages) + all_red_time
 
 class TrafficLightControllerWebsterLike(TrafficLightController):
 
-    self.startPhaseStep = 0
-    self.startCycleStep = 0
-    self.lastCycleAdjustmentStep = 0
+    startPhaseStep = 0
+    startCycleStep = 0
+    lastCycleAdjustmentStep = 0
     
-    self.totalLostTime = TL_TOTAL_LOST_TIME
+    totalLostTime = TL_TOTAL_LOST_TIME
 
-    self.vehicleFlow = {}
-    self.vehicleNumber = {}
-    self.vehicleFlow = {}
-    self.queueLength = {}
-    self.laneWidth = {}
-    self.saturationFlow = {}
-    self.flowFactor = {}
-    self.phaseFlowFactors = []
-    self.cycleLength = TLC_CYCLE_STARTUP_TIME_WEBSTER
-    self.phaseLengths = []
+    vehicleFlow = {}
+    vehicleNumber = {}
+    vehicleFlow = {}
+    queueLength = {}
+    laneWidth = {}
+    saturationFlow = {}
+    flowFactor = {}
+    phaseFlowFactors = []
+    cycleLength = TLC_CYCLE_STARTUP_TIME_WEBSTER
+    phaseLengths = []
 
     """docstring for TrafficLightControllerWebsterLike."""
     def __init__(self, trafficLight):
@@ -96,6 +96,3 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
             self.phaseLengths[p] = (self.phaseFlowFactors[p] * (self.cycleLength - self.totalLostTime)) / totalFlowFactor
 
         self.lastCycleAdjustmentStep = step
-
-
-    
