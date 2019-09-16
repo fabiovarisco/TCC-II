@@ -3,6 +3,9 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+from contextlib import redirect_stdout
+
+
 import random
 import sys
 
@@ -41,8 +44,12 @@ class Simulation(object):
         # subprocess and then the python script connects and runs
         #traci.start([sumoBinary, "-c", "simulation_files/sumocfgs/grid10.sumocfg",
         #                         "--tripinfo-output", "tripinfo_grid10.xml"])
-        traci.start([sumoBinary, "-c", "data/cross.sumocfg",
-                                 "--tripinfo-output", "tripinfo_isolated.xml"])
+        if (self.options.debug):
+            traci.init(9999)
+                    # sumo-gui -c data/cross.sumocfg --remote-port 9999
+        else:
+            traci.start([sumoBinary, "-c", "data/cross.sumocfg",
+                             "--tripinfo-output", "tripinfo_isolated.xml"])
 
         self._preRun()
         self._run()
