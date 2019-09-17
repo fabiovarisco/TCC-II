@@ -1,9 +1,9 @@
-sl.lane.sl.lane.
+
 from TrafficLightController import TrafficLightController
 import time
 
-TLC_CYCLE_ADJUSTMENT_TIME_WEBSTER = 1000
-TLC_CYCLE_STARTUP_TIME_WEBSTER = 30
+TLC_CYCLE_ADJUSTMENT_TIME_WEBSTER = 180
+TLC_CYCLE_STARTUP_TIME_WEBSTER = 60
 TL_TOTAL_LOST_TIME = (4 * 2) + 4 # (4s * no. of stages) + all_red_time
 
 class TrafficLightControllerWebsterLike(TrafficLightController):
@@ -30,6 +30,7 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
     def __init__(self, trafficLight):
         super(TrafficLightControllerWebsterLike, self).__init__(trafficLight)
 
+        '''
         print('Phase number: ', self.trafficLight.getPhaseNumber())
         i = 0
         for l in self.trafficLight.getCompleteRedYellowGreenDefinition():
@@ -38,6 +39,7 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
             for p in l.getPhases():
                 print(p)
             print(l.getParameters())
+        '''
         self._initBaseIndicators()
 
     def step(self, step):
@@ -58,14 +60,16 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
                 self.queueLength[sl.lane.id] = 0
                 laneWidth = sl.lane.getWidth()
                 self.saturationFlow[sl.lane.id] = 525 * laneWidth
+                print(f"Lane {sl.lane.id}: width {laneWidth}; saturation flow: {self.saturationFlow[sl.lane.id]}")
                 self.laneWidth[sl.lane.id] = laneWidth
                 self.vehicleFlow[sl.lane.id] = 0
+            self.stageFlowFactors.append(0)
             self.stageLengths.append(self.cycleLength / len(self.trafficLight.getStages()))
 
 
     def _startCycle(self, step):
         self.startCycleStep = step
-        self._advanceStage()
+        self._advanceStage(step)
 
     def _advanceStage(self, step):
         self.startStageStep = step
@@ -76,33 +80,46 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
             for sl in s.getSignalLanes():
                 self.vehicleNumber[sl.lane.id] += sl.lane.getVehicleDeltaNumber()
                 self.queueLength[sl.lane.id] += sl.lane.getQueueLength()
+                #print(f"Lane Stats {sl.lane.id}: delta {sl.lane.getVehicleDeltaNumber()} total {self.vehicleNumber[sl.lane.id]}")
+
+    def _resetLaneStats(self):
+        for s in self.trafficLight.getStages():
+            for sl in s.getSignalLanes():
+                self.vehicleNumber[sl.lane.id] = sl.lane.getVehicleNumber()
+                self.queueLength[sl.lane.id] = sl.lane.getQueueLength()
 
     def _adjustCycle(self, step):
         elapsedTime = step - self.lastCycleAdjustmentStep
 
         totalFlowFactor = 0
 
-        for s in self.trafficLight.getStages():
+        for i, s in enumerate(self.trafficLight.getStages()):
             stageFlowFactor = 0
             for sl in s.getSignalLanes():
                 self.vehicleFlow[sl.lane.id] = self.vehicleNumber[sl.lane.id] * 3600 / elapsedTime
-                self.flowFactor[sl.lane.id] = self.vehicleFlow[sl.lane.id] - self.saturationFlow[sl.lane.id]
+                self.flowFactor[sl.lane.id] = self.vehicleFlow[sl.lane.id] / self.saturationFlow[sl.lane.id]
                 stageFlowFactor = max(stageFlowFactor, self.flowFactor[sl.lane.id])
-            self.stageFlowFactors[s.getPhaseIndex()] = stageFlowFactor
+                print(f"Lane {sl.lane.id}: Veh No: {self.vehicleNumber[sl.lane.id]}. Flow:  {self.vehicleFlow[sl.lane.id]}. Factor: {self.flowFactor[sl.lane.id]}")
+            print(f"Stage {i} Flow Factor: {stageFlowFactor}")
+            self.stageFlowFactors[i] = stageFlowFactor
             totalFlowFactor += stageFlowFactor
 
+        meanFlowFactor = totalFlowFactor / len(self.trafficLight.getStages())
+
         eq1 = (1.5 * self.totalLostTime) + 5
-        eq2 = 1 - totalFlowFactor
+        #eq2 = 1 - totalFlowFactor
+        eq2 = 1 - meanFlowFactor
 
         if (eq2 != 0):
             self.cycleLength = eq1 / eq2
         else:
             self.cycleLength = 30
 
-        for s in self.trafficLight.getStages():
-            self.stageLengths[s.getPhaseIndex()] = (self.stageFlowFactors[p] * (self.cycleLength - TL_TOTAL_LOST_TIME)) / totalFlowFactor
-
-        self.lastCycleAdjustmentStep = step
         print(f"New Cycle Length: {self.cycleLength}")
-        for s in self.trafficLight.getStages():
-            print(f"Stage {s.getPhaseIndex()}: {self.stageLengths[s.getPhaseIndex()]}")
+
+        for i, s in enumerate(self.trafficLight.getStages()):
+            self.stageLengths[i] = ((self.stageFlowFactors[i] * (self.cycleLength - TL_TOTAL_LOST_TIME)) / totalFlowFactor) - 2
+            print(f"Stage {i}: {self.stageLengths[i]}")
+
+        self._resetLaneStats()
+        self.lastCycleAdjustmentStep = step

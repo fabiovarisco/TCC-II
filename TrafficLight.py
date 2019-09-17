@@ -1,6 +1,4 @@
 
-import re
-
 from traci import trafficlight as tTL
 from Lane import Lane
 from Stage import Stage
@@ -17,7 +15,6 @@ class TrafficLight(object):
         self.id = id
 
         self._initLinks()
-
         self._initStages()
 
         self.controller = TrafficLightController(self);
@@ -36,17 +33,26 @@ class TrafficLight(object):
         if (len(self.outgoing) == 0): raise Exception(f"No outgoing lanes for phase {phaseId} in traffic light {self.id}")
 
     def _initStages(self):
-        logics = [l if l.getSubId() == self.getProgramId() for l in self.getCompleteRedYellowGreenDefinition()]
+        logics = [l for l in self.getCompleteRedYellowGreenDefinition() if l.getSubID() == self.getProgramId()]
         if (len(logics) == 0): raise Exception(f"Not able to find program ID {self.getProgramId()}")
         self.logic = logics[0]
 
-        self.stages = Stage.resolveStages(self.logic.getPhases())
+        self.phaseNumber = len(self.logic.getPhases())
+
+        for l in self.incoming:
+            print(f"Lane: {l.id}")
+
+        self.stages = Stage.resolveStages(self.logic.getPhases(), self.incoming)
+        for i, s in enumerate(self.stages):
+            print(f"Stage {i}")
+            for sl in s.getSignalLanes():
+                print(f"Lane {sl.lane.id}")
 
     def getId(self):
         return self.id
 
     def getPhaseNumber(self):
-        return len(self.incoming)
+        return self.phaseNumber
 
     def getCurrentStage(self):
         return self.currentStage
@@ -67,41 +73,34 @@ class TrafficLight(object):
         tTL.setPhase(self.id, self.stages[stageIndex].getPhaseIndex())
 
     def _advancePhase(self):
-        tTL.setPhase(self.id, tTL.getPhase(self.id) + 1)
+        tTL.setPhase(self.id, (tTL.getPhase(self.id) + 1) % self.getPhaseNumber())
 
     def advanceStage(self):
         self.currentStage = (self.currentStage + 1) % len(self.stages)
-        self._advancePhase(self)
+        self._advancePhase()
 
     def getMaxPhaseLength(self, phaseId):
         lanes = self.incoming[phaseId]
-        max = 0
+        maxLength = 0
         for l in lanes:
-            laneQueueLength = l.getQueueLength()
-            if (laneQueueLength > max):
-                max = laneQueueLength
-        return max
+            maxLength = max(maxLength, l.getQueueLength())
+        return maxLength
 
     def getMaxStageLength(self, stageIndex):
-        max = 0
+        maxLength = 0
         for sl in self.stages[stageIndex].getSignalLanes():
-            laneQueueLength = sl.lane.getQueueLength()
-            if (laneQueueLength > max):
-                max = laneQueueLength
-        return max
+            maxLength = max(maxLength, sl.lane.getQueueLength())
+        return maxLength
 
     def getMaxLength(self):
-        max = 0
-        for p in self.incoming.keys():
-            pMax = self.getMaxPhaseLength(p)
-            if (pMax > max):
-                max = pMax
-        return max
+        maxLength = 0
+        for i in range(0, len(self.stages)):
+            maxLength = max(maxLength, self.getMaxStageLength(i))
+        return maxLength
 
     def step(self, step):
-        for lanes in self.incoming.values():
-            for l in lanes:
-                l.step(step)
+        for l in self.incoming:
+            l.step(step)
         self.controller.step(step)
 
     def getCompleteRedYellowGreenDefinition(self):

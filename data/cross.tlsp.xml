@@ -1,5 +1,6 @@
 <additional>
 
+<!--
   <e1Detector id="0" lane="4i_0" pos="450" freq="30" file="cross.out" friendlyPos="x"/>
 
   <tlLogic id="0" programID="fxm1" offset="0" type="static">
@@ -40,7 +41,7 @@
     <phase duration="2" minDur="2" maxDur="2" state="ryry"/>
     <phase duration="2" minDur="2" maxDur="2" state="rrrr"/>
   </tlLogic>
-
+-->
   <tlLogic id="0" programID="1" offset="0" type="static">
     <phase duration="1000" state="GrGr"/>
     <phase duration="2"  state="yryr"/>

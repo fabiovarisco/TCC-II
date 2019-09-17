@@ -28,12 +28,20 @@ class Lane(object):
     def getVehicleDeltaNumber(self):
         return self.deltaNumber
 
+    def getVehicleNumber(self):
+        return tLane.getLastStepVehicleNumber(self.id)
+
     def step(self, step):
         newVehicleIDs = self.getLastStepVehicleIDs()
-        self.deltaNumber = np.sum(np.isin(newVehicleIDs, self.previousStepVehicleIDs))
+        self.deltaNumber = np.sum(~np.isin(newVehicleIDs, self.previousStepVehicleIDs))
         self.previousStepVehicleIDs = newVehicleIDs
+        '''
+        if (self.id == '2i_0'):
+            print(newVehicleIDs)
+            print(self.previousStepVehicleIDs)
+            print(~np.isin(newVehicleIDs, self.previousStepVehicleIDs))
+            print(self.deltaNumber)
+            '''
 
     def getWidth(self):
         return tLane.getWidth(self.id)
-
-    

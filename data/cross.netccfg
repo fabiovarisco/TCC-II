@@ -13,7 +13,7 @@
     </input>
 
     <output>
-        <output-file value="cross.net.xml"/>
+        <output-file value="cross2.net.xml"/>
     </output>
 
     <report>
