@@ -5,20 +5,23 @@ from Stage import Stage
 
 class TrafficLight(object):
 
-    incoming = []
-    outgoing = []
-    currentStage = 0
-
+    
     """docstring for Junction."""
     def __init__(self, id, TrafficLightController):
         super(TrafficLight, self).__init__()
         self.id = id
-
+        
+        self._initVariables()
         self._initLinks()
         self._initStages()
 
         self.controller = TrafficLightController(self);
 
+    def _initVariables(self):
+        self.incoming = []
+        self.outgoing = []
+        self.currentStage = 0
+    
     def _initLinks(self):
         links = tTL.getControlledLinks(self.id)
         phaseId = 0

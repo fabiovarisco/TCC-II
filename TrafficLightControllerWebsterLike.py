@@ -8,28 +8,12 @@ TL_TOTAL_LOST_TIME = (4 * 2) + 4 # (4s * no. of stages) + all_red_time
 
 class TrafficLightControllerWebsterLike(TrafficLightController):
 
-    startStageStep = 0
-    startCycleStep = 0
-    lastCycleAdjustmentStep = 0
-
-    totalLostTime = TL_TOTAL_LOST_TIME
-
-    vehicleFlow = {}
-    vehicleNumber = {}
-    vehicleFlow = {}
-    queueLength = {}
-    laneWidth = {}
-    saturationFlow = {}
-    flowFactor = {}
-    stageFlowFactors = []
-    cycleLength = TLC_CYCLE_STARTUP_TIME_WEBSTER
-    stageLengths = []
-    # currentPhase = 0 #to_be_deleted
-
     """docstring for TrafficLightControllerWebsterLike."""
     def __init__(self, trafficLight):
         super(TrafficLightControllerWebsterLike, self).__init__(trafficLight)
 
+        self._initVariables()
+        self._initBaseIndicators()
         '''
         print('Phase number: ', self.trafficLight.getPhaseNumber())
         i = 0
@@ -40,8 +24,7 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
                 print(p)
             print(l.getParameters())
         '''
-        self._initBaseIndicators()
-
+        
     def step(self, step):
         self._gatherLaneStats(step)
 
@@ -52,6 +35,24 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
             self._startCycle(step)
         elif (step - self.startStageStep) > self.stageLengths[self.trafficLight.getCurrentStage()]:
             self._advanceStage(step)
+
+    def _initVariables(self):
+        self.startStageStep = 0
+        self.startCycleStep = 0
+        self.lastCycleAdjustmentStep = 0
+
+        self.totalLostTime = TL_TOTAL_LOST_TIME
+
+        self.vehicleFlow = {}
+        self.vehicleNumber = {}
+        self.vehicleFlow = {}
+        self.queueLength = {}
+        self.laneWidth = {}
+        self.saturationFlow = {}
+        self.flowFactor = {}
+        self.stageFlowFactors = []
+        self.cycleLength = TLC_CYCLE_STARTUP_TIME_WEBSTER
+        self.stageLengths = []
 
     def _initBaseIndicators(self):
         for s in self.trafficLight.getStages():
@@ -118,7 +119,7 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
         print(f"New Cycle Length: {self.cycleLength}")
 
         for i, s in enumerate(self.trafficLight.getStages()):
-            self.stageLengths[i] = ((self.stageFlowFactors[i] * (self.cycleLength - TL_TOTAL_LOST_TIME)) / totalFlowFactor) - 2
+            self.stageLengths[i] = ((self.stageFlowFactors[i] * (self.cycleLength - TL_TOTAL_LOST_TIME)) / totalFlowFactor)
             print(f"Stage {i}: {self.stageLengths[i]}")
 
         self._resetLaneStats()

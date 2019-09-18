@@ -17,11 +17,11 @@ from TrafficLightControllerWebsterLike import TrafficLightControllerWebsterLike
 
 class Simulation(object):
 
-    indicators = []
-
     """docstring for Simulation."""
     def __init__(self, runID, options):
         super(Simulation, self).__init__()
+
+        self. indicators = []
 
         self._generate_routefile()
         self.runID = runID
@@ -42,7 +42,8 @@ class Simulation(object):
         #traci.start([sumoBinary, "-c", "simulation_files/sumocfgs/grid10.sumocfg",
         #                         "--tripinfo-output", "tripinfo_grid10.xml"])
         traci.start([sumoBinary, "-c", "data/cross.sumocfg",
-                         "--tripinfo-output", "tripinfo_isolated.xml"])
+                         "--tripinfo-output", "tripinfo_isolated.xml",
+                         "--step-length", "1"])
 
         self._preRun()
         self._run()

@@ -2,8 +2,6 @@ import re
 
 class Stage(object):
 
-
-
     """Represents a link of a road"""
     def __init__(self, definition, phaseIndex):
         super(Stage, self).__init__()
