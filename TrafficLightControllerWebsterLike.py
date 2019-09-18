@@ -108,8 +108,11 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
         meanFlowFactor = totalFlowFactor / len(self.trafficLight.getStages())
 
         eq1 = (1.5 * self.totalLostTime) + 5
-        #eq2 = 1 - totalFlowFactor
-        eq2 = 1 - meanFlowFactor
+        
+        if totalFlowFactor >= 1:
+            totalFlowFactor = 0.9
+        eq2 = 1 - totalFlowFactor
+        #eq2 = 1 - meanFlowFactor
 
         if (eq2 != 0):
             self.cycleLength = eq1 / eq2
