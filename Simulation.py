@@ -23,7 +23,6 @@ class Simulation(object):
 
         self. indicators = []
 
-        self._generate_routefile()
         self.runID = runID
         self.options = options
 
@@ -35,14 +34,14 @@ class Simulation(object):
             sumoBinary = checkBinary('sumo-gui')
 
         # first, generate the route file for this simulation
-        self._generate_routefile()
+        #self._generate_routefile()
 
         # this is the normal way of using traci. sumo is started as a
         # subprocess and then the python script connects and runs
         #traci.start([sumoBinary, "-c", "simulation_files/sumocfgs/grid10.sumocfg",
         #                         "--tripinfo-output", "tripinfo_grid10.xml"])
-        traci.start([sumoBinary, "-c", "data/cross.sumocfg",
-                         "--tripinfo-output", "tripinfo_isolated.xml",
+        traci.start([sumoBinary, "-c", "simulation_files/sumocfgs/grid5.sumocfg",
+                         "--tripinfo-output", "tripinfo_grid5.xml",
                          "--step-length", "1"])
 
         self._preRun()
