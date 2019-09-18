@@ -4,7 +4,7 @@ import time
 
 TLC_CYCLE_ADJUSTMENT_TIME_WEBSTER = 180
 TLC_CYCLE_STARTUP_TIME_WEBSTER = 60
-TL_TOTAL_LOST_TIME = (4 * 2) + 4 # (4s * no. of stages) + all_red_time
+TL_TOTAL_LOST_TIME = (2 * 2) + 4 # (2s amber period * no. of stages) + all_red_time
 
 class TrafficLightControllerWebsterLike(TrafficLightController):
 
@@ -42,7 +42,7 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
         self.lastCycleAdjustmentStep = 0
 
         self.totalLostTime = TL_TOTAL_LOST_TIME
-
+        self.stageLostTime = self.totalLostTime / len(self.trafficLight.getStages())
         self.vehicleFlow = {}
         self.vehicleNumber = {}
         self.vehicleFlow = {}
@@ -73,7 +73,7 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
         self._advanceStage(step)
 
     def _advanceStage(self, step):
-        self.startStageStep = step
+        self.startStageStep = step + self.stageLostTime
         self.trafficLight.advanceStage()
 
     def _gatherLaneStats(self, step):
