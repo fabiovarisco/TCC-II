@@ -8,10 +8,12 @@ from TrafficLightController import TrafficLightController
 class TrafficLightStatic(TrafficLightController):
 
     """docstring for TrafficLightStatic."""
-    def __init__(self, tlsID, programID):
+    def __init__(self, tlsID):
         super().__init__(tlsID)
+        
+    def setProgram(self, programId):
         self.programID = programID
-        traci.trafficlight.setProgram(tlsID, programID)
+        traci.trafficlight.setProgram(self.id, programID)
 
-    def step():
+    def step(self):
         pass

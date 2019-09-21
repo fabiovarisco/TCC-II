@@ -45,3 +45,19 @@ class Lane(object):
 
     def getWidth(self):
         return tLane.getWidth(self.id)
+
+class LaneFactory(object):
+
+    lanes = {}
+    
+    """Represents a link of a road"""
+    def __init__(self):
+        super(LaneFactory, self).__init__()
+
+    @staticmethod
+    def getLane(laneId):
+        if (laneId is in lanes):
+            return lanes[laneId]
+        else 
+            lanes[laneId] = Lane(laneId)
+            return lanes[laneId]

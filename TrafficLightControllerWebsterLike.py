@@ -57,13 +57,13 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
     def _initBaseIndicators(self):
         for s in self.trafficLight.getStages():
             for sl in s.getSignalLanes():
-                self.vehicleNumber[sl.lane.id] = 0
-                self.queueLength[sl.lane.id] = 0
-                laneWidth = sl.lane.getWidth()
-                self.saturationFlow[sl.lane.id] = 525 * laneWidth
-                print(f"Lane {sl.lane.id}: width {laneWidth}; saturation flow: {self.saturationFlow[sl.lane.id]}")
-                self.laneWidth[sl.lane.id] = laneWidth
-                self.vehicleFlow[sl.lane.id] = 0
+                self.vehicleNumber[sl.incoming.id] = 0
+                self.queueLength[sl.incoming.id] = 0
+                laneWidth = sl.incoming.getWidth()
+                self.saturationFlow[sl.incoming.id] = 525 * laneWidth
+                print(f"Lane {sl.incoming.id}: width {laneWidth}; saturation flow: {self.saturationFlow[sl.incoming.id]}")
+                self.laneWidth[sl.incoming.id] = laneWidth
+                self.vehicleFlow[sl.incoming.id] = 0
             self.stageFlowFactors.append(0)
             self.stageLengths.append(self.cycleLength / len(self.trafficLight.getStages()))
 
@@ -79,15 +79,15 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
     def _gatherLaneStats(self, step):
         for s in self.trafficLight.getStages():
             for sl in s.getSignalLanes():
-                self.vehicleNumber[sl.lane.id] += sl.lane.getVehicleDeltaNumber()
-                self.queueLength[sl.lane.id] += sl.lane.getQueueLength()
-                #print(f"Lane Stats {sl.lane.id}: delta {sl.lane.getVehicleDeltaNumber()} total {self.vehicleNumber[sl.lane.id]}")
+                self.vehicleNumber[sl.incoming.id] += sl.incoming.getVehicleDeltaNumber()
+                self.queueLength[sl.incoming.id] += sl.incoming.getQueueLength()
+                #print(f"Lane Stats {sl.incoming.id}: delta {sl.incoming.getVehicleDeltaNumber()} total {self.vehicleNumber[sl.incoming.id]}")
 
     def _resetLaneStats(self):
         for s in self.trafficLight.getStages():
             for sl in s.getSignalLanes():
-                self.vehicleNumber[sl.lane.id] = sl.lane.getVehicleNumber()
-                self.queueLength[sl.lane.id] = sl.lane.getQueueLength()
+                self.vehicleNumber[sl.incoming.id] = sl.incoming.getVehicleNumber()
+                self.queueLength[sl.incoming.id] = sl.incoming.getQueueLength()
 
     def _adjustCycle(self, step):
         elapsedTime = step - self.lastCycleAdjustmentStep
@@ -97,10 +97,10 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
         for i, s in enumerate(self.trafficLight.getStages()):
             stageFlowFactor = 0
             for sl in s.getSignalLanes():
-                self.vehicleFlow[sl.lane.id] = self.vehicleNumber[sl.lane.id] * 3600 / elapsedTime
-                self.flowFactor[sl.lane.id] = self.vehicleFlow[sl.lane.id] / self.saturationFlow[sl.lane.id]
-                stageFlowFactor = max(stageFlowFactor, self.flowFactor[sl.lane.id])
-                print(f"Lane {sl.lane.id}: Veh No: {self.vehicleNumber[sl.lane.id]}. Flow:  {self.vehicleFlow[sl.lane.id]}. Factor: {self.flowFactor[sl.lane.id]}")
+                self.vehicleFlow[sl.incoming.id] = self.vehicleNumber[sl.incoming.id] * 3600 / elapsedTime
+                self.flowFactor[sl.incoming.id] = self.vehicleFlow[sl.incoming.id] / self.saturationFlow[sl.incoming.id]
+                stageFlowFactor = max(stageFlowFactor, self.flowFactor[sl.incoming.id])
+                print(f"Lane {sl.incoming.id}: Veh No: {self.vehicleNumber[sl.incoming.id]}. Flow:  {self.vehicleFlow[sl.incoming.id]}. Factor: {self.flowFactor[sl.incoming.id]}")
             print(f"Stage {i} Flow Factor: {stageFlowFactor}")
             self.stageFlowFactors[i] = stageFlowFactor
             totalFlowFactor += stageFlowFactor

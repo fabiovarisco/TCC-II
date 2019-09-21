@@ -10,7 +10,7 @@ from sumolib import checkBinary  # noqa
 import traci  # noqa
 
 from TrafficLightStatic import TrafficLightStatic
-from TrafficLight import TrafficLight
+from TrafficLight import TrafficLight, TrafficLightFactory
 from TrafficLightControllerFXM import TrafficLightControllerFXM
 from TrafficLightControllerWebsterLike import TrafficLightControllerWebsterLike
 
@@ -23,9 +23,10 @@ class Simulation(object):
 
         self. indicators = []
 
-        self._generate_routefile()
         self.runID = runID
         self.options = options
+
+
 
     def init(self):
 
@@ -35,7 +36,7 @@ class Simulation(object):
             sumoBinary = checkBinary('sumo-gui')
 
         # first, generate the route file for this simulation
-        self._generate_routefile()
+        #self._generate_routefile()
 
         # this is the normal way of using traci. sumo is started as a
         # subprocess and then the python script connects and runs
@@ -51,7 +52,8 @@ class Simulation(object):
     def _preRun(self):
         self.trafficLights = []
         for id in traci.trafficlight.getIDList():
-            self.trafficLights.append(TrafficLight(id, TrafficLightControllerWebsterLike))
+            self.trafficLights.append(TrafficLightFactory.createTrafficLightWebsterLike(id))
+            #self.trafficLights.append(TrafficLight(id, TrafficLightControllerWebsterLike))
 
     def _run(self):
         """execute the TraCI control loop"""

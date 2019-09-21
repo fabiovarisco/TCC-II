@@ -9,8 +9,8 @@ class Stage(object):
         self.phaseIndex = phaseIndex
         self.signalLanes = []
 
-    def addSignalLane(self, signalIndex, lane):
-        self.signalLanes.append(SignalLane(signalIndex, lane))
+    def addSignalLane(self, signalIndex, incoming, outgoing):
+        self.signalLanes.append(SignalLane(signalIndex, incoming, outgoing))
 
     def getDefinition(self):
         return self.definition
@@ -22,7 +22,7 @@ class Stage(object):
         return self.phaseIndex
 
     @staticmethod
-    def resolveStages(phases, incomingLanes):
+    def resolveStages(phases, incomingLanes, outgoingLanes):
         stages = []
         i = 0
         for phase in phases:
@@ -34,7 +34,7 @@ class Stage(object):
                 print(f"Stage {i}: {phase.state}. Dur: {phase.duration}")
                 matches = re.finditer('G', phase.state)
                 for m in matches:
-                    s.addSignalLane(m.start(), incomingLanes[m.start()])
+                    s.addSignalLane(m.start(), incomingLanes[m.start()], outgoingLanes[m.start()])
                     print(f"Signal Lane: {m.start()}")
                 stages.append(s)
             i += 1
@@ -43,7 +43,9 @@ class Stage(object):
 class SignalLane(object):
 
     """Represents a link of a road"""
-    def __init__(self, signalIndex, lane):
+    def __init__(self, signalIndex, incoming, outgoing):
         super(SignalLane, self).__init__()
         self.signalIndex = signalIndex
-        self.lane = lane
+        self.incoming = incoming
+        self.outgoing = outgoing
+        

@@ -1,7 +1,11 @@
 
 from traci import trafficlight as tTL
-from Lane import Lane
+from Lane import Lane, LaneFactory
 from Stage import Stage
+
+from TrafficLightStatic import TrafficLightStatic
+from TrafficLightControllerFXM import TrafficLightControllerFXM
+from TrafficLightControllerWebsterLike import TrafficLightControllerWebsterLike
 
 class TrafficLight(object):
 
@@ -28,8 +32,8 @@ class TrafficLight(object):
         print(links)
         for phase in links:
             for l in phase:
-                self.incoming.append(Lane(l[0]))
-                self.outgoing.append(Lane(l[1]))
+                self.incoming.append(LaneFactory.getLane(l[0]))
+                self.outgoing.append(LaneFactory.getLane(l[1]))
             phaseId += 1
 
         if (len(self.incoming) == 0): raise Exception(f"No incoming lanes for phase {phaseId} in traffic light {self.id}")
@@ -45,7 +49,7 @@ class TrafficLight(object):
         for l in self.incoming:
             print(f"Lane: {l.id}")
 
-        self.stages = Stage.resolveStages(self.logic.getPhases(), self.incoming)
+        self.stages = Stage.resolveStages(self.logic.getPhases(), self.incoming, self.outgoing)
         for i, s in enumerate(self.stages):
             print(f"Stage {i}")
             for sl in s.getSignalLanes():
@@ -108,3 +112,25 @@ class TrafficLight(object):
 
     def getCompleteRedYellowGreenDefinition(self):
         return tTL.getCompleteRedYellowGreenDefinition(self.id)
+
+
+
+class TrafficLightFactory(object): 
+
+    """docstring for Junction."""
+    def __init__(self):
+        super(TrafficLightFactory, self).__init__()
+
+    @staticmethod
+    def createTrafficLightWebsterLike(id):
+        return TrafficLight(id, TrafficLightControllerWebsterLike)
+
+    @staticmethod
+    def createTrafficLightFXM(id):
+        return TrafficLight(id, TrafficLightControllerFXM)
+
+    @staticmethod
+    def createTrafficLightStatic(id, programId):
+        tl = TrafficLight(id, TrafficLightStatic)
+        tl.controller.setProgram(programId)
+        return tl
