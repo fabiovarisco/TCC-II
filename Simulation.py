@@ -42,8 +42,8 @@ class Simulation(object):
         # subprocess and then the python script connects and runs
         #traci.start([sumoBinary, "-c", "simulation_files/sumocfgs/grid10.sumocfg",
         #                         "--tripinfo-output", "tripinfo_grid10.xml"])
-        traci.start([sumoBinary, "-c", "data/cross.sumocfg",
-                         "--tripinfo-output", "tripinfo_isolated.xml",
+        traci.start([sumoBinary, "-c", "simulation_files/sumocfgs/grid5.sumocfg",
+                         "--tripinfo-output", "tripinfo_grid5.xml",
                          "--step-length", "1"])
 
         self._preRun()
