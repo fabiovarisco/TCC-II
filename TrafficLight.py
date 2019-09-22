@@ -9,12 +9,12 @@ from TrafficLightControllerWebsterLike import TrafficLightControllerWebsterLike
 
 class TrafficLight(object):
 
-    
+
     """docstring for Junction."""
     def __init__(self, id, TrafficLightController):
         super(TrafficLight, self).__init__()
         self.id = id
-        
+
         self._initVariables()
         self._initLinks()
         self._initStages()
@@ -25,7 +25,7 @@ class TrafficLight(object):
         self.incoming = []
         self.outgoing = []
         self.currentStage = 0
-    
+
     def _initLinks(self):
         links = tTL.getControlledLinks(self.id)
         phaseId = 0
@@ -53,7 +53,7 @@ class TrafficLight(object):
         for i, s in enumerate(self.stages):
             print(f"Stage {i}")
             for sl in s.getSignalLanes():
-                print(f"Lane {sl.lane.id}")
+                print(f"Lane {sl.incoming.id}")
 
     def getId(self):
         return self.id
@@ -96,7 +96,7 @@ class TrafficLight(object):
     def getMaxStageLength(self, stageIndex):
         maxLength = 0
         for sl in self.stages[stageIndex].getSignalLanes():
-            maxLength = max(maxLength, sl.lane.getQueueLength())
+            maxLength = max(maxLength, sl.incoming.getQueueLength())
         return maxLength
 
     def getMaxLength(self):
@@ -115,7 +115,7 @@ class TrafficLight(object):
 
 
 
-class TrafficLightFactory(object): 
+class TrafficLightFactory(object):
 
     """docstring for Junction."""
     def __init__(self):

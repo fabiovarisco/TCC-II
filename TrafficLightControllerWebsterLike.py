@@ -24,7 +24,7 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
                 print(p)
             print(l.getParameters())
         '''
-        
+
     def step(self, step):
         self._gatherLaneStats(step)
 
@@ -108,7 +108,7 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
         meanFlowFactor = totalFlowFactor / len(self.trafficLight.getStages())
 
         eq1 = (1.5 * self.totalLostTime) + 5
-        
+
         if totalFlowFactor >= 1:
             totalFlowFactor = 0.9
         eq2 = 1 - totalFlowFactor
@@ -120,7 +120,8 @@ class TrafficLightControllerWebsterLike(TrafficLightController):
             self.cycleLength = 30
 
         print(f"New Cycle Length: {self.cycleLength}")
-
+        if (totalFlowFactor == 0):
+                totalFlowFactor = 1
         for i, s in enumerate(self.trafficLight.getStages()):
             self.stageLengths[i] = ((self.stageFlowFactors[i] * (self.cycleLength - TL_TOTAL_LOST_TIME)) / totalFlowFactor)
             print(f"Stage {i}: {self.stageLengths[i]}")
