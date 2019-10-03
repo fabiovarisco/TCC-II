@@ -3,12 +3,7 @@ from traci import trafficlight as tTL
 from Lane import Lane, LaneFactory
 from Stage import Stage
 
-from TrafficLightStatic import TrafficLightStatic
-from TrafficLightControllerFXM import TrafficLightControllerFXM
-from TrafficLightControllerWebsterLike import TrafficLightControllerWebsterLike
-
 class TrafficLight(object):
-
 
     """docstring for Junction."""
     def __init__(self, id, TrafficLightController):
@@ -25,6 +20,7 @@ class TrafficLight(object):
         self.incoming = []
         self.outgoing = []
         self.currentStage = 0
+        self.cumulativeDelay = 0
 
     def _initLinks(self):
         links = tTL.getControlledLinks(self.id)
@@ -64,6 +60,9 @@ class TrafficLight(object):
     def getCurrentStage(self):
         return self.currentStage
 
+    def getNextStage(self):
+        return (self.currentStage + 1) % len(self.stages)
+
     def getProgramId(self):
         return tTL.getProgram(self.id)
 
@@ -83,8 +82,13 @@ class TrafficLight(object):
         tTL.setPhase(self.id, (tTL.getPhase(self.id) + 1) % self.getPhaseNumber())
 
     def advanceStage(self):
-        self.currentStage = (self.currentStage + 1) % len(self.stages)
+        self.currentStage = self.getNextStage()
         self._advancePhase()
+
+    def setStage(self, stageIndex):
+        if (stageIndex >= len(self.stages)): raise Exception(f"Invalid Stage Index: {stageIndex}. Traffic light {self.id} has {len(self.stages)}.")
+
+        self.advanceStage()
 
     def getMaxPhaseLength(self, phaseId):
         lanes = self.incoming[phaseId]
@@ -108,12 +112,35 @@ class TrafficLight(object):
     def step(self, step):
         for l in self.incoming:
             l.step(step)
+        self.cumulativeDelay += self.getTotalDelayAtCurrentTimeStep()
         self.controller.step(step)
 
     def getCompleteRedYellowGreenDefinition(self):
         return tTL.getCompleteRedYellowGreenDefinition(self.id)
 
+    def getTotalCumulativeDelay(self):
+        return self.cumulativeDelay
 
+    def getTotalDelayAtCurrentTimeStep(self):
+        totalQueueLength = 0
+        for l in self.incoming:
+            totalQueueLength += l.getQueueLength()
+        return totalQueueLength
+
+    def getTotalWaitingTime(self):
+        totalWaitingTime = 0
+        for l in self.incoming:
+            totalWaitingTime += l.getWaitingTime()
+        return totalWaitingTime
+
+
+from TrafficLightStatic import TrafficLightStatic
+from TrafficLightControllerFXM import TrafficLightControllerFXM
+from TrafficLightControllerWebsterLike import TrafficLightControllerWebsterLike
+from TrafficLightControllerQLearning import TrafficLightControllerQLearning
+from TrafficLightControllerQLearningFPVCL import TrafficLightControllerQLearningFPVCL
+from qlearning.RewardFunction import RewardCumulativeDelay
+from qlearning.StateRepresentation import StateQueueLengthDiscretized, StateCurrentStage
 
 class TrafficLightFactory(object):
 
@@ -133,4 +160,16 @@ class TrafficLightFactory(object):
     def createTrafficLightStatic(id, programId):
         tl = TrafficLight(id, TrafficLightStatic)
         tl.controller.setProgram(programId)
+        return tl
+
+    #@staticmethod
+    #def createTrafficLightSimpleQLearning(id):
+    #    return TrafficLight(id, TrafficLightControllerQLearning)
+
+    @staticmethod
+    def createTrafficLightQLearningFPVCL(id):
+        tl = TrafficLight(id, TrafficLightControllerQLearningFPVCL)
+        tl.controller.setRewardFunction(RewardCumulativeDelay(tl.controller))
+        tl.controller.setStateRepresentation(StateQueueLengthDiscretized(tl.controller, discretizeByValue = 3.0,
+                                                                stateComponent = StateCurrentStage(tl.controller)))
         return tl

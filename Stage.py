@@ -21,6 +21,22 @@ class Stage(object):
     def getPhaseIndex(self):
         return self.phaseIndex
 
+    def getMaxLaneLength(self):
+        maxLength = 0
+        for sl in self.getSignalLanes():
+            qL = sl.incoming.getQueueLength()
+            print(f"Lane: {sl.incoming.id}; Queue Length: {qL}.")
+            maxLength = max(maxLength, qL)
+        return maxLength
+
+    def getMaxVehicleNumber(self):
+        maxNumber = 0
+        for sl in self.getSignalLanes():
+            vehNumber = sl.incoming.getVehicleNumber()
+            print(f"Lane: {sl.incoming.id}; Vehicle Number: {vehNumber}.")
+            maxNumber = max(maxNumber, vehNumber)
+        return maxNumber
+
     @staticmethod
     def resolveStages(phases, incomingLanes, outgoingLanes):
         stages = []
@@ -48,4 +64,3 @@ class SignalLane(object):
         self.signalIndex = signalIndex
         self.incoming = incoming
         self.outgoing = outgoing
-        

@@ -1,4 +1,5 @@
 from traci import lane as tLane
+from Vehicle import VehicleFactory
 import numpy as np
 
 class Lane(object):
@@ -8,9 +9,22 @@ class Lane(object):
         super(Lane, self).__init__()
         self.id = id
         self.previousStepVehicleIDs = []
+        self.queueLength = 0
+        self.queueLengthStep = 0
         #self.detectorid = detectorid
 
     def getQueueLength(self):
+        if (self.queueLengthStep == Simulation.getCurrentStep()): return self.queueLength
+        else:
+            length = 0
+            for id in self.getLastStepVehicleIDs():
+                if (VehicleFactory.getVehicleSpeed(id) < 2):
+                    length += 1
+            self.queueLength = length
+            self.queueLengthStep = Simulation.getCurrentStep()
+            return length
+
+    def getLastStepHaltingNumber(self):
         return tLane.getLastStepHaltingNumber(self.id)
 
     def getMaxSpeed(self):
@@ -24,6 +38,8 @@ class Lane(object):
 
     def getLastStepVehicleIDs(self):
         return tLane.getLastStepVehicleIDs(self.id)
+
+
 
     def getVehicleDeltaNumber(self):
         return self.deltaNumber
@@ -61,3 +77,5 @@ class LaneFactory(object):
         else:
             LaneFactory.lanes[laneId] = Lane(laneId)
             return LaneFactory.lanes[laneId]
+
+from Simulation import Simulation
