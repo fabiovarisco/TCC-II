@@ -45,3 +45,44 @@ class RewardWaitingVehicles(RewardFunction):
 
     def getReward(self):
         return self.previousStepWaitingVehicles - self.currentStepWaitingVehicles
+
+class RewardThroughput(RewardFunction):
+
+    def __init__(self, controller):
+        super().__init__(controller)
+
+
+    def step(self, step):
+        pass
+
+    def _getThroughputForCurrentStage(self):
+        s = self.controller.trafficLight.getStages()[self.controller.trafficLight.getCurrentStage()]
+        stageLength = self.controller.nextStepIn
+        throughput = 0
+        for sl in s.getSignalLanes():
+            saturationFlow = 525 * sl.incoming.getWidth()
+            throughput += (saturationFlow / 3600) * stageLength
+        return throughput
+
+    def _getQueueRatio(self):
+        s = self.controller.trafficLight.getStages()[self.controller.trafficLight.getCurrentStage()]
+        queueRatio = 0
+        for s in self.controller.trafficLight.getStages():
+            maxLength = 0
+            maxLengthIndex = 0
+            i = 0
+            for sl in s.getSignalLanes():
+                qL = sl.incoming.getQueueLength()
+                if (qL > maxLength):
+                    maxLength = qL
+                    maxLengthIndex = i
+                i += 1
+            lane = s.getSignalLanes()[maxLengthIndex].incoming
+            queueRatio += maxLength / (lane.getLength() / lane.getLastStepLength() * 0.7)
+        queueRatio = queueRatio / len(self.controller.trafficLight.getStages())
+        return queueRatio
+
+    def getReward(self):
+        # TODO
+
+        return self.previousStepWaitingVehicles - self.currentStepWaitingVehicles
