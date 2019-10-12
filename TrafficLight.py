@@ -3,6 +3,7 @@ from traci import trafficlight as tTL
 from Lane import Lane, LaneFactory
 from Stage import Stage
 
+
 class TrafficLight(object):
 
     """docstring for Junction."""
@@ -84,6 +85,7 @@ class TrafficLight(object):
     def advanceStage(self):
         self.currentStage = self.getNextStage()
         self._advancePhase()
+        Simulation.getSimulation().notify(EVENT_STAGE_CHANGE, self)
 
     def setStage(self, stageIndex):
         if (stageIndex >= len(self.stages)): raise Exception(f"Invalid Stage Index: {stageIndex}. Traffic light {self.id} has {len(self.stages)}.")
@@ -139,7 +141,7 @@ from TrafficLightControllerFXM import TrafficLightControllerFXM
 from TrafficLightControllerWebsterLike import TrafficLightControllerWebsterLike
 from TrafficLightControllerQLearning import TrafficLightControllerQLearning
 from TrafficLightControllerQLearningFPVCL import TrafficLightControllerQLearningFPVCL
-from qlearning.RewardFunction import RewardCumulativeDelay
+from qlearning.RewardFunction import RewardCumulativeDelay, RewardThroughput
 from qlearning.StateRepresentation import StateQueueLengthDiscretized, StateCurrentStage
 
 class TrafficLightFactory(object):
@@ -169,7 +171,10 @@ class TrafficLightFactory(object):
     @staticmethod
     def createTrafficLightQLearningFPVCL(id):
         tl = TrafficLight(id, TrafficLightControllerQLearningFPVCL)
-        tl.controller.setRewardFunction(RewardCumulativeDelay(tl.controller))
+        #tl.controller.setRewardFunction(RewardCumulativeDelay(tl.controller))
+        tl.controller.setRewardFunction(RewardThroughput(tl.controller, 90))
         tl.controller.setStateRepresentation(StateQueueLengthDiscretized(tl.controller, discretizeByValue = 3.0,
                                                                 stateComponent = StateCurrentStage(tl.controller)))
         return tl
+
+from Simulation import Simulation, EVENT_STAGE_CHANGE

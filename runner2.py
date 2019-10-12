@@ -21,7 +21,6 @@ from __future__ import print_function
 import os
 import sys
 import optparse
-import random
 
 
 # we need to import python modules from the $SUMO_HOME/tools directory
@@ -31,11 +30,7 @@ if 'SUMO_HOME' in os.environ:
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
-
-
-from Simulation import Simulation
-from StatisticsMaxLength import StatisticsMaxLength
-
+from SimulationManager import SimulationManager
 
 def get_options():
     optParser = optparse.OptionParser()
@@ -50,7 +45,4 @@ def get_options():
 # this is the main entry point of this script
 if __name__ == "__main__":
     options = get_options()
-
-    s = Simulation("1", options)
-    s.keepTrackOf(StatisticsMaxLength)
-    s.init()
+    s = SimulationManager(options, "th2qr1", 1)

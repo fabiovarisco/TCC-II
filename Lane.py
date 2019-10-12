@@ -62,6 +62,12 @@ class Lane(object):
     def getWidth(self):
         return tLane.getWidth(self.id)
 
+    def getLength(self):
+        return tLane.getLength(self.id)
+
+    def getLastStepLength(self):
+        return tLane.getLastStepLength(self.id)
+
 class LaneFactory(object):
 
     lanes = {}

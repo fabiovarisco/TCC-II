@@ -48,9 +48,12 @@ class RewardWaitingVehicles(RewardFunction):
 
 class RewardThroughput(RewardFunction):
 
-    def __init__(self, controller):
-        super().__init__(controller)
+    WEIGHT_THROUGHPUT = 1
+    WEIGHT_QUEUE_RATIO = 1
 
+    def __init__(self, controller, maxStageLength):
+        super().__init__(controller)
+        self.maxStageLength = maxStageLength
 
     def step(self, step):
         pass
@@ -59,10 +62,12 @@ class RewardThroughput(RewardFunction):
         s = self.controller.trafficLight.getStages()[self.controller.trafficLight.getCurrentStage()]
         stageLength = self.controller.nextStepIn
         throughput = 0
+        maxThroughput = 0
         for sl in s.getSignalLanes():
             saturationFlow = 525 * sl.incoming.getWidth()
             throughput += (saturationFlow / 3600) * stageLength
-        return throughput
+            maxThroughput += (saturationFlow / 3600) * self.maxStageLength
+        return throughput / maxThroughput
 
     def _getQueueRatio(self):
         s = self.controller.trafficLight.getStages()[self.controller.trafficLight.getCurrentStage()]
@@ -78,11 +83,13 @@ class RewardThroughput(RewardFunction):
                     maxLengthIndex = i
                 i += 1
             lane = s.getSignalLanes()[maxLengthIndex].incoming
-            queueRatio += maxLength / (lane.getLength() / lane.getLastStepLength() * 0.7)
-        queueRatio = queueRatio / len(self.controller.trafficLight.getStages())
+            if (lane.getLastStepLength() > 0):
+                laneAceptableQueueLength = (lane.getLength() / lane.getLastStepLength() * 0.7)
+            else:
+                laneAceptableQueueLength = (lane.getLength() / 7 * 0.7)
+            queueRatio += maxLength / laneAceptableQueueLength
+        queueRatio = 1 - (queueRatio / len(self.controller.trafficLight.getStages()))
         return queueRatio
 
     def getReward(self):
-        # TODO
-
-        return self.previousStepWaitingVehicles - self.currentStepWaitingVehicles
+        return (RewardThroughput.WEIGHT_THROUGHPUT * self._getThroughputForCurrentStage()) + (RewardThroughput.WEIGHT_QUEUE_RATIO * self._getQueueRatio())

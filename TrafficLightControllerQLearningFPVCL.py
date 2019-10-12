@@ -21,6 +21,6 @@ class TrafficLightControllerQLearningFPVCL(TrafficLightControllerQLearning):
         return range(2, 30)
 
     def takeAction(self, action, step):
-        self.currentStageLength = action * 3
+        self.nextStepIn = action * 3
         self.trafficLight.advanceStage()
         self.resetCounterStep = step + TL_YELLOW_RED_TIME
