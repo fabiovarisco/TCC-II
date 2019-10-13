@@ -13,13 +13,15 @@ import matplotlib.pyplot as plt
 
 from simulation.event_constants import *
 from simulation.TrafficLightFactory import TrafficLightFactory
+from SimulationConfig import SUMO_SIMULATION_CONFIGURATION_FILE, SUMO_SIMULATION_OUTPUT_FILE, SUMO_SIMULATION_STEP_LENGTH
 
 class Simulation(object):
 
     """docstring for Simulation."""
-    def __init__(self, runID, options):
+    def __init__(self, runID, options, config):
         super(Simulation, self).__init__()
 
+        self.config = config
         self.indicators = {}
 
         self.runID = runID
@@ -41,9 +43,9 @@ class Simulation(object):
         #traci.start([sumoBinary, "-c", "simulation_files/sumocfgs/grid5.sumocfg",
         #                 "--tripinfo-output", "tripinfo_grid5.xml",
         #                 "--step-length", "1"])
-        traci.start([sumoBinary, "-c", "data/cross.sumocfg",
-                         "--tripinfo-output", "tripinfo_isolated.xml",
-                         "--step-length", "1"])
+        traci.start([sumoBinary, "-c", self.config.get(SUMO_SIMULATION_CONFIGURATION_FILE),
+                         "--tripinfo-output", self.config.get(SUMO_SIMULATION_OUTPUT_FILE),
+                         "--step-length", self.config.get(SUMO_SIMULATION_STEP_LENGTH)])
 
         self._preRun()
         self._run()
