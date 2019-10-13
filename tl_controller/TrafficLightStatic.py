@@ -3,9 +3,9 @@ import sys
 
 import traci  # noqa
 
-from TrafficLightController import TrafficLightController
+from tl_controller import TrafficLightController as tlc
 
-class TrafficLightStatic(TrafficLightController):
+class TrafficLightStatic(tlc.TrafficLightController):
 
     """docstring for TrafficLightStatic."""
     def __init__(self, tlsID):

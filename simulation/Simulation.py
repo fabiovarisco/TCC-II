@@ -11,23 +11,20 @@ import traci  # noqa
 
 import matplotlib.pyplot as plt
 
-EVENT_SIMULATION_STEP = 0
-EVENT_STAGE_CHANGE = 1
+from simulation.event_constants import *
+from simulation.TrafficLightFactory import TrafficLightFactory
 
 class Simulation(object):
-
-    currentStep = 0
-    simulation = None
 
     """docstring for Simulation."""
     def __init__(self, runID, options):
         super(Simulation, self).__init__()
 
-        Simulation.simulation = self
         self.indicators = {}
 
         self.runID = runID
         self.options = options
+        self.currentStep = 0
 
     def init(self):
 
@@ -60,21 +57,22 @@ class Simulation(object):
 
     def _run(self):
         """execute the TraCI control loop"""
-        step = 0
+        self.currentStep = 0
         # we start with phase 2 where EW has green
         # traci.trafficlight.setPhase("0", 2)
         #tls = TrafficLightStatic("0", "actuated_gap")
         while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()
-            Simulation.currentStep = step
             for tl in self.trafficLights:
-                tl.step(step)
+                tl.step(self.currentStep)
                 for kpi in self.indicators[EVENT_SIMULATION_STEP]:
-                    kpi.update(step, tl)
-            step += 1
-        for kpi in self.indicators:
-            kpi.save()
-            kpi.createPlot()
+                    kpi.update(self.currentStep, tl)
+            self.currentStep += 1
+
+        for event_indicators in self.indicators.values():
+            for kpi in event_indicators:
+                kpi.save()
+                kpi.createPlot()
         traci.close()
 
         sys.stdout.flush()
@@ -86,21 +84,14 @@ class Simulation(object):
     #    self.indicators.append(Statistics(self.runID))
 
     def subscribe(self, eventID, Statistics):
+        if (not(eventID in self.indicators)):
+            self.indicators[eventID] = []
         self.indicators[eventID].append(Statistics(self.runID))
 
     def notify(self, eventID, callingObject):
-        self.indicators[eventID].update(Simulation.currentStep, callingObject)
-
-    @staticmethod
-    def getCurrentStep():
-        return Simulation.currentStep
-
-    @staticmethod
-    def getSimulation():
-        return Simulation.simulation
-
+        for ind in (self.indicators.get(eventID, [])):
+            ind.update(self.currentStep, callingObject)
 
 #from TrafficLightStatic import TrafficLightStatic
-from TrafficLight import TrafficLightFactory
 #from TrafficLightControllerFXM import TrafficLightControllerFXM
 #from TrafficLightControllerWebsterLike import TrafficLightControllerWebsterLike

@@ -1,5 +1,6 @@
 from traci import lane as tLane
-from Vehicle import VehicleFactory
+import SimulationManager as sm #import SimulationManager as simulationMgr
+from simulation.Vehicle import VehicleFactory
 import numpy as np
 
 class Lane(object):
@@ -14,14 +15,14 @@ class Lane(object):
         #self.detectorid = detectorid
 
     def getQueueLength(self):
-        if (self.queueLengthStep == Simulation.getCurrentStep()): return self.queueLength
+        if (self.queueLengthStep == sm.SimulationManager.getCurrentSimulationStep()): return self.queueLength
         else:
             length = 0
             for id in self.getLastStepVehicleIDs():
                 if (VehicleFactory.getVehicleSpeed(id) < 2):
                     length += 1
             self.queueLength = length
-            self.queueLengthStep = Simulation.getCurrentStep()
+            self.queueLengthStep = sm.SimulationManager.getCurrentSimulationStep()
             return length
 
     def getLastStepHaltingNumber(self):
@@ -83,5 +84,3 @@ class LaneFactory(object):
         else:
             LaneFactory.lanes[laneId] = Lane(laneId)
             return LaneFactory.lanes[laneId]
-
-from Simulation import Simulation

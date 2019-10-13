@@ -1,8 +1,10 @@
 
 from traci import trafficlight as tTL
-from Lane import Lane, LaneFactory
-from Stage import Stage
+from simulation.Lane import Lane, LaneFactory
+from simulation.Stage import Stage
+from simulation.event_constants import EVENT_STAGE_CHANGE
 
+import SimulationManager as sm
 
 class TrafficLight(object):
 
@@ -85,7 +87,7 @@ class TrafficLight(object):
     def advanceStage(self):
         self.currentStage = self.getNextStage()
         self._advancePhase()
-        Simulation.getSimulation().notify(EVENT_STAGE_CHANGE, self)
+        sm.SimulationManager.getCurrentSimulation().notify(EVENT_STAGE_CHANGE, self)
 
     def setStage(self, stageIndex):
         if (stageIndex >= len(self.stages)): raise Exception(f"Invalid Stage Index: {stageIndex}. Traffic light {self.id} has {len(self.stages)}.")
@@ -134,47 +136,3 @@ class TrafficLight(object):
         for l in self.incoming:
             totalWaitingTime += l.getWaitingTime()
         return totalWaitingTime
-
-
-from TrafficLightStatic import TrafficLightStatic
-from TrafficLightControllerFXM import TrafficLightControllerFXM
-from TrafficLightControllerWebsterLike import TrafficLightControllerWebsterLike
-from TrafficLightControllerQLearning import TrafficLightControllerQLearning
-from TrafficLightControllerQLearningFPVCL import TrafficLightControllerQLearningFPVCL
-from qlearning.RewardFunction import RewardCumulativeDelay, RewardThroughput
-from qlearning.StateRepresentation import StateQueueLengthDiscretized, StateCurrentStage
-
-class TrafficLightFactory(object):
-
-    """docstring for Junction."""
-    def __init__(self):
-        super(TrafficLightFactory, self).__init__()
-
-    @staticmethod
-    def createTrafficLightWebsterLike(id):
-        return TrafficLight(id, TrafficLightControllerWebsterLike)
-
-    @staticmethod
-    def createTrafficLightFXM(id):
-        return TrafficLight(id, TrafficLightControllerFXM)
-
-    @staticmethod
-    def createTrafficLightStatic(id, programId):
-        tl = TrafficLight(id, TrafficLightStatic)
-        tl.controller.setProgram(programId)
-        return tl
-
-    #@staticmethod
-    #def createTrafficLightSimpleQLearning(id):
-    #    return TrafficLight(id, TrafficLightControllerQLearning)
-
-    @staticmethod
-    def createTrafficLightQLearningFPVCL(id):
-        tl = TrafficLight(id, TrafficLightControllerQLearningFPVCL)
-        #tl.controller.setRewardFunction(RewardCumulativeDelay(tl.controller))
-        tl.controller.setRewardFunction(RewardThroughput(tl.controller, 90))
-        tl.controller.setStateRepresentation(StateQueueLengthDiscretized(tl.controller, discretizeByValue = 3.0,
-                                                                stateComponent = StateCurrentStage(tl.controller)))
-        return tl
-
-from Simulation import Simulation, EVENT_STAGE_CHANGE

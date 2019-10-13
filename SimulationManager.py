@@ -8,13 +8,14 @@ import matplotlib.pyplot as plt
 
 from stats.StatisticsMaxLength import StatisticsMaxLength
 from stats.StatisticsStageChange import StatisticsStageChange
-from Simulation import Simulation, EVENT_SIMULATION_STEP, EVENT_STAGE_CHANGE
-
+from simulation import Simulation
+from simulation.event_constants import *
 
 NUMBER_STEPS = 500
 
 class SimulationManager(object):
 
+    currentSimulation = None
     """docstring for Simulation."""
     def __init__(self, options, experimentPrefix, numberOfRuns):
         super(SimulationManager, self).__init__()
@@ -26,10 +27,19 @@ class SimulationManager(object):
 
 
     def _run(self, simulationId, options):
-        s = Simulation(simulationId, options)
+        s = Simulation.Simulation(simulationId, options)
+        SimulationManager.currentSimulation = s
         s.subscribe(EVENT_SIMULATION_STEP, StatisticsMaxLength)
         s.subscribe(EVENT_STAGE_CHANGE, StatisticsStageChange)
         s.init()
+
+    @staticmethod
+    def getCurrentSimulation():
+        return SimulationManager.currentSimulation
+
+    @staticmethod
+    def getCurrentSimulationStep():
+        return SimulationManager.currentSimulation.currentStep
 
     def _generate_routefile(self):
         random.seed(42)  # make tests reproducible

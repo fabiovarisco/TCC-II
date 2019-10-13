@@ -1,17 +1,17 @@
 
-from TrafficLightController import TrafficLightController
-from ControllerAlgorithmQLearning import ControllerAlgorithmQLearning
+from tl_controller import TrafficLightController as tlc
+from tl_controller.qlearning.ControllerAlgorithmQLearning import ControllerAlgorithmQLearning
 from abc import ABC, abstractmethod
 
 
 TL_TOTAL_LOST_TIME = (2 * 2) + 4 # (2s amber period * no. of stages) + all_red_time
 MIN_GREEN_TIME = 5
 
-class TrafficLightControllerQLearning(TrafficLightController, ABC):
+class TrafficLightControllerQLearning(tlc.TrafficLightController, ABC):
 
     """docstring for TrafficLightControllerQLearning."""
     def __init__(self, trafficLight):
-        TrafficLightController.__init__(self, trafficLight)
+        tlc.TrafficLightController.__init__(self, trafficLight)
 
         self.minStepGap = 4 + MIN_GREEN_TIME
 

@@ -2,14 +2,14 @@
 from stats.Statistics import ObserverStatistics
 import matplotlib.pyplot as plt
 import pandas as pd
-from TrafficLight import TrafficLight
+from simulation.TrafficLight import TrafficLight
 
 class StatisticsStageChange(ObserverStatistics):
 
     """docstring for StatisticsWaitingTime."""
     def __init__(self, runID, filePrefix = "state_change"):
         self.columns = ['step', 'tl_id', 'new_state']
-        super(StatisticsMaxLength, self).__init__(runID, filePrefix)
+        super(StatisticsStageChange, self).__init__(runID, filePrefix)
 
     def update(self, step, callingObject):
         if (isinstance(callingObject, TrafficLight)):
@@ -19,6 +19,7 @@ class StatisticsStageChange(ObserverStatistics):
 
     def createPlot(self):
         df_raw = pd.DataFrame(data=self.statistics, columns=self.columns)
+        df_raw["tl_id"] = pd.to_numeric(df_raw["tl_id"])
         plt.figure(f"{self.filePrefix} - {self.runID}")
-        df_agg.plot(kind='scatter')
+        df_raw.plot(kind='scatter', x='step', y='tl_id')
         plt.savefig(f"out_plots/{self.filePrefix}-{self.runID}.png")

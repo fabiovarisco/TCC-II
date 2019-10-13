@@ -1,6 +1,5 @@
 
-from TrafficLightControllerQLearning import TrafficLightControllerQLearning
-from ControllerAlgorithmQLearning import ControllerAlgorithmQLearning
+from tl_controller import TrafficLightControllerQLearning as tlcQLearning
 import time
 import math
 
@@ -9,7 +8,7 @@ TL_TOTAL_LOST_TIME = (2 * 2) + 4 # (2s amber period * no. of stages) + all_red_t
 MIN_GREEN_TIME = 5
 TLC_INITIAL_STAGE_LENGTH = 20
 
-class TrafficLightControllerQLearningFPVCL(TrafficLightControllerQLearning):
+class TrafficLightControllerQLearningFPVCL(tlcQLearning.TrafficLightControllerQLearning):
 
     """docstring for TrafficLightControllerQLearning."""
     def __init__(self, trafficLight):

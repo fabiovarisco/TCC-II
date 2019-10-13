@@ -1,12 +1,12 @@
 
-from TrafficLightController import TrafficLightController
+from tl_controller import TrafficLightController as tlc
 import time
 
 TLC_CYCLE_ADJUSTMENT_TIME_WEBSTER = 180
 TLC_CYCLE_STARTUP_TIME_WEBSTER = 60
 TL_TOTAL_LOST_TIME = (2 * 2) + 4 # (2s amber period * no. of stages) + all_red_time
 
-class TrafficLightControllerWebsterLike(TrafficLightController):
+class TrafficLightControllerWebsterLike(tlc.TrafficLightController):
 
     """docstring for TrafficLightControllerWebsterLike."""
     def __init__(self, trafficLight):

@@ -1,10 +1,8 @@
 
-from TrafficLightController import TrafficLightController
+from tl_controller import TrafficLightController as tlc
 import time
 
-class TrafficLightControllerFXM(TrafficLightController):
-
-
+class TrafficLightControllerFXM(tlc.TrafficLightController):
 
     """docstring for TrafficLightControllerFXM."""
     def __init__(self, trafficLight):

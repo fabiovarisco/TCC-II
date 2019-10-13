@@ -28,4 +28,4 @@ class ObserverStatistics(Statistics):
 
     """docstring for Statistics."""
     def __init__(self, runID, filePrefix = "stats"):
-        super(Statistics, self).__init__(runID, filePrefix)
+        super(ObserverStatistics, self).__init__(runID, filePrefix)
