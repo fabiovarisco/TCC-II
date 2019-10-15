@@ -12,9 +12,6 @@ from simulation import Simulation
 from simulation.event_constants import *
 from SimulationConfig import SimulationConfig, DEMAND_NUMBER_SIMULATION_STEPS, ISOLATED_INTERSECTION_DEMAND_PWE, ISOLATED_INTERSECTION_DEMAND_PEW, ISOLATED_INTERSECTION_DEMAND_PNS, ISOLATED_INTERSECTION_DEMAND_PSN
 
-
-NUMBER_STEPS = 500
-
 class SimulationManager(object):
 
     currentSimulation = None
@@ -48,12 +45,12 @@ class SimulationManager(object):
     def _generate_routefile(self):
         random.seed(42)  # make tests reproducible
         #N = 3600  # number of time steps
-        N = self.config.get(DEMAND_NUMBER_SIMULATION_STEPS)
+        N = self.config.getInt(DEMAND_NUMBER_SIMULATION_STEPS)
         # demand per second from different directions
-        pWE = 1. / self.config.get(ISOLATED_INTERSECTION_DEMAND_PWE)
-        pEW = 1. / self.config.get(ISOLATED_INTERSECTION_DEMAND_PEW)
-        pNS = 1. / self.config.get(ISOLATED_INTERSECTION_DEMAND_PNS)
-        pSN = 1. / self.config.get(ISOLATED_INTERSECTION_DEMAND_PSN)
+        pWE = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PWE)
+        pEW = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PEW)
+        pNS = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PNS)
+        pSN = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PSN)
         with open("data/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="passenger" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" \

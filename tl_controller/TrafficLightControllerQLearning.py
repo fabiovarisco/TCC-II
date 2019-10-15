@@ -3,9 +3,9 @@ from tl_controller import TrafficLightController as tlc
 from tl_controller.qlearning.ControllerAlgorithmQLearning import ControllerAlgorithmQLearning
 from abc import ABC, abstractmethod
 
+import SimulationManager as sm
 
-TL_TOTAL_LOST_TIME = (2 * 2) + 4 # (2s amber period * no. of stages) + all_red_time
-MIN_GREEN_TIME = 5
+from SimulationConfig import TL_STAGE_LOST_TIME, TL_STAGE_MIN_GREEN_TIME
 
 class TrafficLightControllerQLearning(tlc.TrafficLightController, ABC):
 
@@ -13,12 +13,10 @@ class TrafficLightControllerQLearning(tlc.TrafficLightController, ABC):
     def __init__(self, trafficLight):
         tlc.TrafficLightController.__init__(self, trafficLight)
 
-        self.minStepGap = 4 + MIN_GREEN_TIME
-
         self.algorithm = ControllerAlgorithmQLearning(self)
 
         self.resetCounterStep = 0
-        self.nextStepIn = MIN_GREEN_TIME
+        self.nextStepIn = sm.SimulationManager.getCurrentSimulation().config.getInt(TL_STAGE_MIN_GREEN_TIME)
 
     def setStateRepresentation(self, stateRepresentation):
         self.stateRepresentation = stateRepresentation

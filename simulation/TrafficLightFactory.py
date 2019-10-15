@@ -35,9 +35,11 @@ class TrafficLightFactory(object):
 
     @staticmethod
     def createTrafficLightQLearningFPVCL(id):
+        from SimulationConfig import TLC_STAGE_MAX_LENGTH
+        import SimulationManager as sm
         trafficLight = tl.TrafficLight(id, TrafficLightControllerQLearningFPVCL)
         #trafficLight.controller.setRewardFunction(RewardCumulativeDelay(tl.controller))
-        trafficLight.controller.setRewardFunction(RewardThroughput(trafficLight.controller, 90))
-        trafficLight.controller.setStateRepresentation(StateQueueLengthDiscretized(trafficLight.controller, discretizeByValue = 3.0,
+        trafficLight.controller.setRewardFunction(RewardThroughput(trafficLight.controller))
+        trafficLight.controller.setStateRepresentation(StateQueueLengthDiscretized(trafficLight.controller, discretizeByValue = sm.SimulationManager.getCurrentSimulation().config.getInt(TLC_QLEARNING_DISCRETIZE_QUEUE_LENGTH),
                                                                 stateComponent = StateCurrentStage(trafficLight.controller)))
         return trafficLight

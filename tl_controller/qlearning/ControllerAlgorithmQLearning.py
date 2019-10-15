@@ -109,7 +109,7 @@ class ControllerAlgorithmQLearning(GreedyQLearning):
             next_next_action_list = self.extract_possible_actions(state_key)
             next_action_key = self.predict_next_action(state_key, next_next_action_list)
             next_max_q = self.extract_q_df(state_key, next_action_key)
-            print(f"State: {self.lastStateKey}; Action: {self.lastActionKey}; Reward: {reward_value}.")
+            #print(f"State: {self.lastStateKey}; Action: {self.lastActionKey}; Reward: {reward_value}.")
             # Update Q-Value.
             self.update_q(
                 state_key=self.lastStateKey,
@@ -124,7 +124,7 @@ class ControllerAlgorithmQLearning(GreedyQLearning):
         self.normalize_r_value()
 
         # Vis.
-        self.visualize_learning_result(state_key)
+        #self.visualize_learning_result(state_key)
         # Check.
         #if self.check_the_end_flag(state_key) is True:
         #    break
