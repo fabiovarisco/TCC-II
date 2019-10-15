@@ -35,7 +35,7 @@ class TrafficLightFactory(object):
 
     @staticmethod
     def createTrafficLightQLearningFPVCL(id):
-        from SimulationConfig import TLC_STAGE_MAX_LENGTH
+        from SimulationConfig import TLC_QLEARNING_DISCRETIZE_QUEUE_LENGTH
         import SimulationManager as sm
         trafficLight = tl.TrafficLight(id, TrafficLightControllerQLearningFPVCL)
         #trafficLight.controller.setRewardFunction(RewardCumulativeDelay(tl.controller))
