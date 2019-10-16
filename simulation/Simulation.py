@@ -74,7 +74,7 @@ class Simulation(object):
         for event_indicators in self.indicators.values():
             for kpi in event_indicators:
                 kpi.save()
-                kpi.createPlot()
+                #kpi.createPlot()
         traci.close()
 
         sys.stdout.flush()
@@ -93,6 +93,12 @@ class Simulation(object):
     def notify(self, eventID, callingObject):
         for ind in (self.indicators.get(eventID, [])):
             ind.update(self.currentStep, callingObject)
+    
+    def getIndicators(self, eventID = None):
+        if (eventID is None):
+            return self.indicators
+        else:
+            return self.indicators[eventID]
 
 #from TrafficLightStatic import TrafficLightStatic
 #from TrafficLightControllerFXM import TrafficLightControllerFXM

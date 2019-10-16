@@ -12,19 +12,64 @@ from simulation import Simulation
 from simulation.event_constants import *
 from SimulationConfig import SimulationConfig, DEMAND_NUMBER_SIMULATION_STEPS, ISOLATED_INTERSECTION_DEMAND_PWE, ISOLATED_INTERSECTION_DEMAND_PEW, ISOLATED_INTERSECTION_DEMAND_PNS, ISOLATED_INTERSECTION_DEMAND_PSN
 
+from matplotlib import plt
+from stats.Statistics import StatisticsAggregator as sAgg
+
 class SimulationManager(object):
 
     currentSimulation = None
     """docstring for Simulation."""
-    def __init__(self, options, experimentPrefix, numberOfRuns, configFile):
+    def __init__(self, options, experimentParams, numberOfRuns):
+        # experimentParams = [{'prefix': prefix, 'configFile': file}]
+        # experimentPrefix, numberOfRuns, configFile):
         super(SimulationManager, self).__init__()
-
-        self.config = SimulationConfig(configFile)
 
         self._generate_routefile()
 
+        self.simulations = []
+        for e in experimentParams: 
+            self.config = SimulationConfig(e['configFile'])
+            simulations = []
+            for i in range(0, numberOfRuns):
+                simulations.append(self._run(f"{e['prefix']}_{i}", options))
+            e['simulations'] = simulations
+        
+        
+        plt.figure("queuelength_simulations")
+        fig, axes = plt.subplots(nrows=len(experimentParams), ncols=numberOfRuns, figsize=(12, 8))
+        plt.setp(axes.flat, xlabel='step', ylabel='max length')
+
+        pad = 5 # in points
+
         for i in range(0, numberOfRuns):
-            self._run(f"{experimentPrefix}_{i}", options)
+            axes[0].annotate(i, xy=(0.5, 1), xytext=(0, pad),
+                        xycoords='axes fraction', textcoords='offset points',
+                        size='large', ha='center', va='baseline')
+
+        for e in experimentParams:
+            axes[:,0].annotate(e['prefix'], xy=(0, 0.5), xytext=(-ax.yaxis.labelpad - pad, 0),
+                        xycoords=ax.yaxis.label, textcoords='offset points',
+                        size='large', ha='right', va='center')
+
+        r = 0 
+        for e in experimentParams: 
+            c = 0
+            #dfs_ql = []
+            for s in e['simulations']:
+                plt.subplots(len(experimentParams), numberOfRuns, (r * numberOfRuns) + c + 1)
+                df_ql = s.getIndicators(EVENT_SIMULATION_STEP)[0]
+                df_sc = s.getIndicators(EVENT_STAGE_CHANGE)[0]
+                dfs = sAgg.aggregateDataframes([df_ql, df_sc], ['step'])
+                sAgg.plot(dfs, 'step', ['new_state', 'max_length'], ['scatter', 'line'])
+                
+        fig.tight_layout()
+        # tight_layout doesn't take these labels into account. We'll need 
+        # to make some room. These numbers are are manually tweaked. 
+        # You could automatically calculate them, but it's a pain.
+        fig.subplots_adjust(left=0.15, top=0.95)
+        plt.savefig("out_plots/queue_length_simulations.png")
+
+
 
 
     def _run(self, simulationId, options):
@@ -33,6 +78,7 @@ class SimulationManager(object):
         s.subscribe(EVENT_SIMULATION_STEP, StatisticsMaxLength)
         s.subscribe(EVENT_STAGE_CHANGE, StatisticsStageChange)
         s.init()
+        return s
 
     @staticmethod
     def getCurrentSimulation():

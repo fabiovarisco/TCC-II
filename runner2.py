@@ -45,4 +45,7 @@ def get_options():
 # this is the main entry point of this script
 if __name__ == "__main__":
     options = get_options()
-    s = SimulationManager(options, "th2qr1", 1, "configs/fpvpl_throughput2_queueratio1.cfg")
+    experimentParams = [{'prefix': 'th2qr1', 'configFile': 'configs/fpvpl_throughput2_queueratio1.cfg'},
+                        {'prefix': 'th1qr1', 'configFile': 'configs/fpvpl_throughput1_queueratio1.cfg'},
+                        {'prefix': 'th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
+    s = SimulationManager(options, experimentParams, 5)
