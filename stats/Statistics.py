@@ -53,13 +53,18 @@ class StatisticsAggregator(object):
         return df.groupby('step').agg(aggregationOptions)
 
     @staticmethod
-    def plot(df, x_column, y_columns, kinds):
+    def plot(df, x_column, y_columns, kinds, ax = None):
         for i in range(0, len(y_columns)):
-            df.plot(kind=kinds[i], x='step', y=y_columns[i])
-
+            if (ax is None):
+                df.plot(kind=kinds[i], x='step', y=y_columns[i])
+            else:
+                if (kinds[i] == 'scatter'):
+                    ax.scatter(df['step'], df[y_columns[i]])
+                else:
+                    ax.plot(df['step'], df[y_columns[i]])
+                    
     @staticmethod
     def plotAndSaveFigure(figureName, df, x_column, y_columns, kinds):
         plt.figure(figureName)
         StatisticsAggregator.plot(df, x_column, y_columns, kinds)
         plt.savefig(f"out_plots/{figureName}.png")
-
