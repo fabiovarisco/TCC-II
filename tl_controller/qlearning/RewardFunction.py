@@ -46,7 +46,7 @@ class RewardWaitingVehicles(RewardFunction):
     def getReward(self):
         return self.previousStepWaitingVehicles - self.currentStepWaitingVehicles
 
-from SimulationConfig import QLEARNING_REWARD_WEIGHT_THROUGHPUT, QLEARNING_REWARD_WEIGHT_QUEUE_RATIO, CONSTANT_SATURATION_FLOW, TLC_STAGE_MAX_LENGTH
+from SimulationConfig import QLEARNING_REWARD_WEIGHT_THROUGHPUT, QLEARNING_REWARD_WEIGHT_QUEUE_RATIO, CONSTANT_SATURATION_FLOW, TLC_STAGE_MAX_LENGTH, LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY, VEHICLE_AVG_LENGTH
 import SimulationManager as sm
 
 class RewardThroughput(RewardFunction):
@@ -86,15 +86,15 @@ class RewardThroughput(RewardFunction):
                 i += 1
             lane = s.getSignalLanes()[maxLengthIndex].incoming
             if (lane.getLastStepLength() > 0):
-                laneAceptableQueueLength = (lane.getLength() / lane.getLastStepLength() * 
-                                            sm.SimulationManager.getCurrentSimulation().config.getInt(LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY))
+                laneAceptableQueueLength = (lane.getLength() / lane.getLastStepLength() *
+                                            sm.SimulationManager.getCurrentSimulation().config.getFloat(LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY))
             else:
-                laneAceptableQueueLength = (lane.getLength() / sm.SimulationManager.getCurrentSimulation().config.getInt(VEHICLE_AVG_LENGTH) 
-                                            * sm.SimulationManager.getCurrentSimulation().config.getInt(LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY))
+                laneAceptableQueueLength = (lane.getLength() / sm.SimulationManager.getCurrentSimulation().config.getInt(VEHICLE_AVG_LENGTH)
+                                            * sm.SimulationManager.getCurrentSimulation().config.getFloat(LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY))
             queueRatio += maxLength / laneAceptableQueueLength
         queueRatio = 1 - (queueRatio / len(self.controller.trafficLight.getStages()))
         return queueRatio
 
     def getReward(self):
-        return (self.weight_throughput * self._getThroughputForCurrentStage()) + 
-                (self.weight_queue_ratio * self._getQueueRatio())
+        return ((self.weight_throughput * self._getThroughputForCurrentStage())
+                + (self.weight_queue_ratio * self._getQueueRatio()))
