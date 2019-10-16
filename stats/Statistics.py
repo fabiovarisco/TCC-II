@@ -36,6 +36,14 @@ from matplotlib import pyplot as plt
 
 class StatisticsAggregator(object):
 
+    PLOT_KIND_LINE = 0
+    PLOT_KIND_SCATTER = 1
+
+    plotter_switch = {
+        PLOT_KIND_LINE: _linePlot,
+        PLOT_KIND_SCATTER: _scatter
+    }
+
     """docstring for Statistics."""
     def __init__(self):
         super(StatisticsAggregator, self).__init__()
@@ -52,16 +60,23 @@ class StatisticsAggregator(object):
     def aggregate(df, aggregationOptions):
         return df.groupby('step').agg(aggregationOptions)
 
+    
+    @staticmethod
+    def _scatter(ax, x, y):
+        ax.scatter(x, y)
+
+    @staticmethod
+    def _linePlot(ax, x, y):
+        ax.plot(x, y)
+
     @staticmethod
     def plot(df, x_column, y_columns, kinds, ax = None):
         for i in range(0, len(y_columns)):
             if (ax is None):
                 df.plot(kind=kinds[i], x='step', y=y_columns[i])
             else:
-                if (kinds[i] == 'scatter'):
-                    ax.scatter(df['step'], df[y_columns[i]])
-                else:
-                    ax.plot(df['step'], df[y_columns[i]])
+                plot_function = StatisticsAggregator.plotter_switch.get(kinds[i])
+                plot_function(ax, df['step'], df[y_columns[i]])
                     
     @staticmethod
     def plotAndSaveFigure(figureName, df, x_column, y_columns, kinds):

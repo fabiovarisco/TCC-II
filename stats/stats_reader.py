@@ -60,7 +60,7 @@ for e in experimentParams:
         df_ql = er[stats_wt]
         df_sc = er[stats_sc]
         dfs = sAgg.aggregateDataframes([df_ql, df_sc], ['step'])
-        sAgg.plot(dfs, 'step', ['new_state', 'max_length'], ['scatter', 'line'], ax)
+        sAgg.plot(dfs, 'step', ['new_state', 'max_length'], [sAgg.PLOT_KIND_SCATTER, sAgg.PLOT_KIND_LINE], ax)
         c += 1
     r += 1
 
