@@ -17,7 +17,7 @@ class StatisticsTotalTravelTime(Statistics):
             self.vehiclesDeparture[id] = step
 
         for id in simulation.getArrivedIDList():
-            self.statistics.append([step, id, step - self.vehiclesDeparture[id])       
+            self.statistics.append([step, id, step - self.vehiclesDeparture[id]])       
 
     def createPlot(self):
         pass

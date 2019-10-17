@@ -5,7 +5,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from Statistics import StatisticsAggregator as sAgg
+import stats_aggregator as sAgg
 
 
 def initSubPlots(label, experimentParams, numberOfRuns):
@@ -52,10 +52,10 @@ def createPlot(label, experimentParams, numberOfRuns, file_prefixes, y_columns, 
                 dfs.append(er[f])
             if (aggregateDFsBy is not None):
                 dfAgg = sAgg.aggregateDataframes(dfs, aggregateDFsBy)
-            else: 
-                dfAgg = dfs[0]  
+            else:
+                dfAgg = dfs[0]
             if (groupByParams is not None):
-                dfAgg = sAgg.aggregate(dfAgg, groupByParams)  
+                dfAgg = sAgg.aggregate(dfAgg, groupByParams)
             sAgg.plot(dfAgg, 'step', y_columns, kinds, ax)
             c += 1
         if (groupRunsFilePrefix is not None):
