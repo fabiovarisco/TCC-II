@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 
 from stats.StatisticsMaxLength import StatisticsMaxLength
 from stats.StatisticsStageChange import StatisticsStageChange
+from stats.StatisticsTotalTravelTime import StatisticsTotalTravelTime
 from simulation import Simulation
 from simulation.event_constants import *
 from SimulationConfig import SimulationConfig, DEMAND_NUMBER_SIMULATION_STEPS, ISOLATED_INTERSECTION_DEMAND_PWE, ISOLATED_INTERSECTION_DEMAND_PEW, ISOLATED_INTERSECTION_DEMAND_PNS, ISOLATED_INTERSECTION_DEMAND_PSN
@@ -40,6 +41,7 @@ class SimulationManager(object):
         SimulationManager.currentSimulation = s
         s.subscribe(EVENT_SIMULATION_STEP, StatisticsMaxLength)
         s.subscribe(EVENT_STAGE_CHANGE, StatisticsStageChange)
+        s.subscribe(EVENT_SIMULATION_STEP, StatisticsTotalTravelTime)
         s.init()
         return s
 
