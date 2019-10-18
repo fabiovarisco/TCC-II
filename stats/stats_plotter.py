@@ -38,7 +38,7 @@ def readResults(prefix, statistics, numberOfRuns):
     return results
 
 def describe(results, filePrefix, column):
-    print(f"==== Describe {filePrefix} - {column} ====")
+    print(f"\n==== Describe {filePrefix} - {column} ====")
     dfAll = pd.concat([r[filePrefix] for r in results], ignore_index=True)
     dfAll = sAgg.aggregate(dfAll, {column: 'mean'})
     print(dfAll[column].describe())
