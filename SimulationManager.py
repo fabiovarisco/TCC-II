@@ -13,7 +13,6 @@ from simulation import Simulation
 from simulation.event_constants import *
 from SimulationConfig import SimulationConfig, DEMAND_NUMBER_SIMULATION_STEPS, ISOLATED_INTERSECTION_DEMAND_PWE, ISOLATED_INTERSECTION_DEMAND_PEW, ISOLATED_INTERSECTION_DEMAND_PNS, ISOLATED_INTERSECTION_DEMAND_PSN
 
-from stats.Statistics import StatisticsAggregator as sAgg
 
 class SimulationManager(object):
 
@@ -24,7 +23,8 @@ class SimulationManager(object):
         # experimentPrefix, numberOfRuns, configFile):
         super(SimulationManager, self).__init__()
 
-        #self._generate_routefile()
+        self.config = SimulationConfig(experimentParams[0]['configFile'])
+        self._generate_routefile()
 
         self.simulations = []
         for e in experimentParams:

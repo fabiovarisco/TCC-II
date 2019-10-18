@@ -7,7 +7,7 @@ from simulation import TrafficLight as tl
 class StatisticsMaxLength(Statistics):
 
     """docstring for StatisticsWaitingTime."""
-    def __init__(self, runID, filePrefix = "wtime"):
+    def __init__(self, runID, filePrefix = "max_length"):
         self.columns = ['step', 'tl_id', 'max_length']
         super(StatisticsMaxLength, self).__init__(runID, filePrefix)
 

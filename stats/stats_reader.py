@@ -10,9 +10,10 @@ import stats_aggregator as sAgg
 
 def initSubPlots(label, experimentParams, numberOfRuns):
     #plt.figure("queuelength_simulations")
-    fig, axes = plt.subplots(nrows=len(experimentParams), ncols=numberOfRuns, figsize=(12, 8))
+    fig, axes = plt.subplots(nrows=len(experimentParams), ncols=numberOfRuns, figsize=(12, 8), sharex=True, sharey=True)
     plt.setp(axes.flat, xlabel='step', ylabel='max length')
-
+    for ax in axes.flat:
+        ax.label_outer()
     pad = 5 # in points
 
     for i, ax in zip(range(0, numberOfRuns), axes[0]):
@@ -24,7 +25,7 @@ def initSubPlots(label, experimentParams, numberOfRuns):
         ax.annotate(e['prefix'], xy=(0, 0.5), xytext=(-ax.yaxis.labelpad - pad, 0),
                     xycoords=ax.yaxis.label, textcoords='offset points',
                     size='large', ha='right', va='center')
-    return fig
+    return fig, axes
 
 def readResults(prefix, statistics, numberOfRuns):
     results = []
@@ -36,17 +37,23 @@ def readResults(prefix, statistics, numberOfRuns):
         results.append(r)
     return results
 
+def describe(results, filePrefix, column):
+    print(f"==== Describe {filePrefix} - {column} ====")
+    dfAll = pd.concat([r[filePrefix] for r in results], ignore_index=True)
+    dfAll = sAgg.aggregate(dfAll, {column: 'mean'})
+    print(dfAll[column].describe())
+
 def createPlot(label, experimentParams, numberOfRuns, file_prefixes, y_columns, kinds, aggregateDFsBy = None, groupByParams = None, groupRunsColumn = None, groupRunsFunc = None, groupRunsFilePrefix = None):
-    fig = initSubPlots(label, experimentParams, numberOfRuns)
-    for e in experimentParams:
-        e['results'] = readResults(e['prefix'], file_prefixes, numberOfRuns)
-    r = 0
     columnNumber = numberOfRuns
     if groupRunsFilePrefix is not None: columnNumber += 1
+    fig, axes = initSubPlots(label, experimentParams, columnNumber)
+
+    r = 0
     for e in experimentParams:
         c = 0
         for er in e['results']:
-            ax = fig.add_subplot(len(experimentParams), columnNumber, (r * columnNumber) + c + 1)
+            #ax = fig.add_subplot(len(experimentParams), columnNumber, (r * columnNumber) + c + 1)
+            ax = axes[r, c]
             dfs = []
             for f in file_prefixes:
                 dfs.append(er[f])
@@ -59,9 +66,10 @@ def createPlot(label, experimentParams, numberOfRuns, file_prefixes, y_columns, 
             sAgg.plot(dfAgg, 'step', y_columns, kinds, ax)
             c += 1
         if (groupRunsFilePrefix is not None):
-            dfAll = pd.concat(e['results'][:,groupRunsFilePrefix], ignore_index=True)
+            dfAll = pd.concat([res[groupRunsFilePrefix] for res in e['results']], ignore_index=True)
             dfAll = sAgg.aggregate(dfAll, {groupRunsColumn: groupRunsFunc})
-            ax = fig.add_subplot(len(experimentParams), columnNumber, (r * columnNumber) + c + 1)
+            #ax = fig.add_subplot(len(experimentParams), columnNumber, (r * columnNumber) + c + 1)
+            ax = axes[r, c]
             sAgg.plot(dfAll, 'step', [groupRunsColumn], [sAgg.PLOT_KIND_LINE], ax)
         r += 1
 
@@ -78,14 +86,31 @@ experimentParams = [{'prefix': 'th2qr1', 'configFile': 'configs/fpvpl_throughput
                     {'prefix': 'th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
 numberOfRuns = 2
 
+
+
 stats_sc = 'state_change'
-stats_wt = 'wtime'
+stats_ml = 'max_length'
 stats_tt = 'travel_time'
+col_sc = 'new_state'
+col_ml = 'max_length'
+col_tt = 'ttime'
 label = 'queuelength_simulations'
-file_prefixes = [stats_sc, stats_wt]
+file_prefixes = [stats_sc, stats_ml]
 aggregateDFsBy = ['step']
-y_columns = ['new_state', 'max_length']
+y_columns = [col_sc, col_ml]
 kinds = [sAgg.PLOT_KIND_SCATTER, sAgg.PLOT_KIND_LINE]
 
-createPlot(label, experimentParams, numberOfRuns, file_prefixes, y_columns, kinds, aggregateDFsBy=aggregateDFsBy)
-createPlot("mean_travel_time", experimentParams, numberOfRuns, [stats_tt], ['ttime'], [sAgg.PLOT_KIND_LINE], groupByParams = {'ttime' : 'mean'})
+for e in experimentParams:
+    e['results'] = readResults(e['prefix'], [stats_sc, stats_ml, stats_tt], numberOfRuns)
+
+createPlot(label, experimentParams, numberOfRuns, file_prefixes, y_columns, kinds, aggregateDFsBy=aggregateDFsBy,
+            groupRunsColumn = col_ml, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_ml)
+
+createPlot("mean_travel_time", experimentParams, numberOfRuns, [stats_tt], [col_tt], [sAgg.PLOT_KIND_LINE], groupByParams = {col_tt : 'mean'},
+            groupRunsColumn = col_tt, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_tt)
+
+for e in experimentParams:
+    describe(e['results'], stats_ml, col_ml)
+
+for e in experimentParams:
+    describe(e['results'], stats_tt, col_tt)
