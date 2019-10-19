@@ -49,7 +49,7 @@ def readResults(prefix, statistics, numberOfRuns):
     return results
 
 def describe(results, filePrefix, column):
-    print(f"\n==== Describe {filePrefix} - {column} ====")
+    print(f"\n==== Describe {e['prefix']} - {column} ====")
     dfAll = pd.concat([r[filePrefix] for r in results], ignore_index=True)
     #dfAll = sAgg.aggregate(dfAll, 'step' {column: 'mean'})
     print(dfAll[column].describe())
@@ -187,8 +187,8 @@ def createPlot(label, experimentParams, numberOfRuns, file_prefixes, y_columns, 
 
 if __name__ == '__main__':
 
-    experimentPrefix = 'hd14400stps'
-    #experimentPrefix = 'md14400stps'
+    #experimentPrefix = 'hd14400stps'
+    experimentPrefix = 'md14400stps'
     experimentParams = [{'prefix': f'{experimentPrefix}_th2qr1', 'configFile': 'configs/fpvpl_throughput2_queueratio1.cfg'},
                         {'prefix': f'{experimentPrefix}_th1qr1', 'configFile': 'configs/fpvpl_throughput1_queueratio1.cfg'},
                         {'prefix': f'{experimentPrefix}_th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
