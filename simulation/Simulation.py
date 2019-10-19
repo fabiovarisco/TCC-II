@@ -13,9 +13,11 @@ import matplotlib.pyplot as plt
 
 from simulation.event_constants import *
 from simulation.TrafficLightFactory import TrafficLightFactory
-from SimulationConfig import SUMO_SIMULATION_CONFIGURATION_FILE, SUMO_SIMULATION_OUTPUT_FILE, SUMO_SIMULATION_STEP_LENGTH
+from SimulationConfig import SUMO_SIMULATION_CONFIGURATION_FILE, SUMO_SIMULATION_OUTPUT_FILE, SUMO_SIMULATION_STEP_LENGTH, DEMAND_NUMBER_SIMULATION_STEPS
 
 class Simulation(object):
+
+    LOG_EVERY_STEPS = 1000
 
     """docstring for Simulation."""
     def __init__(self, runID, options, config):
@@ -63,12 +65,15 @@ class Simulation(object):
         # we start with phase 2 where EW has green
         # traci.trafficlight.setPhase("0", 2)
         #tls = TrafficLightStatic("0", "actuated_gap")
+        minSteps = self.config.getInt(DEMAND_NUMBER_SIMULATION_STEPS)
         while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()
             for tl in self.trafficLights:
                 tl.step(self.currentStep)
                 for kpi in self.indicators[EVENT_SIMULATION_STEP]:
                     kpi.update(self.currentStep, tl)
+            if (self.currentStep % Simulation.LOG_EVERY_STEPS == 0):
+                print(f'Executing {self.currentStep} of min {minSteps}.')
             self.currentStep += 1
 
         for event_indicators in self.indicators.values():
@@ -93,7 +98,7 @@ class Simulation(object):
     def notify(self, eventID, callingObject):
         for ind in (self.indicators.get(eventID, [])):
             ind.update(self.currentStep, callingObject)
-    
+
     def getIndicators(self, eventID = None):
         if (eventID is None):
             return self.indicators

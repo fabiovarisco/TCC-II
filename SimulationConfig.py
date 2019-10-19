@@ -47,8 +47,8 @@ class SimulationConfig(object):
             # except ValueError:
             #     self.values[key] = v
 
-        for key, value in self.values.items():
-            print(f"Key: {key}; Value: {value}")
+        #for key, value in self.values.items():
+        #    print(f"Key: {key}; Value: {value}")
 
     def get(self, key):
         if key not in self.values:

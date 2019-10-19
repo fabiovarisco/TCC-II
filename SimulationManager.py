@@ -27,12 +27,18 @@ class SimulationManager(object):
         self._generate_routefile()
 
         self.simulations = []
+        print('====== Starting Simulation runs ======\n')
         for e in experimentParams:
+            print(f"====== Starting Experiment {e['prefix']} ======")
+            print(f"Reading config file {e['configFile']}...")
             self.config = SimulationConfig(e['configFile'])
             simulations = []
             for i in range(0, numberOfRuns):
+                print(f'Starting simulation {i + 1} of {numberOfRuns}...')
                 simulations.append(self._run(f"{e['prefix']}_{i}", options))
+                print('\n\n')
             e['simulations'] = simulations
+            print('\n')
 
 
 
@@ -58,10 +64,15 @@ class SimulationManager(object):
         #N = 3600  # number of time steps
         N = self.config.getInt(DEMAND_NUMBER_SIMULATION_STEPS)
         # demand per second from different directions
-        pWE = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PWE)
-        pEW = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PEW)
-        pNS = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PNS)
-        pSN = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PSN)
+        #pWE = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PWE)
+        #pEW = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PEW)
+        #pNS = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PNS)
+        #pSN = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PSN)
+
+        pWE = 1. / 9
+        pEW = 1. / 11
+        pNS = 1. / 10
+        pSN = 1. / 12
         with open("data/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="passenger" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" \

@@ -25,7 +25,7 @@ class Stage(object):
         maxLength = 0
         for sl in self.getSignalLanes():
             qL = sl.incoming.getQueueLength()
-            print(f"Lane: {sl.incoming.id}; Queue Length: {qL}.")
+            #print(f"Lane: {sl.incoming.id}; Queue Length: {qL}.")
             maxLength = max(maxLength, qL)
         return maxLength
 

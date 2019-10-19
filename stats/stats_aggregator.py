@@ -13,8 +13,8 @@ def aggregateDataframes(dataframes, onColumns):
         df = pd.merge(df, dataframes[i], on=onColumns)
     return df
 
-def aggregate(df, aggregationOptions):
-    return df.groupby('step', as_index=False).agg(aggregationOptions)
+def aggregate(df, gbColumn, aggregationOptions):
+    return df.groupby(gbColumn, as_index=False).agg(aggregationOptions)
 
 def _scatter(ax, x, y):
     ax.scatter(x, y)
@@ -30,10 +30,10 @@ plotter_switch = {
 def plot(df, x_column, y_columns, kinds, ax = None):
     for i in range(0, len(y_columns)):
         if (ax is None):
-            df.plot(kind=kinds[i], x='step', y=y_columns[i])
+            df.plot(kind=kinds[i], x=x_column, y=y_columns[i])
         else:
             plot_function = plotter_switch.get(kinds[i])
-            plot_function(ax, df['step'], df[y_columns[i]])
+            plot_function(ax, df[x_column], df[y_columns[i]])
 
 def plotAndSaveFigure(figureName, df, x_column, y_columns, kinds):
     plt.figure(figureName)

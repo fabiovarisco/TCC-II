@@ -28,7 +28,7 @@ class TrafficLight(object):
     def _initLinks(self):
         links = tTL.getControlledLinks(self.id)
         phaseId = 0
-        print(links)
+        #print(links)
         for phase in links:
             for l in phase:
                 self.incoming.append(LaneFactory.getLane(l[0]))
@@ -45,14 +45,7 @@ class TrafficLight(object):
 
         self.phaseNumber = len(self.logic.getPhases())
 
-        for l in self.incoming:
-            print(f"Lane: {l.id}")
-
         self.stages = Stage.resolveStages(self.logic.getPhases(), self.incoming, self.outgoing)
-        for i, s in enumerate(self.stages):
-            print(f"Stage {i}")
-            for sl in s.getSignalLanes():
-                print(f"Lane {sl.incoming.id}")
 
     def getId(self):
         return self.id
