@@ -106,6 +106,13 @@ class TrafficLight(object):
             maxLength = max(maxLength, self.getMaxStageLength(i))
         return maxLength
 
+    def getQueueLengthAllLanes(self):
+        queueLengths = []
+        for stage in self.stages:
+            for sl in stage.getSignalLanes():
+                queueLengths.append({"lane_id": sl.incoming.id, "queue_length": sl.incoming.getQueueLength()})
+        return queueLengths
+
     def step(self, step):
         for l in self.incoming:
             l.step(step)
