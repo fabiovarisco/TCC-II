@@ -9,15 +9,18 @@ import SimulationManager as sm
 class TrafficLight(object):
 
     """docstring for Junction."""
-    def __init__(self, id, TrafficLightController):
+    def __init__(self, id):
         super(TrafficLight, self).__init__()
         self.id = id
 
         self._initVariables()
         self._initLinks()
         self._initStages()
-
-        self.controller = TrafficLightController(self);
+        
+        #self.controller = TrafficLightController(self)
+    
+    def setController(self, controller):
+        self.controller = controller
 
     def _initVariables(self):
         self.incoming = []

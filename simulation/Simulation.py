@@ -55,7 +55,8 @@ class Simulation(object):
     def _preRun(self):
         self.trafficLights = []
         for id in traci.trafficlight.getIDList():
-            self.trafficLights.append(TrafficLightFactory.createTrafficLightQLearningFPVCL(id))
+            self.trafficLights.append(TrafficLightFactory.createTrafficLightDeepQLearningFPVCL(id))
+            #self.trafficLights.append(TrafficLightFactory.createTrafficLightQLearningFPVCL(id))
             #self.trafficLights.append(TrafficLightFactory.createTrafficLightWebsterLike(id))
             #self.trafficLights.append(TrafficLight(id, TrafficLightControllerWebsterLike))
 
