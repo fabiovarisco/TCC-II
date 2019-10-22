@@ -6,12 +6,14 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
     '''
     Deep Q-Network as controller algorithm
     '''
-    def __init__(self, controller):
-        super(ControllerAlgorithmDeepQLearning, self).__init__()
+    def __init__(self, function_approximator, controller):
+        super(ControllerAlgorithmDeepQLearning, self).__init__(function_approximator)
+        
         self.controller = controller
+
         self.t = 0
         self.lastAction = 0
-        
+    
     def initState(self, state):
         self.lastState = state
     
