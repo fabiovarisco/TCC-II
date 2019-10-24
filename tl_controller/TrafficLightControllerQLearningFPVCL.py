@@ -2,6 +2,7 @@
 from tl_controller import TrafficLightControllerQLearning as tlcQLearning
 import time
 import math
+import numpy as np
 
 import SimulationManager as sm
 from SimulationConfig import TL_STAGE_LOST_TIME, TLC_STAGE_INITIAL_LENGTH, TLC_QLEARNING_ACTION_MIN_GREEN, TLC_QLEARNING_ACTION_MAX_GREEN, TLC_QLEARNING_ACTION_UNIT_LENGTH
@@ -16,6 +17,7 @@ class TrafficLightControllerQLearningFPVCL(tlcQLearning.TrafficLightControllerQL
         self.nextStepIn = sm.SimulationManager.getCurrentSimulation().config.getInt(TLC_STAGE_INITIAL_LENGTH)
 
     def getPossibleActions(self, state_key):
+
         return range(sm.SimulationManager.getCurrentSimulation().config.getInt(TLC_QLEARNING_ACTION_MIN_GREEN),
                     sm.SimulationManager.getCurrentSimulation().config.getInt(TLC_QLEARNING_ACTION_MAX_GREEN))
 

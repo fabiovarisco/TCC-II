@@ -20,14 +20,14 @@ class StateRepresentation(ABC):
     def _concatStateString(self, str1, str2):
         return f"{str1}_{str2}"
 
-    def __init__(self, controller, stateComponent = None, stateRepresentationType = StateRepresentation.STATE_REPRESENTATION_STRING ):
+    def __init__(self, controller, stateComponent = None, stateRepresentationType = STATE_REPRESENTATION_STRING ):
         super().__init__()
         self.controller = controller
         self.stateComponent = stateComponent
         if (stateRepresentationType == StateRepresentation.STATE_REPRESENTATION_STRING):
             self.stateToRepresentation = self._stateToString
             self.concatStateRepresentation = self._concatStateString
-        else: 
+        else:
             self.stateToRepresentation = self._stateToArray
             self.concatStateRepresentation = self._concatStateArrays
 
