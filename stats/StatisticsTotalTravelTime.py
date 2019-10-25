@@ -6,8 +6,7 @@ class StatisticsTotalTravelTime(Statistics):
 
     """docstring for StatisticsTotalTravelTime."""
     def __init__(self, runID, filePrefix = "travel_time"):
-        self.columns = ['step', 'veh_id', 'ttime']
-        super(StatisticsTotalTravelTime, self).__init__(runID, filePrefix)
+        super(StatisticsTotalTravelTime, self).__init__(runID,  ['step', 'veh_id', 'ttime'], filePrefix)
 
         self.vehiclesDeparture = {}
 

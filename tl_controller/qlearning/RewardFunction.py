@@ -14,6 +14,47 @@ class RewardFunction(ABC):
     def getReward(self):
         pass
 
+import math
+
+class AdaptiveRewardFunction(RewardFunction, ABC):
+
+
+    @staticmethod
+    def activationLinear(x, **kwargs):
+        return x
+    
+    @staticmethod
+    def activationAdaptedSigmoid(x, **kwargs):
+        x = (x * 2) - 1
+        return 1 / (1 + math.exp(-kwargs['steepness'] * (x - kwargs['inf_point'])))
+
+    def __init__(self, controller, activationFunction = activationLinear, steepness = 5, inf_point = 0):
+        RewardFunction.__init__(self, controller)
+        self.functions = []
+        self.activationFunction = activationFunction
+        self.kwargs = {'steepness' : steepness, 'inf_point' : inf_point}
+    
+    def addFunction(self, rewardFunction, weight = 1, inverse = False):
+        self.functions.append([rewardFunction, weight, inverse])
+
+    @abstractmethod
+    def getDynamicWeight(self):
+        pass
+    
+    def step(self, step):
+        for f in self.functions:
+            f[0].step(step)
+
+    def getReward(self):
+        reward = 0
+        dynamicWeight = self.activationFunction(self.getDynamicWeight(), self.kwargs)
+        for f in self.functions:
+            if f[2]: dynamicWeight = 1 - dynamicWeight
+            reward += dynamicWeight * f[1] * f[0].getReward()
+        return reward
+
+   
+
 class RewardCumulativeDelay(RewardFunction):
 
     def __init__(self, controller):
@@ -21,12 +62,22 @@ class RewardCumulativeDelay(RewardFunction):
         self.currentStepCumulativeDelay = 0
         self.previousStepWaitingVehicles = 0
 
+        maxStageLength = (sm.SimulationManager.getCurrentSimulation().config.getInt(TLC_QLEARNING_ACTION_MAX_GREEN) *
+                         sm.SimulationManager.getCurrentSimulation().config.getInt(TLC_QLEARNING_ACTION_UNIT_LENGTH))
+        
+        self.maxPossibleDelay = 0
+        for s in self.controller.trafficLight.getStages():
+            for sl in s.getSignalLanes():
+                self.maxPossibleDelay += sl.incoming.getMaxPossibleQueueLength()
+        self.maxPossibleDelay *= (maxStageLength / 2)     
+
+
     def step(self, step):
         self.previousStepCumulativeDelay = self.currentStepCumulativeDelay
         self.currentStepCumulativeDelay = self.controller.trafficLight.getTotalCumulativeDelay()
 
     def getReward(self):
-        return self.previousStepCumulativeDelay - self.currentStepCumulativeDelay
+        return (self.previousStepCumulativeDelay - self.currentStepCumulativeDelay) / self.maxPossibleDelay
 
 class RewardWaitingVehicles(RewardFunction):
 
@@ -34,6 +85,16 @@ class RewardWaitingVehicles(RewardFunction):
         super().__init__(controller)
         self.previousStepWaitingVehicles = 0
         self.currentStepWaitingVehicles = 0
+        
+        self.maxStageLength = (sm.SimulationManager.getCurrentSimulation().config.getInt(TLC_QLEARNING_ACTION_MAX_GREEN) *
+                        sm.SimulationManager.getCurrentSimulation().config.getInt(TLC_QLEARNING_ACTION_UNIT_LENGTH))
+        self.maxReward = 0 
+        saturationFlowConstant = sm.SimulationManager.getCurrentSimulation().config.getInt(CONSTANT_SATURATION_FLOW)
+        for s in self.controller.trafficLight.getStages():
+            for sl in s.getSignalLanes():
+                saturationFlow = saturationFlowConstant * sl.incoming.getWidth()
+                self.maxReward += (saturationFlow / 3600) * maxStageLength
+
 
     def step(self, step):
         waitingVehicles = 0
@@ -44,9 +105,9 @@ class RewardWaitingVehicles(RewardFunction):
         self.currentStepWaitingVehicles = waitingVehicles
 
     def getReward(self):
-        return self.previousStepWaitingVehicles - self.currentStepWaitingVehicles
+        return (self.previousStepWaitingVehicles - self.currentStepWaitingVehicles) / self.maxReward
 
-from SimulationConfig import QLEARNING_REWARD_WEIGHT_THROUGHPUT, QLEARNING_REWARD_WEIGHT_QUEUE_RATIO, CONSTANT_SATURATION_FLOW, TLC_STAGE_MAX_LENGTH, LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY, VEHICLE_AVG_LENGTH
+from SimulationConfig import QLEARNING_REWARD_WEIGHT_THROUGHPUT, QLEARNING_REWARD_WEIGHT_QUEUE_RATIO, CONSTANT_SATURATION_FLOW, TLC_STAGE_MAX_LENGTH, LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY, VEHICLE_AVG_LENGTH, TLC_QLEARNING_ACTION_MAX_GREEN, TLC_QLEARNING_ACTION_UNIT_LENGTH 
 import SimulationManager as sm
 
 class RewardThroughput(RewardFunction):
@@ -84,17 +145,20 @@ class RewardThroughput(RewardFunction):
                     maxLength = qL
                     maxLengthIndex = i
                 i += 1
-            lane = s.getSignalLanes()[maxLengthIndex].incoming
-            if (lane.getLastStepLength() > 0):
-                laneAceptableQueueLength = (lane.getLength() / lane.getLastStepLength() *
-                                            sm.SimulationManager.getCurrentSimulation().config.getFloat(LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY))
-            else:
-                laneAceptableQueueLength = (lane.getLength() / sm.SimulationManager.getCurrentSimulation().config.getInt(VEHICLE_AVG_LENGTH)
-                                            * sm.SimulationManager.getCurrentSimulation().config.getFloat(LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY))
+            maxPossibleQueueLength = s.getSignalLanes()[maxLengthIndex].incoming.getMaxPossibleQueueLength()
+            laneAceptableQueueLength *= sm.SimulationManager.getCurrentSimulation().config.getFloat(LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY)
             queueRatio += maxLength / laneAceptableQueueLength
+        
         queueRatio = 1 - (queueRatio / len(self.controller.trafficLight.getStages()))
         return queueRatio
 
     def getReward(self):
         return ((self.weight_throughput * self._getThroughputForCurrentStage())
-                + (self.weight_queue_ratio * self._getQueueRatio()))
+                + (self.weight_queue_ratio * self._getQueueRatio())) / (self.weight_throughput + self.weight_queue_ratio)
+
+class AdaptiveLaneOccupancyReward(AdaptiveRewardFunction):
+
+    def getDynamicWeight(self):
+        maxOccupancy = self.controller.trafficLight.getMaxLaneccupancy()
+        print(f"Max occupancy: {maxOccupancy}")
+        return maxOccupancy

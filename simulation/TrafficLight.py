@@ -139,3 +139,10 @@ class TrafficLight(object):
         for l in self.incoming:
             totalWaitingTime += l.getWaitingTime()
         return totalWaitingTime
+
+    def getMaxLaneccupancy(self):
+        maxOccupancy = 0
+        for s in self.stages:
+            for sl in s.getSignalLanes():
+                maxOccupancy = max(maxOccupancy, sl.incoming.getLastStepOccupancy())
+        return maxOccupancy

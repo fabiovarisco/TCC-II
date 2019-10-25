@@ -2,6 +2,8 @@ from traci import lane as tLane
 import SimulationManager as sm #import SimulationManager as simulationMgr
 from simulation.Vehicle import VehicleFactory
 import numpy as np
+from SimulationConfig import VEHICLE_AVG_LENGTH
+import SimulationManager as sm
 
 class Lane(object):
 
@@ -40,8 +42,6 @@ class Lane(object):
     def getLastStepVehicleIDs(self):
         return tLane.getLastStepVehicleIDs(self.id)
 
-
-
     def getVehicleDeltaNumber(self):
         return self.deltaNumber
 
@@ -68,6 +68,13 @@ class Lane(object):
 
     def getLastStepLength(self):
         return tLane.getLastStepLength(self.id)
+
+    def getMaxPossibleQueueLength(self):
+        if (self.getLastStepLength() > 0):
+            maxQueueLength = self.getLength() / self.getLastStepLength()
+        else:
+            maxQueueLength = self.getLength() / sm.SimulationManager.getCurrentSimulation().config.getInt(VEHICLE_AVG_LENGTH)
+        return maxQueueLength
 
 class LaneFactory(object):
 

@@ -3,8 +3,9 @@ from abc import ABC, abstractmethod
 class Statistics(ABC):
 
     """docstring for Statistics."""
-    def __init__(self, runID, filePrefix = "stats"):
+    def __init__(self, runID, columns, filePrefix = "stats"):
         super(Statistics, self).__init__()
+        self.columns = columns
         self.runID = runID
         self.filePrefix = filePrefix
         self.statistics = []

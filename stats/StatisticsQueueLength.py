@@ -7,8 +7,7 @@ class StatisticsQueueLength(Statistics):
 
     """docstring for StatisticsQueueLength."""
     def __init__(self, runID, filePrefix = "queue_length"):
-        self.columns = ['step', 'tl_id', 'lane_id' 'queue_length']
-        super(StatisticsQueueLength, self).__init__(runID, filePrefix)
+        super(StatisticsQueueLength, self).__init__(runID, ['step', 'tl_id', 'lane_id' 'queue_length'], filePrefix)
 
     def update(self, step, callingObject):
         if (isinstance(callingObject, tl.TrafficLight)):

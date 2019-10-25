@@ -8,8 +8,7 @@ class StatisticsMaxLength(Statistics):
 
     """docstring for StatisticsWaitingTime."""
     def __init__(self, runID, filePrefix = "max_length"):
-        self.columns = ['step', 'tl_id', 'max_length']
-        super(StatisticsMaxLength, self).__init__(runID, filePrefix)
+        super(StatisticsMaxLength, self).__init__(runID,  ['step', 'tl_id', 'max_length'], filePrefix)
 
     def update(self, step, callingObject):
         if (isinstance(callingObject, tl.TrafficLight)):

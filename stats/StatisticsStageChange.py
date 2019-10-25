@@ -8,8 +8,7 @@ class StatisticsStageChange(ObserverStatistics):
 
     """docstring for StatisticsWaitingTime."""
     def __init__(self, runID, filePrefix = "state_change"):
-        self.columns = ['step', 'tl_id', 'new_state']
-        super(StatisticsStageChange, self).__init__(runID, filePrefix)
+        super(StatisticsStageChange, self).__init__(runID, ['step', 'tl_id', 'new_state'], filePrefix)
 
     def update(self, step, callingObject):
         if (isinstance(callingObject, TrafficLight)):
