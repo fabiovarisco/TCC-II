@@ -21,7 +21,6 @@ class TrafficLightControllerQLearning(tlc.TrafficLightController, ABC):
 
     def setStateRepresentation(self, stateRepresentation):
         self.stateRepresentation = stateRepresentation
-        self.algorithm.initState(self.stateRepresentation.getCurrentState())
 
     def setRewardFunction(self, rewardFunction):
         self.rewardFunction = rewardFunction
@@ -29,7 +28,7 @@ class TrafficLightControllerQLearning(tlc.TrafficLightController, ABC):
     def step(self, step):
         if (step - self.resetCounterStep > self.nextStepIn):
             self.rewardFunction.step(step)
-            self.algorithm.step(step)
+            self.algorithm.step(step, self)
 
     def getReward(self):
         return self.rewardFunction.getReward()

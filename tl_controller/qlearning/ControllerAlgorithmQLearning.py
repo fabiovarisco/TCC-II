@@ -8,15 +8,11 @@ from simulation.event_constants import EVENT_QLEARNING_DECISION
 class ControllerAlgorithmQLearning(GreedyQLearning):
 
     """docstring for ControllerAlgorithmQLearning."""
-    def __init__(self, controller):
+    def __init__(self):
         super(ControllerAlgorithmQLearning, self).__init__()
-        self.controller = controller
         self.t = 0
-        self.lastActionKey = 0
-        #self.lastStateKey = self.controller.getCurrentState()
-
-    def initState(self, state_key):
-        self.lastStateKey = state_key
+        self.lastAction = {}
+        self.lastState = {}
 
     def extract_possible_actions(self, state_key):
         '''
@@ -98,33 +94,43 @@ class ControllerAlgorithmQLearning(GreedyQLearning):
 
 
 
-    def step(self, step):
-        # Implement learning
+    def step(self, step, controller):
+        self.controller = controller
+        tlID = controller.trafficLight.getID()
+        
+        # ========================================
+        # Update Q-values based on previous action
+        # ========================================
+        if tlID in self.lastState:
+            lastState = self.lastState[tlID]
+            lastAction = self.lastAction[tlID]        
 
-        reward_value = self.observe_reward_value(self.lastStateKey, self.lastActionKey)
+            reward_value = self.observe_reward_value(lastState, lastAction)
 
-        state_key = self.controller.getCurrentState()
-        next_action_list = self.extract_possible_actions(state_key)
+            state = controller.getCurrentState()
+            next_action_list = self.extract_possible_actions(state)
 
-        sm.SimulationManager.getCurrentSimulation().notify(EVENT_QLEARNING_DECISION, 
-                    tl_id=self.controller.trafficLight.getID(), previous_state=self.lastStateKey,
-                    current_state=state_key, action=self.lastActionKey, reward=reward_value)
-            
-        if len(next_action_list):
-            # Max-Q-Value in next action time.
-
-            next_next_action_list = self.extract_possible_actions(state_key)
-            next_action_key = self.predict_next_action(state_key, next_next_action_list)
-            next_max_q = self.extract_q_df(state_key, next_action_key)
-            #print(f"State: {self.lastStateKey}; Action: {self.lastActionKey}; Reward: {reward_value}.")
-            # Update Q-Value.
-            self.update_q(
-                state_key=self.lastStateKey,
-                action_key=self.lastActionKey,
-                reward_value=reward_value,
-                next_max_q=next_max_q
-            )
-
+            sm.SimulationManager.getCurrentSimulation().notify(EVENT_QLEARNING_DECISION, 
+                        tl_id=tlID, previous_state=lastState,
+                        current_state=state, action=lastAction, reward=reward_value)
+                
+            if len(next_action_list):
+                # Max-Q-Value in next action time.
+                next_action = self.predict_next_action(state, next_action_list)
+                next_max_q = self.extract_q_df(state, next_action)
+                #print(f"State: {self.lastStateKey}; Action: {self.lastActionKey}; Reward: {reward_value}.")
+                # Update Q-Value.
+                self.update_q(
+                    state_key=lastState,
+                    action_key=lastAction,
+                    reward_value=reward_value,
+                    next_max_q=next_max_q
+                )
+        else: 
+            state = controller.getCurrentState()
+            next_action_list = self.extract_possible_actions(state)
+            next_action = self.predict_next_action(state, next_action_list)
+            next_max_q = self.extract_q_df(state, next_action)
 
         # Normalize.
         self.normalize_q_value()
@@ -136,13 +142,15 @@ class ControllerAlgorithmQLearning(GreedyQLearning):
         #if self.check_the_end_flag(state_key) is True:
         #    break
 
-        self.lastActionKey = self.select_action(
-            state_key=state_key,
+        action = self.select_action(
+            state_key=state,
             next_action_list=next_action_list
         )
-        self.lastStateKey = state_key
 
-        self.controller.takeAction(self.lastActionKey, step)
+        self.controller.takeAction(action, step)
+
+        self.lastState[tlID] = state
+        self.lastAction[tlID] = action
 
         # Episode.
         self.t += 1

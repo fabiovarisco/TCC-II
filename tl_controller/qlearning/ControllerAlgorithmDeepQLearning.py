@@ -9,18 +9,16 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
     '''
     Deep Q-Network as controller algorithm
     '''
-    def __init__(self, function_approximator, controller):
+    def __init__(self, function_approximator):
         super().__init__(function_approximator)
 
         #self._function_approximator = function_approximator
-        self.controller = controller
+        #self.controller = controller
 
         self.t = 0
-        self.lastAction = 0
-        self.lastPredictedQ = None
-
-    def initState(self, state):
-        self.lastState = state
+        self.lastAction = {}
+        self.lastPredictedQ = {}
+        self.lastState = {}
 
     def inference(self, state_arr, limit=1):
         '''
@@ -125,18 +123,26 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
         # Your concrete functions.
         return False
 
-    def step(self, step):
+    def step(self, step, controller):
+        self.controller = controller
+        tlID = controller.trafficLight.getID()
+
         # ========================================
         # Update Q-values based on previous action
         # ========================================
-        if (self.lastPredictedQ is not None):
-            reward_value = self.observe_reward_value(self.lastState, self.lastAction)
+        if tlID in self.lastPredictedQ:
+            lastState = self.lastState[tlID]
+            lastAction = self.lastAction[tlID]
+            lastPredictedQ = self.lastPredictedQ[tlID]
+            lastPredictedQArr = self.lastPredictedQArr[tlID]
+            lastActionKey = self.lastActionKey[tlID]
+            reward_value = self.observe_reward_value(lastState, lastAction)
 
-            new_state = self.controller.getCurrentState()
+            new_state = controller.getCurrentState()
             
             sm.SimulationManager.getCurrentSimulation().notify(EVENT_QLEARNING_DECISION, 
-                    tl_id=self.controller.trafficLight.getID(), previous_state=self.lastState,
-                    current_state=new_state, action=self.lastAction, reward=reward_value)
+                    tl_id=tlID, previous_state=lastState,
+                    current_state=new_state, action=lastAction, reward=reward_value)
             
             # Inference the Max-Q-Value in next action time.
             next_action_list = self.extract_possible_actions(new_state)
@@ -145,25 +151,25 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
             print(next_max_q)
             # Update real Q-Values.
             real_q_selected = self.update_q(
-                    np.array([self.lastPredictedQ]),
+                    np.array([lastPredictedQ]),
                     np.array([reward_value]),
                     np.array([next_max_q])
                 )
 
-            real_q_arr = np.copy(self.lastPredictedQArr)
-            real_q_arr[self.lastActionKey] = real_q_selected[0]
+            real_q_arr = np.copy(lastPredictedQArr)
+            real_q_arr[lastActionKey] = real_q_selected[0]
 
             print('last key')
-            print(self.lastActionKey)
+            print(lastActionKey)
             print('last predicted q arr')
-            print(self.lastPredictedQArr)
+            print(lastPredictedQArr)
             print('real q arr')
             print(real_q_arr)
             print('===== Learning ======')
             print('last predicted q')
-            print(self.lastPredictedQArr[self.lastActionKey])
+            print(lastPredictedQArr[lastActionKey])
             print('real q')
-            print(real_q_arr[self.lastActionKey])
+            print(real_q_arr[lastActionKey])
             '''
             if self.q_logs_arr.shape[0] > 0:
                 self.q_logs_arr = np.r_[
@@ -174,37 +180,39 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
                 self.q_logs_arr = np.array([self.lastPredictedQ, real_q]).reshape(1, 2)
             '''
             # Learn Q-Values.
-            self.learn_q(self.lastPredictedQArr, real_q_arr)
+            self.learn_q(lastPredictedQArr, real_q_arr)
 
         # ========================================
         # Take next action
         # ========================================
 
-        state_arr = self.controller.getCurrentState()
+        state_arr = controller.getCurrentState()
         # Draw samples of next possible actions from any distribution.
         next_action_arr = self.extract_possible_actions(state_arr)
         print('next_action_arr')
         print(next_action_arr)
         # Inference Q-Values.
         predicted_q_arr = self.function_approximator.inference_q(next_action_arr)
-        self.lastPredictedQArr = predicted_q_arr
+        
         print('predicted_q_arr')
         print(predicted_q_arr)
         # Select action.
-        self.lastActionKey = self.select_action_key(next_action_arr, predicted_q_arr)
+        actionKey= self.select_action_key(next_action_arr, predicted_q_arr)
         #action_arr, predicted_q = self.select_action(next_action_arr, predicted_q_arr)
-        action_arr = next_action_arr[self.lastActionKey]
-        predicted_q = predicted_q_arr[self.lastActionKey]
+        action_arr = next_action_arr[actionKey]
+        predicted_q = predicted_q_arr[actionKey]
         print('===Action arr===')
         print(action_arr)
         print('====Predicted Q====')
         print(predicted_q)
 
-        self.lastPredictedQ = predicted_q
-        self.lastAction = action_arr
-
         # Take next action
-        self.controller.takeAction(self.lastAction[-1], step)
+        controller.takeAction(action_arr[-1], step)
+
+        self.lastPredictedQArr[tlID] = predicted_q_arr
+        self.lastPredictedQ[tlID] = predicted_q
+        self.lastAction[tlID] = action_arr
+        self.lastActionKey[tlID] = actionKey
 
         # Episode.
         self.t += 1
