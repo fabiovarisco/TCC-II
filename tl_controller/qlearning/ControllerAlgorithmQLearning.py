@@ -2,6 +2,9 @@
 
 from pyqlearning.qlearning.greedy_q_learning import GreedyQLearning
 
+import SimulationManager as sm
+from simulation.event_constants import EVENT_QLEARNING_DECISION
+
 class ControllerAlgorithmQLearning(GreedyQLearning):
 
     """docstring for ControllerAlgorithmQLearning."""
@@ -103,6 +106,10 @@ class ControllerAlgorithmQLearning(GreedyQLearning):
         state_key = self.controller.getCurrentState()
         next_action_list = self.extract_possible_actions(state_key)
 
+        sm.SimulationManager.getCurrentSimulation().notify(EVENT_QLEARNING_DECISION, 
+                    tl_id=self.controller.trafficLight.getID(), previous_state=self.lastStateKey,
+                    current_state=state_key, action=self.lastActionKey, reward=reward_value)
+            
         if len(next_action_list):
             # Max-Q-Value in next action time.
 

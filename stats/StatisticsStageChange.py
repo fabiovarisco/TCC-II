@@ -6,13 +6,14 @@ from simulation.TrafficLight import TrafficLight
 
 class StatisticsStageChange(ObserverStatistics):
 
-    """docstring for StatisticsWaitingTime."""
+    """docstring for StatisticsStageChange."""
     def __init__(self, runID, filePrefix = "state_change"):
         super(StatisticsStageChange, self).__init__(runID, ['step', 'tl_id', 'new_state'], filePrefix)
 
-    def update(self, step, callingObject):
-        if (isinstance(callingObject, TrafficLight)):
-            self.statistics.append([step, callingObject.getId(), callingObject.getCurrentStage()])
+    def update(self, step, **kwargs):
+        traffic_light = kwargs['traffic_light']
+        if (isinstance(traffic_light, TrafficLight)):
+            self.statistics.append([step, traffic_light.getId(), traffic_light.getCurrentStage()])
         else:
             raise Exception("StatisticsStageChange expects stage object to be a TrafficLight")
 

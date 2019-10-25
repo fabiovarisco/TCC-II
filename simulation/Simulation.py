@@ -71,8 +71,7 @@ class Simulation(object):
             traci.simulationStep()
             for tl in self.trafficLights:
                 tl.step(self.currentStep)
-                for kpi in self.indicators[EVENT_SIMULATION_STEP]:
-                    kpi.update(self.currentStep, tl)
+                self.notify(EVENT_SIMULATION_STEP, traffic_light = tl)
             if (self.currentStep % Simulation.LOG_EVERY_STEPS == 0):
                 print(f'Executing {self.currentStep} of min {minSteps}.')
             self.currentStep += 1
@@ -96,9 +95,9 @@ class Simulation(object):
             self.indicators[eventID] = []
         self.indicators[eventID].append(Statistics(self.runID))
 
-    def notify(self, eventID, callingObject):
+    def notify(self, eventID, **kwargs):
         for ind in (self.indicators.get(eventID, [])):
-            ind.update(self.currentStep, callingObject)
+            ind.update(self.currentStep, kwargs)
 
     def getIndicators(self, eventID = None):
         if (eventID is None):

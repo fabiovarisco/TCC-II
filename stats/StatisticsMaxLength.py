@@ -10,9 +10,10 @@ class StatisticsMaxLength(Statistics):
     def __init__(self, runID, filePrefix = "max_length"):
         super(StatisticsMaxLength, self).__init__(runID,  ['step', 'tl_id', 'max_length'], filePrefix)
 
-    def update(self, step, callingObject):
-        if (isinstance(callingObject, tl.TrafficLight)):
-            self.statistics.append([step, callingObject.getId(), callingObject.getMaxLength()])
+    def update(self, step, **kwargs):
+        traffic_light = kwargs['traffic_light']
+        if (isinstance(traffic_light, tl.TrafficLight)):
+            self.statistics.append([step, traffic_light.getId(), traffic_light.getMaxLength()])
         else:
             raise Exception("StatisticsStageChange expects stage object to be a TrafficLight")
 

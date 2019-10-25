@@ -10,7 +10,7 @@ class StatisticsTotalTravelTime(Statistics):
 
         self.vehiclesDeparture = {}
 
-    def update(self, step, callingObject):
+    def update(self, step, **kwargs):
 
         for id in simulation.getDepartedIDList():
             self.vehiclesDeparture[id] = step

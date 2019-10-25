@@ -2,6 +2,9 @@
 from pyqlearning.deepqlearning.deep_q_network import DeepQNetwork
 import numpy as np
 
+import SimulationManager as sm
+from simulation.event_constants import EVENT_QLEARNING_DECISION
+
 class ControllerAlgorithmDeepQLearning(DeepQNetwork):
     '''
     Deep Q-Network as controller algorithm
@@ -130,7 +133,11 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
             reward_value = self.observe_reward_value(self.lastState, self.lastAction)
 
             new_state = self.controller.getCurrentState()
-
+            
+            sm.SimulationManager.getCurrentSimulation().notify(EVENT_QLEARNING_DECISION, 
+                    tl_id=self.controller.trafficLight.getID(), previous_state=self.lastState,
+                    current_state=new_state, action=self.lastAction, reward=reward_value)
+            
             # Inference the Max-Q-Value in next action time.
             next_action_list = self.extract_possible_actions(new_state)
             next_max_q = self.function_approximator.inference_q(next_action_list).max()

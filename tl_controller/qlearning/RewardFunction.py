@@ -15,9 +15,10 @@ class RewardFunction(ABC):
         pass
 
 import math
+import SimulationManager as sm
+from simulation.event_constants import EVENT_ADAPTIVE_REWARD_FUNCTION_WEIGHT
 
 class AdaptiveRewardFunction(RewardFunction, ABC):
-
 
     @staticmethod
     def activationLinear(x, **kwargs):
@@ -47,10 +48,16 @@ class AdaptiveRewardFunction(RewardFunction, ABC):
 
     def getReward(self):
         reward = 0
-        dynamicWeight = self.activationFunction(self.getDynamicWeight(), self.kwargs)
+        dynamicWeight = self.getDynamicWeight()
+        dynamicWeightAA = self.activationFunction( self.getDynamicWeight(), self.kwargs)
         for f in self.functions:
-            if f[2]: dynamicWeight = 1 - dynamicWeight
-            reward += dynamicWeight * f[1] * f[0].getReward()
+            dw = 1 - dynamicWeightAA if f[2] else dynamicWeightAA
+            reward += dw * f[1] * f[0].getReward()
+        
+        sm.SimulationManager.getCurrentSimulation().notify(EVENT_ADAPTIVE_REWARD_FUNCTION_WEIGHT, 
+                    tl_id=self.controller.trafficLight.getID(), dynamic_weight=dynamicWeight,
+                    dynamic_weight_activation=dynamicWeightAA, reward=reward)
+                    
         return reward
 
    

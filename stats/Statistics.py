@@ -11,7 +11,7 @@ class Statistics(ABC):
         self.statistics = []
 
     @abstractmethod
-    def update(self, step, callingObject):
+    def update(self, step, **kwargs):
         pass
 
     @abstractmethod

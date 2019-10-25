@@ -83,7 +83,7 @@ class TrafficLight(object):
     def advanceStage(self):
         self.currentStage = self.getNextStage()
         self._advancePhase()
-        sm.SimulationManager.getCurrentSimulation().notify(EVENT_STAGE_CHANGE, self)
+        sm.SimulationManager.getCurrentSimulation().notify(EVENT_STAGE_CHANGE, traffic_light = self)
 
     def setStage(self, stageIndex):
         if (stageIndex >= len(self.stages)): raise Exception(f"Invalid Stage Index: {stageIndex}. Traffic light {self.id} has {len(self.stages)}.")
