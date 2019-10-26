@@ -27,6 +27,7 @@ class TrafficLight(object):
         self.outgoing = []
         self.currentStage = 0
         self.cumulativeDelay = 0
+        self.currentStageCumulativeDelay = 0
 
     def _initLinks(self):
         links = tTL.getControlledLinks(self.id)
@@ -83,6 +84,7 @@ class TrafficLight(object):
     def advanceStage(self):
         self.currentStage = self.getNextStage()
         self._advancePhase()
+        self.currentStageCumulativeDelay = 0
         sm.SimulationManager.getCurrentSimulation().notify(EVENT_STAGE_CHANGE, traffic_light = self)
 
     def setStage(self, stageIndex):
@@ -119,7 +121,9 @@ class TrafficLight(object):
     def step(self, step):
         for l in self.incoming:
             l.step(step)
-        self.cumulativeDelay += self.getTotalDelayAtCurrentTimeStep()
+        delayAtCurrentStep = self.getTotalDelayAtCurrentTimeStep()
+        self.cumulativeDelay += delayAtCurrentStep
+        self.currentStageCumulativeDelay += delayAtCurrentStep
         self.controller.step(step)
 
     def getCompleteRedYellowGreenDefinition(self):
@@ -127,6 +131,9 @@ class TrafficLight(object):
 
     def getTotalCumulativeDelay(self):
         return self.cumulativeDelay
+    
+    def getCurrentStageCumulativeDelay(self):
+        return self.currentStageCumulativeDelay
 
     def getTotalDelayAtCurrentTimeStep(self):
         totalQueueLength = 0

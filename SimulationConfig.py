@@ -31,6 +31,8 @@ QLEARNING_REWARD_WEIGHT_QUEUE_RATIO = 'qlearning_reward_weight_queue_ratio'
 LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY = 'lane_max_acceptable_queue_occupancy' # Max acceptable queue occupancy for each lane (used in QueueRatio reward function)
 VEHICLE_AVG_LENGTH = 'vehicle_avg_length'
 
+TLC_TYPE='tlc_type'
+
 class SimulationConfig(object):
 
     def __init__(self, configFile):

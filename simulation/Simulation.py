@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 from simulation.event_constants import *
 from simulation.TrafficLightFactory import TrafficLightFactory
-from SimulationConfig import SUMO_SIMULATION_CONFIGURATION_FILE, SUMO_SIMULATION_OUTPUT_FILE, SUMO_SIMULATION_STEP_LENGTH, DEMAND_NUMBER_SIMULATION_STEPS
+from SimulationConfig import SUMO_SIMULATION_CONFIGURATION_FILE, SUMO_SIMULATION_OUTPUT_FILE, SUMO_SIMULATION_STEP_LENGTH, DEMAND_NUMBER_SIMULATION_STEPS, TLC_TYPE
 
 class Simulation(object):
 
@@ -55,7 +55,9 @@ class Simulation(object):
     def _preRun(self):
         self.trafficLights = []
         for id in traci.trafficlight.getIDList():
-            self.trafficLights.append(TrafficLightFactory.createTrafficLightDeepQLearningFPVCL(id))
+            self.trafficLights.append(TrafficLightFactory.createTrafficLightFromType(id, 
+                                        self.config.get(TLC_TYPE)))
+            #self.trafficLights.append(TrafficLightFactory.createTrafficLightDeepQLearningFPVCL(id))
             #self.trafficLights.append(TrafficLightFactory.createTrafficLightQLearningFPVCL(id))
             #self.trafficLights.append(TrafficLightFactory.createTrafficLightWebsterLike(id))
             #self.trafficLights.append(TrafficLight(id, TrafficLightControllerWebsterLike))

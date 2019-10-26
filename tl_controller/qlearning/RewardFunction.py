@@ -61,7 +61,7 @@ class AdaptiveRewardFunction(RewardFunction, ABC):
         return reward
 
    
-
+# On second thought, this measure seems problematic as the total cumulative delay is always increasing
 class RewardCumulativeDelay(RewardFunction):
 
     def __init__(self, controller):
@@ -112,7 +112,11 @@ class RewardWaitingVehicles(RewardFunction):
         self.currentStepWaitingVehicles = waitingVehicles
 
     def getReward(self):
-        return (self.previousStepWaitingVehicles - self.currentStepWaitingVehicles) / self.maxReward
+        reward = (self.previousStepWaitingVehicles - self.currentStepWaitingVehicles) / self.maxReward
+        
+        # TODO Implement a statistics file to log rewards.
+
+        return error_todo
 
 from SimulationConfig import QLEARNING_REWARD_WEIGHT_THROUGHPUT, QLEARNING_REWARD_WEIGHT_QUEUE_RATIO, CONSTANT_SATURATION_FLOW, TLC_STAGE_MAX_LENGTH, LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY, VEHICLE_AVG_LENGTH, TLC_QLEARNING_ACTION_MAX_GREEN, TLC_QLEARNING_ACTION_UNIT_LENGTH 
 import SimulationManager as sm
@@ -167,5 +171,5 @@ class AdaptiveLaneOccupancyReward(AdaptiveRewardFunction):
 
     def getDynamicWeight(self):
         maxOccupancy = self.controller.trafficLight.getMaxLaneccupancy()
-        print(f"Max occupancy: {maxOccupancy}")
+        #print(f"Max occupancy: {maxOccupancy}")
         return maxOccupancy
