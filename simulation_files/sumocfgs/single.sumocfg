@@ -5,7 +5,7 @@
     <input>
         <net-file value="../networks/single.net.xml"/>
         <route-files value="../routes/single.rou.xml"/>
-        <additional-files value="../other/cross.tlsp.xml"/> 
+        <additional-files value="../other/single.tlsp.xml"/> 
     </input>
 
     <time>

@@ -56,7 +56,7 @@ class Simulation(object):
     def _preRun(self):
         self.trafficLights = []
         for id in traci.trafficlight.getIDList():
-            self.trafficLights.append(TrafficLightFactory.createTrafficLightFromType(id, 
+            self.trafficLights.append(TrafficLightFactory.createTrafficLightFromType(id,
                                         self.config.get(TLC_TYPE)))
             #self.trafficLights.append(TrafficLightFactory.createTrafficLightDeepQLearningFPVCL(id))
             #self.trafficLights.append(TrafficLightFactory.createTrafficLightQLearningFPVCL(id))
@@ -100,7 +100,7 @@ class Simulation(object):
 
     def notify(self, eventID, **kwargs):
         for ind in (self.indicators.get(eventID, [])):
-            ind.update(self.currentStep, kwargs)
+            ind.update(self.currentStep, **kwargs)
 
     def getIndicators(self, eventID = None):
         if (eventID is None):

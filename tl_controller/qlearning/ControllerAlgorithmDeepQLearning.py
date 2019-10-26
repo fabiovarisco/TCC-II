@@ -16,9 +16,13 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
         #self.controller = controller
 
         self.t = 0
-        self.lastAction = {}
-        self.lastPredictedQ = {}
+
         self.lastState = {}
+        self.lastPredictedQ = {}
+        self.lastPredictedQArr = {}
+        self.lastActionKey = {}
+        self.lastAction = {}
+
 
     def inference(self, state_arr, limit=1):
         '''
@@ -125,7 +129,7 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
 
     def step(self, step, controller):
         self.controller = controller
-        tlID = controller.trafficLight.getID()
+        tlID = controller.trafficLight.getId()
 
         # ========================================
         # Update Q-values based on previous action
@@ -139,11 +143,11 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
             reward_value = self.observe_reward_value(lastState, lastAction)
 
             new_state = controller.getCurrentState()
-            
-            sm.SimulationManager.getCurrentSimulation().notify(EVENT_QLEARNING_DECISION, 
+
+            sm.SimulationManager.getCurrentSimulation().notify(EVENT_QLEARNING_DECISION,
                     tl_id=tlID, previous_state=lastState,
                     current_state=new_state, action=lastAction, reward=reward_value)
-            
+
             # Inference the Max-Q-Value in next action time.
             next_action_list = self.extract_possible_actions(new_state)
             next_max_q = self.function_approximator.inference_q(next_action_list).max()
@@ -193,7 +197,7 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
         print(next_action_arr)
         # Inference Q-Values.
         predicted_q_arr = self.function_approximator.inference_q(next_action_arr)
-        
+
         print('predicted_q_arr')
         print(predicted_q_arr)
         # Select action.
@@ -209,6 +213,7 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
         # Take next action
         controller.takeAction(action_arr[-1], step)
 
+        self.lastState[tlID] = state_arr
         self.lastPredictedQArr[tlID] = predicted_q_arr
         self.lastPredictedQ[tlID] = predicted_q
         self.lastAction[tlID] = action_arr

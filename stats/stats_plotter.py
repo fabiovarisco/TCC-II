@@ -38,12 +38,12 @@ def initSubPlots(label, row_labels, col_labels, x_label, y_label):
 
     return fig, axes
 
-def readResults(prefix, statistics, numberOfRuns):
+def readResults(folder, prefix, statistics, numberOfRuns):
     results = []
     for n in range(0, numberOfRuns):
         r = {}
         for s in statistics:
-            df = pd.read_csv(f"output/{prefix}_{n}_{s}.csv")
+            df = pd.read_csv(f"output/{folder}/{prefix}_{n}_{s}.csv")
             r[s] = df
         results.append(r)
     return results
@@ -84,7 +84,7 @@ def getMinMeanAndStd(experimentParams, filePrefix, col, func):
     print(f'Min Mean: {minMean}. Experiment: {minMeanPrefix}.')
     print(f'Min Std: {minStd}. Experiment: {minStdPrefix}.\n')
 
-def createSinglePlotAveragesOnly(label, experimentParams, file_prefix, y_column, title, discretizeStepBy = None):
+def createSinglePlotAveragesOnly(folder, label, experimentParams, file_prefix, y_column, title, discretizeStepBy = None):
 
     result = None
     y_columns = []
@@ -117,9 +117,9 @@ def createSinglePlotAveragesOnly(label, experimentParams, file_prefix, y_column,
     # Put a legend below current axis
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.075),
           fancybox=True, ncol=2)
-    plt.savefig(f"out_plots/{label}_single.png")
+    plt.savefig(f"output/{folder}/{label}_single.png")
 
-def createPlotAveragesOnly(label, experimentParams, file_prefix, y_column, discretizeStepBy = None):
+def createPlotAveragesOnly(folder, label, experimentParams, file_prefix, y_column, discretizeStepBy = None):
     fig, axes = initSubPlots(label, ['avg'], [e['prefix'] for e in experimentParams], 'step', y_column)
 
     if discretizeStepBy is not None:
@@ -135,7 +135,7 @@ def createPlotAveragesOnly(label, experimentParams, file_prefix, y_column, discr
 
     fig.tight_layout()
     fig.subplots_adjust(left=0.15, top=0.95)
-    fig.savefig(f"out_plots/{label}.png")
+    fig.savefig(f"output/{folder}/{label}.png")
 
 
 def createPlot(label, experimentParams, numberOfRuns, file_prefixes, y_columns, kinds, aggregateDFsBy = None, groupByParams = None, groupRunsColumn = None, groupRunsFunc = None, groupRunsFilePrefix = None, discretizeStepBy = None):
@@ -181,7 +181,7 @@ def createPlot(label, experimentParams, numberOfRuns, file_prefixes, y_columns, 
     # to make some room. These numbers are are manually tweaked.
     # You could automatically calculate them, but it's a pain.
     fig.subplots_adjust(left=0.15, top=0.95)
-    fig.savefig(f"out_plots/{label}.png")
+    fig.savefig(f"output/{folder}/{label}.png")
     #plt.show()
 
 
@@ -193,6 +193,13 @@ if __name__ == '__main__':
                         {'prefix': f'{experimentPrefix}_th1qr1', 'configFile': 'configs/fpvpl_throughput1_queueratio1.cfg'},
                         {'prefix': f'{experimentPrefix}_th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
     numberOfRuns = 10
+    experimentPrefix = 'deepq1_adaptative'
+    #experimentParams = [{'prefix': f'{experimentPrefix}_th2qr1', 'configFile': 'configs/fpvpl_throughput2_queueratio1.cfg'},
+    #                    {'prefix': f'{experimentPrefix}_th1qr1', 'configFile': 'configs/fpvpl_throughput1_queueratio1.cfg'},
+    #                    {'prefix': f'{experimentPrefix}_th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
+    experimentParams = [{'prefix': 'exp1', 'configFile': 'configs/simple_config.cfg'}]
+
+    numberOfRuns = 1
 
     stats_sc = 'state_change'
     stats_ml = 'max_length'
@@ -208,19 +215,19 @@ if __name__ == '__main__':
     kinds = [sAgg.PLOT_KIND_SCATTER, sAgg.PLOT_KIND_LINE]
 
     for e in experimentParams:
-        e['results'] = readResults(e['prefix'], [stats_sc, stats_ml, stats_tt], numberOfRuns)
+        e['results'] = readResults(experimentPrefix, e['prefix'], [stats_sc, stats_ml, stats_tt], numberOfRuns)
 
-    #createPlot(label_ql, experimentParams, numberOfRuns, file_prefixes, y_columns, kinds, aggregateDFsBy=aggregateDFsBy,
+    #createPlot(experimentPrefix, label_ql, experimentParams, numberOfRuns, file_prefixes, y_columns, kinds, aggregateDFsBy=aggregateDFsBy,
     #            groupRunsColumn = col_ml, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_ml)
 
-    #createPlot(label_tt, experimentParams, numberOfRuns, [stats_tt], [col_tt], [sAgg.PLOT_KIND_LINE], groupByParams = {col_tt : 'mean'},
+    #createPlot(experimentPrefix, label_tt, experimentParams, numberOfRuns, [stats_tt], [col_tt], [sAgg.PLOT_KIND_LINE], groupByParams = {col_tt : 'mean'},
     #            groupRunsColumn = col_tt, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_tt, discretizeStepBy = 60)
 
-    #createPlotAveragesOnly(f"{label_ql}_avg", experimentParams, stats_ml, col_ml, discretizeStepBy = 120)
-    #createPlotAveragesOnly(f"{label_tt}_avg", experimentParams, stats_tt, col_tt, discretizeStepBy = 120)
+    #createPlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ml, col_ml, discretizeStepBy = 120)
+    #createPlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, discretizeStepBy = 120)
 
-    createSinglePlotAveragesOnly(f"{label_ql}_avg", experimentParams, stats_ml, col_ml, 'Avg Queue Length', discretizeStepBy = 120)
-    createSinglePlotAveragesOnly(f"{label_tt}_avg", experimentParams, stats_tt, col_tt, 'Avg Travel Time', discretizeStepBy = 120)
+    createSinglePlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ml, col_ml, 'Avg Queue Length', discretizeStepBy = 120)
+    createSinglePlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, 'Avg Travel Time', discretizeStepBy = 120)
 
     for e in experimentParams:
         describe(e['results'], stats_ml, col_ml)

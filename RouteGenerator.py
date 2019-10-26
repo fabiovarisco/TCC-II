@@ -14,7 +14,7 @@ def generate_routefile(params, filename):
     #pEW = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PEW)
     #pNS = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PNS)
     #pSN = 1. / self.config.getInt(ISOLATED_INTERSECTION_DEMAND_PSN)
-    
+
     #"data/cross.rou.xml"
     with open(filename, "w") as routes:
         print("""<routes>
@@ -29,40 +29,41 @@ guiShape="passenger"/>
         """, file=routes)
 
         totalVehNr = 0
+        stepCounter = 0
         for i, p in enumerate(params):
-            vehNr = 0
             pWE, pEW, pNS, pSN = getProbabilities(p)
-
+            vehNr = 0
             delta = False
             if (i + 1) < len(params):
                 startChangeIn = p['start_change_in']
                 delta_pWE, delta_pEW, delta_pNS, delta_pSN = getChangeRatios(pWE, pEW, pNS, pSN,
-                                                                params[i+1], 
+                                                                params[i+1],
                                                                 (p['steps'] - startChangeIn))
                 delta = True
 
             for s in range(p['steps']):
                 if random.uniform(0, 1) < pWE:
                     print('    <vehicle id="right_%i_%i" type="passenger" route="right" depart="%i" />' % (
-                        i, vehNr, s), file=routes)
+                        i, vehNr, stepCounter), file=routes)
                     vehNr += 1
                 if random.uniform(0, 1) < pEW:
                     print('    <vehicle id="left_%i_%i" type="passenger" route="left" depart="%i" />' % (
-                        i, vehNr, s), file=routes)
+                        i, vehNr, stepCounter), file=routes)
                     vehNr += 1
                 if random.uniform(0, 1) < pNS:
                     print('    <vehicle id="down_%i_%i" type="passenger" route="down" depart="%i" color="1,0,0"/>' % (
-                        i, vehNr, s), file=routes)
+                        i, vehNr, stepCounter), file=routes)
                     vehNr += 1
                 if random.uniform(0, 1) < pSN:
                     print('    <vehicle id="up_%i_%i" type="passenger" route="up" depart="%i" color="1,0,0"/>' % (
-                        i, vehNr, s), file=routes)
+                        i, vehNr, stepCounter), file=routes)
                     vehNr += 1
                 if delta and s >= startChangeIn:
                     pWE += delta_pWE
                     pEW += delta_pEW
                     pNS += delta_pNS
                     pSN += delta_pSN
+                stepCounter += 1
             print(f"Params: {p} generated {vehNr} vehicles")
             totalVehNr += vehNr
         print("</routes>", file=routes)

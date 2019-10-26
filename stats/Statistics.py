@@ -29,5 +29,5 @@ class Statistics(ABC):
 class ObserverStatistics(Statistics):
 
     """docstring for Statistics."""
-    def __init__(self, runID, filePrefix = "stats"):
-        super(ObserverStatistics, self).__init__(runID, filePrefix)
+    def __init__(self, runID, folder, columns, filePrefix = "stats"):
+        super(ObserverStatistics, self).__init__(runID, folder, columns, filePrefix)

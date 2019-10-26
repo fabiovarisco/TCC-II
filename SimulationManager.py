@@ -30,8 +30,8 @@ class SimulationManager(object):
         #self._generate_routefile()
         self.experimentPrefix = experimentPrefix
         print(f"====== Starting Experiment {experimentPrefix} ======")
-        if not os.path.exists(experimentPrefix):
-            os.mkdir(experimentPrefix)
+        if not os.path.exists(f"./output/{experimentPrefix}"):
+            os.mkdir(f"./output/{experimentPrefix}")
 
         self.simulations = []
         print('====== Starting Simulation runs ======\n')

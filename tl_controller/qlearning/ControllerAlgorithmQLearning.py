@@ -96,24 +96,24 @@ class ControllerAlgorithmQLearning(GreedyQLearning):
 
     def step(self, step, controller):
         self.controller = controller
-        tlID = controller.trafficLight.getID()
-        
+        tlID = controller.trafficLight.getId()
+
         # ========================================
         # Update Q-values based on previous action
         # ========================================
         if tlID in self.lastState:
             lastState = self.lastState[tlID]
-            lastAction = self.lastAction[tlID]        
+            lastAction = self.lastAction[tlID]
 
             reward_value = self.observe_reward_value(lastState, lastAction)
 
             state = controller.getCurrentState()
             next_action_list = self.extract_possible_actions(state)
 
-            sm.SimulationManager.getCurrentSimulation().notify(EVENT_QLEARNING_DECISION, 
+            sm.SimulationManager.getCurrentSimulation().notify(EVENT_QLEARNING_DECISION,
                         tl_id=tlID, previous_state=lastState,
                         current_state=state, action=lastAction, reward=reward_value)
-                
+
             if len(next_action_list):
                 # Max-Q-Value in next action time.
                 next_action = self.predict_next_action(state, next_action_list)
@@ -126,7 +126,7 @@ class ControllerAlgorithmQLearning(GreedyQLearning):
                     reward_value=reward_value,
                     next_max_q=next_max_q
                 )
-        else: 
+        else:
             state = controller.getCurrentState()
             next_action_list = self.extract_possible_actions(state)
             next_action = self.predict_next_action(state, next_action_list)
