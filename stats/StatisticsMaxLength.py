@@ -7,8 +7,8 @@ from simulation import TrafficLight as tl
 class StatisticsMaxLength(Statistics):
 
     """docstring for StatisticsWaitingTime."""
-    def __init__(self, runID, filePrefix = "max_length"):
-        super(StatisticsMaxLength, self).__init__(runID,  ['step', 'tl_id', 'max_length'], filePrefix)
+    def __init__(self, runID, folder, filePrefix = "max_length"):
+        super(StatisticsMaxLength, self).__init__(runID, folder,  ['step', 'tl_id', 'max_length'], filePrefix)
 
     def update(self, step, **kwargs):
         traffic_light = kwargs['traffic_light']

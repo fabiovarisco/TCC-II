@@ -6,8 +6,8 @@ from simulation import TrafficLight as tl
 class StatisticsQueueLength(Statistics):
 
     """docstring for StatisticsQueueLength."""
-    def __init__(self, runID, filePrefix = "queue_length"):
-        super(StatisticsQueueLength, self).__init__(runID, ['step', 'tl_id', 'lane_id' 'queue_length'], filePrefix)
+    def __init__(self, runID, folder, filePrefix = "queue_length"):
+        super(StatisticsQueueLength, self).__init__(runID, folder, ['step', 'tl_id', 'lane_id' 'queue_length'], filePrefix)
 
     def update(self, step, **kwargs):
         traffic_light = kwargs['traffic_light']

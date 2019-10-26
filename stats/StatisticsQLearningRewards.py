@@ -1,4 +1,3 @@
-
 from stats.Statistics import ObserverStatistics
 
 class StatisticsQLearningRewards(ObserverStatistics):

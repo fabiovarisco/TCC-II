@@ -7,8 +7,8 @@ from simulation.TrafficLight import TrafficLight
 class StatisticsStageChange(ObserverStatistics):
 
     """docstring for StatisticsStageChange."""
-    def __init__(self, runID, filePrefix = "state_change"):
-        super(StatisticsStageChange, self).__init__(runID, ['step', 'tl_id', 'new_state'], filePrefix)
+    def __init__(self, runID, folder, filePrefix = "state_change"):
+        super(StatisticsStageChange, self).__init__(runID, folder, ['step', 'tl_id', 'new_state'], filePrefix)
 
     def update(self, step, **kwargs):
         traffic_light = kwargs['traffic_light']

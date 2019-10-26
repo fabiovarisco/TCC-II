@@ -5,8 +5,8 @@ from traci import simulation
 class StatisticsTotalTravelTime(Statistics):
 
     """docstring for StatisticsTotalTravelTime."""
-    def __init__(self, runID, filePrefix = "travel_time"):
-        super(StatisticsTotalTravelTime, self).__init__(runID,  ['step', 'veh_id', 'ttime'], filePrefix)
+    def __init__(self, runID, folder, filePrefix = "travel_time"):
+        super(StatisticsTotalTravelTime, self).__init__(runID,  folder, ['step', 'veh_id', 'ttime'], filePrefix)
 
         self.vehiclesDeparture = {}
 

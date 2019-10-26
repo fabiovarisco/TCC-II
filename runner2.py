@@ -49,5 +49,5 @@ if __name__ == "__main__":
     #experimentParams = [{'prefix': f'{experimentPrefix}_th2qr1', 'configFile': 'configs/fpvpl_throughput2_queueratio1.cfg'},
     #                    {'prefix': f'{experimentPrefix}_th1qr1', 'configFile': 'configs/fpvpl_throughput1_queueratio1.cfg'},
     #                    {'prefix': f'{experimentPrefix}_th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
-    experimentParams = [{'prefix': f'{experimentPrefix}', 'configFile': 'configs/simple_config.cfg'}]
-    s = SimulationManager(options, experimentParams, 1)
+    experimentParams = [{'prefix': 'exp1', 'configFile': 'configs/simple_config.cfg'}]
+    s = SimulationManager(options, experimentPrefix, experimentParams, 1)

@@ -1,5 +1,5 @@
 import random
-import sys
+import sys, os
 
 from sumolib import checkBinary  # noqa
 import traci  # noqa
@@ -21,18 +21,22 @@ class SimulationManager(object):
 
     currentSimulation = None
     """docstring for Simulation."""
-    def __init__(self, options, experimentParams, numberOfRuns):
+    def __init__(self, options, experimentPrefix, experimentParams, numberOfRuns):
         # experimentParams = [{'prefix': prefix, 'configFile': file}]
         # experimentPrefix, numberOfRuns, configFile):
         super(SimulationManager, self).__init__()
 
         #self.config = SimulationConfig(experimentParams[0]['configFile'])
         #self._generate_routefile()
+        self.experimentPrefix = experimentPrefix
+        print(f"====== Starting Experiment {experimentPrefix} ======")
+        if not os.path.exists(experimentPrefix):
+            os.mkdir(experimentPrefix)
 
         self.simulations = []
         print('====== Starting Simulation runs ======\n')
         for e in experimentParams:
-            print(f"====== Starting Experiment {e['prefix']} ======")
+            print(f"====== Starting Trial {e['prefix']} ======")
             print(f"Reading config file {e['configFile']}...")
             self.config = SimulationConfig(e['configFile'])
             simulations = []
@@ -46,7 +50,7 @@ class SimulationManager(object):
 
 
     def _run(self, simulationId, options):
-        s = Simulation.Simulation(simulationId, options, self.config)
+        s = Simulation.Simulation(self.experimentPrefix, simulationId, options, self.config)
         SimulationManager.currentSimulation = s
         self._subscribeToStatistics(s)
         s.init()

@@ -20,12 +20,13 @@ class Simulation(object):
     LOG_EVERY_STEPS = 1000
 
     """docstring for Simulation."""
-    def __init__(self, runID, options, config):
+    def __init__(self, experimentPrefix, runID, options, config):
         super(Simulation, self).__init__()
 
         self.config = config
         self.indicators = {}
 
+        self.experimentPrefix = experimentPrefix
         self.runID = runID
         self.options = options
         self.currentStep = 0
@@ -95,7 +96,7 @@ class Simulation(object):
     def subscribe(self, eventID, Statistics):
         if (not(eventID in self.indicators)):
             self.indicators[eventID] = []
-        self.indicators[eventID].append(Statistics(self.runID))
+        self.indicators[eventID].append(Statistics(self.runID, self.experimentPrefix))
 
     def notify(self, eventID, **kwargs):
         for ind in (self.indicators.get(eventID, [])):
