@@ -10,7 +10,7 @@ from stats.StatisticsMaxLength import StatisticsMaxLength
 from stats.StatisticsStageChange import StatisticsStageChange
 from stats.StatisticsTotalTravelTime import StatisticsTotalTravelTime
 from stats.StatisticsQueueLength import StatisticsQueueLength
-from stats.StatisticsAdaptiveRewardFunctionWeight import StatisticsAdaptiveRewardFunctionWeight
+from stats.StatisticsRewardFunction import StatisticsRewardFunction, StatisticsAdaptiveRewardFunctionWeight
 from stats.StatisticsQLearningRewards import StatisticsQLearningRewards
 from simulation import Simulation
 from simulation.event_constants import *
@@ -59,6 +59,7 @@ class SimulationManager(object):
         s.subscribe(EVENT_SIMULATION_STEP, StatisticsQueueLength)
         s.subscribe(EVENT_QLEARNING_DECISION, StatisticsQLearningRewards)
         s.subscribe(EVENT_ADAPTIVE_REWARD_FUNCTION_WEIGHT, StatisticsAdaptiveRewardFunctionWeight)
+        s.subscribe(EVENT_REWARD_FUNCTION, StatisticsRewardFunction)
 
     @staticmethod
     def getCurrentSimulation():

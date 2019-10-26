@@ -16,7 +16,7 @@ class RewardFunction(ABC):
 
 import math
 import SimulationManager as sm
-from simulation.event_constants import EVENT_ADAPTIVE_REWARD_FUNCTION_WEIGHT
+from simulation.event_constants import EVENT_ADAPTIVE_REWARD_FUNCTION_WEIGHT, EVENT_REWARD_FUNCTION
 
 class AdaptiveRewardFunction(RewardFunction, ABC):
 
@@ -84,7 +84,16 @@ class RewardCumulativeDelay(RewardFunction):
         self.currentStepCumulativeDelay = self.controller.trafficLight.getTotalCumulativeDelay()
 
     def getReward(self):
-        return (self.previousStepCumulativeDelay - self.currentStepCumulativeDelay) / self.maxPossibleDelay
+        previous = self.previousStepCumulativeDelay
+        current = self.currentStepCumulativeDelay
+        reward = (previous - current) / self.maxPossibleDelay
+
+        sm.SimulationManager.getCurrentSimulation().notify(EVENT_REWARD_FUNCTION, 
+                    tl_id=self.controller.trafficLight.getID(), 
+                    reward_type='cumulative_delay', previous=previous,
+                    current=current, max=self.maxPossibleDelay, reward=reward)
+
+        return reward
 
 class RewardWaitingVehicles(RewardFunction):
 
@@ -112,11 +121,16 @@ class RewardWaitingVehicles(RewardFunction):
         self.currentStepWaitingVehicles = waitingVehicles
 
     def getReward(self):
-        reward = (self.previousStepWaitingVehicles - self.currentStepWaitingVehicles) / self.maxReward
+        previous = self.previousStepWaitingVehicles
+        current = self.currentStepWaitingVehicles
+        reward = (previous - current) / self.maxReward
         
-        # TODO Implement a statistics file to log rewards.
+        sm.SimulationManager.getCurrentSimulation().notify(EVENT_REWARD_FUNCTION, 
+                    tl_id=self.controller.trafficLight.getID(), 
+                    reward_type='waiting_vehicles', previous=previous,
+                    current=current, max=self.maxReward, reward=reward)
 
-        return error_todo
+        return reward
 
 from SimulationConfig import QLEARNING_REWARD_WEIGHT_THROUGHPUT, QLEARNING_REWARD_WEIGHT_QUEUE_RATIO, CONSTANT_SATURATION_FLOW, TLC_STAGE_MAX_LENGTH, LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY, VEHICLE_AVG_LENGTH, TLC_QLEARNING_ACTION_MAX_GREEN, TLC_QLEARNING_ACTION_UNIT_LENGTH 
 import SimulationManager as sm
@@ -164,8 +178,17 @@ class RewardThroughput(RewardFunction):
         return queueRatio
 
     def getReward(self):
-        return ((self.weight_throughput * self._getThroughputForCurrentStage())
-                + (self.weight_queue_ratio * self._getQueueRatio())) / (self.weight_throughput + self.weight_queue_ratio)
+        throughput = self._getThroughputForCurrentStage()
+        queue_ratio = self._getQueueRatio()
+        totalWeight = self.weight_throughput + self.weight_queue_ratio
+        reward = (((self.weight_throughput * throughput)
+                + (self.weight_queue_ratio * queue_ratio)) / totalWeight)
+
+        sm.SimulationManager.getCurrentSimulation().notify(EVENT_REWARD_FUNCTION, 
+                    tl_id=self.controller.trafficLight.getID(), 
+                    reward_type='throughput_queueratio', previous=throughput,
+                    current=queue_ratio, max=totalWeight, reward=reward)
+        return reward
 
 class AdaptiveLaneOccupancyReward(AdaptiveRewardFunction):
 
