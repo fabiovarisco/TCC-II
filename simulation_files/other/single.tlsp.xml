@@ -1,0 +1,54 @@
+<additional>
+
+<!--
+  <e1Detector id="0" lane="4i_0" pos="450" freq="30" file="cross.out" friendlyPos="x"/>
+
+  <tlLogic id="0" programID="fxm1" offset="0" type="static">
+    <phase duration="60" state="GrGr"/>
+    <phase duration="2"  state="yryr"/>
+    <phase duration="2"  state="rrrr"/>
+    <phase duration="60" state="rGrG"/>
+    <phase duration="2"  state="ryry"/>
+    <phase duration="2"  state="rrrr"/>
+  </tlLogic>
+
+  <tlLogic id="0" programID="actuated_gap" offset="0" type="actuated">
+    <param key="max-gap" value="8.0"/>
+    <param key="detector-gap" value="2.0"/>
+    <param key="show-detectors" value="true"/>
+    <param key="file" value="NULL"/>
+    <param key="freq" value="300"/>
+
+    <phase duration="30" minDur="5" maxDur="60" state="GrGr"/>
+    <phase duration="2" minDur="2" maxDur="2" state="yryr"/>
+    <phase duration="2" minDur="2" maxDur="2" state="rrrr"/>
+    <phase duration="30" minDur="5" maxDur="60" state="rGrG"/>
+    <phase duration="2" minDur="2" maxDur="2" state="ryry"/>
+    <phase duration="2" minDur="2" maxDur="2" state="rrrr"/>
+  </tlLogic>
+
+  <tlLogic id="0" programID="actuated_delay" offset="0" type="delay_based">
+    <param key="detectorRange" value="100" />
+    <param key="minTimeLoss" value="3" />
+    <param key="file" value="NULL"/>
+    <param key="freq" value="300"/>
+    <param key="show-detectors" value="true"/>
+
+    <phase duration="30" minDur="5" maxDur="60" state="GrGr"/>
+    <phase duration="2" minDur="2" maxDur="2" state="yryr"/>
+    <phase duration="2" minDur="2" maxDur="2" state="rrrr"/>
+    <phase duration="30" minDur="5" maxDur="60" state="rGrG"/>
+    <phase duration="2" minDur="2" maxDur="2" state="ryry"/>
+    <phase duration="2" minDur="2" maxDur="2" state="rrrr"/>
+  </tlLogic>
+-->
+  <tlLogic id="0" programID="1" offset="0" type="static">
+    <phase duration="1000" state="GrGr"/>
+    <phase duration="2"  state="yryr"/>
+    <phase duration="2"  state="rrrr"/>
+    <phase duration="1000" state="rGrG"/>
+    <phase duration="2"  state="ryry"/>
+    <phase duration="2"  state="rrrr"/>
+  </tlLogic>
+
+</additional>

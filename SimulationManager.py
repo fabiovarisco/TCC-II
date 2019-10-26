@@ -26,8 +26,8 @@ class SimulationManager(object):
         # experimentPrefix, numberOfRuns, configFile):
         super(SimulationManager, self).__init__()
 
-        self.config = SimulationConfig(experimentParams[0]['configFile'])
-        self._generate_routefile()
+        #self.config = SimulationConfig(experimentParams[0]['configFile'])
+        #self._generate_routefile()
 
         self.simulations = []
         print('====== Starting Simulation runs ======\n')

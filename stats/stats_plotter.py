@@ -194,8 +194,6 @@ if __name__ == '__main__':
                         {'prefix': f'{experimentPrefix}_th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
     numberOfRuns = 10
 
-
-
     stats_sc = 'state_change'
     stats_ml = 'max_length'
     stats_tt = 'travel_time'
