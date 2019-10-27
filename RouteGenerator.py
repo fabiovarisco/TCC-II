@@ -86,7 +86,7 @@ if __name__ == '__main__':
     params = [
         {'steps': 1000, 'pWE':20, 'pEW':19, 'pNS':23, 'pSN':21, 'start_change_in': 900},
         {'steps': 1000, 'pWE':13, 'pEW':15, 'pNS':12, 'pSN':14, 'start_change_in': 950},
-        {'steps': 1000, 'pWE':7, 'pEW':5, 'pNS':6, 'pSN':4, 'start_change_in': 800},
+        {'steps': 1000, 'pWE':3, 'pEW':2, 'pNS':4, 'pSN':3, 'start_change_in': 850},
         {'steps': 1000, 'pWE':13, 'pEW':15, 'pNS':9, 'pSN':8, 'start_change_in': 850},
         {'steps': 1000, 'pWE':19, 'pEW':23, 'pNS':18, 'pSN':20, 'start_change_in': 950},
     ]

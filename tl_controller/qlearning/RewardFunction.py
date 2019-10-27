@@ -29,7 +29,7 @@ class AdaptiveRewardFunction(RewardFunction, ABC):
         x = (x * 2) - 1
         return 1 / (1 + math.exp(-kwargs['steepness'] * (x - kwargs['inf_point'])))
 
-    def __init__(self, controller, activationFunction = activationLinear, steepness = 5, inf_point = 0):
+    def __init__(self, controller, activationFunction = activationLinear, steepness = 15, inf_point = -0.2):
         RewardFunction.__init__(self, controller)
         self.functions = []
         self.activationFunction = activationFunction
