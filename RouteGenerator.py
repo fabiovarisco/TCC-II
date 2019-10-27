@@ -42,22 +42,23 @@ guiShape="passenger"/>
                 delta = True
 
             for s in range(p['steps']):
-                if random.uniform(0, 1) < pWE:
-                    print('    <vehicle id="right_%i_%i" type="passenger" route="right" depart="%i" />' % (
-                        i, vehNr, stepCounter), file=routes)
-                    vehNr += 1
-                if random.uniform(0, 1) < pEW:
-                    print('    <vehicle id="left_%i_%i" type="passenger" route="left" depart="%i" />' % (
-                        i, vehNr, stepCounter), file=routes)
-                    vehNr += 1
-                if random.uniform(0, 1) < pNS:
-                    print('    <vehicle id="down_%i_%i" type="passenger" route="down" depart="%i" color="1,0,0"/>' % (
-                        i, vehNr, stepCounter), file=routes)
-                    vehNr += 1
-                if random.uniform(0, 1) < pSN:
-                    print('    <vehicle id="up_%i_%i" type="passenger" route="up" depart="%i" color="1,0,0"/>' % (
-                        i, vehNr, stepCounter), file=routes)
-                    vehNr += 1
+                for j in range(p['repeat']):
+                    if random.uniform(0, 1) < pWE:
+                        print('    <vehicle id="right_%i_%i" type="passenger" route="right" depart="%i" />' % (
+                            i, vehNr, stepCounter), file=routes)
+                        vehNr += 1
+                    if random.uniform(0, 1) < pEW:
+                        print('    <vehicle id="left_%i_%i" type="passenger" route="left" depart="%i" />' % (
+                            i, vehNr, stepCounter), file=routes)
+                        vehNr += 1
+                    if random.uniform(0, 1) < pNS:
+                        print('    <vehicle id="down_%i_%i" type="passenger" route="down" depart="%i" color="1,0,0"/>' % (
+                            i, vehNr, stepCounter), file=routes)
+                        vehNr += 1
+                    if random.uniform(0, 1) < pSN:
+                        print('    <vehicle id="up_%i_%i" type="passenger" route="up" depart="%i" color="1,0,0"/>' % (
+                            i, vehNr, stepCounter), file=routes)
+                        vehNr += 1'
                 if delta and s >= startChangeIn:
                     pWE += delta_pWE
                     pEW += delta_pEW
@@ -84,11 +85,18 @@ def getProbabilities(param):
 
 if __name__ == '__main__':
     params = [
-        {'steps': 1000, 'pWE':20, 'pEW':19, 'pNS':23, 'pSN':21, 'start_change_in': 900},
-        {'steps': 1000, 'pWE':13, 'pEW':15, 'pNS':12, 'pSN':14, 'start_change_in': 950},
-        {'steps': 1000, 'pWE':3, 'pEW':2, 'pNS':4, 'pSN':3, 'start_change_in': 850},
-        {'steps': 1000, 'pWE':1, 'pEW':1.5, 'pNS':2, 'pSN':1.5, 'start_change_in': 850},
-        {'steps': 1000, 'pWE':13, 'pEW':15, 'pNS':9, 'pSN':8, 'start_change_in': 850},
-        {'steps': 2000, 'pWE':19, 'pEW':23, 'pNS':18, 'pSN':20, 'start_change_in': 950},
+        {'steps': 1000, 'pWE':20, 'pEW':19, 'pNS':23, 'pSN':21, 'repeat':1, 'start_change_in': 900},
+        {'steps': 1000, 'pWE':13, 'pEW':15, 'pNS':12, 'pSN':14, 'repeat':1, 'start_change_in': 950},
+        {'steps': 1000, 'pWE':3, 'pEW':2, 'pNS':4, 'pSN':3, 'repeat':1, 'start_change_in': 850},
+        {'steps': 1000, 'pWE':1, 'pEW':1.5, 'pNS':2, 'pSN':1.5, 'repeat':1, 'start_change_in': 850},
+        {'steps': 1000, 'pWE':13, 'pEW':15, 'pNS':9, 'pSN':8, 'repeat':1, 'start_change_in': 850},
+        {'steps': 4000, 'pWE':19, 'pEW':23, 'pNS':18, 'pSN':20, 'repeat':1, 'start_change_in': 3800},
+        {'steps': 1000, 'pWE':13, 'pEW':15, 'pNS':12, 'pSN':14, 'repeat':1, 'start_change_in': 950},
+        {'steps': 400, 'pWE':3, 'pEW':2, 'pNS':4, 'pSN':3, 'repeat':1, 'start_change_in': 350},
+        {'steps': 500, 'pWE':3, 'pEW':2, 'pNS':4, 'pSN':3, 'repeat':2, 'start_change_in': 450},
+        {'steps': 500, 'pWE':1, 'pEW':1.5, 'pNS':2, 'pSN':1.5, 'repeat':2, 'start_change_in': 180},
+        {'steps': 200, 'pWE':1, 'pEW':1.5, 'pNS':2, 'pSN':1.5, 'repeat':1, 'start_change_in': 180},
+        {'steps': 1000, 'pWE':13, 'pEW':15, 'pNS':9, 'pSN':8, 'repeat':1, 'start_change_in': 850},
+        {'steps': 5000, 'pWE':19, 'pEW':23, 'pNS':18, 'pSN':20, 'repeat':1, 'start_change_in': 950},
     ]
     generate_routefile(params, "./simulation_files/routes/single.rou.xml")

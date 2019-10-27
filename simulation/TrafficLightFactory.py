@@ -105,7 +105,7 @@ class TrafficLightFactory(object):
 
         rf = AdaptiveLaneOccupancyReward(trafficLight.controller,
                 activationFunction = AdaptiveRewardFunction.activationAdaptedSigmoid,
-                steepness = 7, inf_point = 0.3)
+                steepness = 15, inf_point = -0.4)
         rf.addFunction(RewardAverageQueueLength(trafficLight.controller), weight = 1, inverse = True)
         rf.addFunction(RewardThroughput(trafficLight.controller), weight = 1, inverse = False)
 
