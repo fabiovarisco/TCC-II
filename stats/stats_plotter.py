@@ -49,7 +49,7 @@ def readResults(folder, prefix, statistics, numberOfRuns):
     return results
 
 def describe(results, filePrefix, column):
-    print(f"\n==== Describe {e['prefix']} - {column} ====")
+    print(f"\n==== Describe {e['experimentPrefix']} - {e['prefix']} - {column} ====")
     dfAll = pd.concat([r[filePrefix] for r in results], ignore_index=True)
     #dfAll = sAgg.aggregate(dfAll, 'step' {column: 'mean'})
     print(dfAll[column].describe())
@@ -76,10 +76,10 @@ def getMinMeanAndStd(experimentParams, filePrefix, col, func):
         std = dfAll[col].std()
         if (mean < minMean):
             minMean = mean
-            minMeanPrefix = e['prefix']
+            minMeanPrefix = f"{e['experimentPrefix']}_{e['prefix']}"
         if (std < minStd):
             minStd = std
-            minStdPrefix = e['prefix']
+            minStdPrefix = f"{e['experimentPrefix']}_{e['prefix']}"
     print(f'\n\n Min for {filePrefix}')
     print(f'Min Mean: {minMean}. Experiment: {minMeanPrefix}.')
     print(f'Min Std: {minStd}. Experiment: {minStdPrefix}.\n')
@@ -90,7 +90,7 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, file_prefix, y
     y_columns = []
     for e in experimentParams:
         dfAll = aggregateDFs(e['results'], file_prefix, 'step', y_column, 'mean')
-        new_y_col = f"{y_column}_{e['prefix']}"
+        new_y_col = f"{y_column}_{e['experimentPrefix']}_{e['prefix']}"
         dfAll.rename(columns={y_column: new_y_col}, inplace=True)
         y_columns.append(new_y_col)
         if (result is None): result = dfAll
@@ -193,11 +193,12 @@ if __name__ == '__main__':
                         {'prefix': f'{experimentPrefix}_th1qr1', 'configFile': 'configs/fpvpl_throughput1_queueratio1.cfg'},
                         {'prefix': f'{experimentPrefix}_th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
     numberOfRuns = 10
-    experimentPrefix = 'deepq1_adaptative'
+    experimentPrefix = 'deepq1_adaptive'
     #experimentParams = [{'prefix': f'{experimentPrefix}_th2qr1', 'configFile': 'configs/fpvpl_throughput2_queueratio1.cfg'},
     #                    {'prefix': f'{experimentPrefix}_th1qr1', 'configFile': 'configs/fpvpl_throughput1_queueratio1.cfg'},
     #                    {'prefix': f'{experimentPrefix}_th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
-    experimentParams = [{'prefix': 'exp1', 'configFile': 'configs/simple_config.cfg'}]
+    experimentParams = [{'experimentPrefix': 'deepq1', 'prefix': 'exp1', 'configFile': 'configs/simple_config.cfg'},
+                        {'experimentPrefix': 'deepq1_adaptive', 'prefix': 'exp1', 'configFile': 'configs/simple_config.cfg'}]
 
     numberOfRuns = 1
 
@@ -215,7 +216,7 @@ if __name__ == '__main__':
     kinds = [sAgg.PLOT_KIND_SCATTER, sAgg.PLOT_KIND_LINE]
 
     for e in experimentParams:
-        e['results'] = readResults(experimentPrefix, e['prefix'], [stats_sc, stats_ml, stats_tt], numberOfRuns)
+        e['results'] = readResults(e['experimentPrefix'], e['prefix'], [stats_sc, stats_ml, stats_tt], numberOfRuns)
 
     #createPlot(experimentPrefix, label_ql, experimentParams, numberOfRuns, file_prefixes, y_columns, kinds, aggregateDFsBy=aggregateDFsBy,
     #            groupRunsColumn = col_ml, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_ml)
