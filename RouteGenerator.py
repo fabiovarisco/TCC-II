@@ -44,21 +44,21 @@ guiShape="passenger"/>
             for s in range(p['steps']):
                 for j in range(p['repeat']):
                     if random.uniform(0, 1) < pWE:
-                        print('    <vehicle id="right_%i_%i" type="passenger" route="right" depart="%i" />' % (
-                            i, vehNr, stepCounter), file=routes)
+                        print('    <vehicle id="right__%i_%i_%i" type="passenger" route="right" depart="%i" />' % (
+                            i, j, vehNr, stepCounter), file=routes)
                         vehNr += 1
                     if random.uniform(0, 1) < pEW:
-                        print('    <vehicle id="left_%i_%i" type="passenger" route="left" depart="%i" />' % (
-                            i, vehNr, stepCounter), file=routes)
+                        print('    <vehicle id="left_%i_%i_%i" type="passenger" route="left" depart="%i" />' % (
+                            i, j, vehNr, stepCounter), file=routes)
                         vehNr += 1
                     if random.uniform(0, 1) < pNS:
-                        print('    <vehicle id="down_%i_%i" type="passenger" route="down" depart="%i" color="1,0,0"/>' % (
-                            i, vehNr, stepCounter), file=routes)
+                        print('    <vehicle id="down_%i_%i_%i" type="passenger" route="down" depart="%i" color="1,0,0"/>' % (
+                            i, j, vehNr, stepCounter), file=routes)
                         vehNr += 1
                     if random.uniform(0, 1) < pSN:
-                        print('    <vehicle id="up_%i_%i" type="passenger" route="up" depart="%i" color="1,0,0"/>' % (
-                            i, vehNr, stepCounter), file=routes)
-                        vehNr += 1'
+                        print('    <vehicle id="up_%i_%i_%i" type="passenger" route="up" depart="%i" color="1,0,0"/>' % (
+                            i, j, vehNr, stepCounter), file=routes)
+                        vehNr += 1
                 if delta and s >= startChangeIn:
                     pWE += delta_pWE
                     pEW += delta_pEW

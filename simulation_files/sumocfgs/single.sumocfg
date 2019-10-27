@@ -4,7 +4,7 @@
 
     <input>
         <net-file value="../networks/single_shorter.net.xml"/>
-        <route-files value="../routes/single.rou.xml"/>
+        <route-files value="../routes/isolated_exp5.rou.xml"/>
         <additional-files value="../other/single.tlsp.xml"/>
     </input>
 
