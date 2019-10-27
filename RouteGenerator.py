@@ -99,4 +99,10 @@ if __name__ == '__main__':
         {'steps': 1000, 'pWE':13, 'pEW':15, 'pNS':9, 'pSN':8, 'repeat':1, 'start_change_in': 850},
         {'steps': 5000, 'pWE':19, 'pEW':23, 'pNS':18, 'pSN':20, 'repeat':1, 'start_change_in': 950},
     ]
-    generate_routefile(params, "./simulation_files/routes/single.rou.xml")
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("out_file")
+    args = parser.parse_args()
+    #"./simulation_files/routes/single.rou.xml"
+    generate_routefile(params, args.out_file)

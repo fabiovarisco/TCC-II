@@ -136,6 +136,11 @@ class TrafficLightFactory(object):
     def createTrafficLightDeepQLearningFPVCLAvgQueueLengthRF(id):
         return TrafficLightFactory.createTrafficLightDeepQLearningFPVCLFromRF(id, RewardAverageQueueLength)
 
+    @staticmethod
+    def createTrafficLightDeepQLearningFPVCLThroughputRF(id):
+        return TrafficLightFactory.createTrafficLightDeepQLearningFPVCLFromRF(id, RewardThroughput)
+
 TLC_TYPE_FUNCTIONS = {'DeepQLearningAdaptiveLaneOccupancyRF': TrafficLightFactory.createTrafficLightDeepQLearningFPVCLAdaptiveLaneOccupancyRF,
                        'DeepQLearningWaitingVehiclesRF': TrafficLightFactory.createTrafficLightDeepQLearningFPVCLWaitingVehiclesRF,
-                       'DeepQLearningAvgQueueLengthRF': TrafficLightFactory.createTrafficLightDeepQLearningFPVCLAvgQueueLengthRF}
+                       'DeepQLearningAvgQueueLengthRF': TrafficLightFactory.createTrafficLightDeepQLearningFPVCLAvgQueueLengthRF,
+                       'DeepQLearningThroughputRF': TrafficLightFactory.createTrafficLightDeepQLearningFPVCLThroughputRF}

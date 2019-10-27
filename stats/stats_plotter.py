@@ -198,7 +198,13 @@ if __name__ == '__main__':
     #                    {'prefix': f'{experimentPrefix}_th1qr1', 'configFile': 'configs/fpvpl_throughput1_queueratio1.cfg'},
     #                    {'prefix': f'{experimentPrefix}_th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
     experimentParams = [{'experimentPrefix': 'deepq1', 'prefix': 'exp1', 'configFile': 'configs/simple_config.cfg'},
-                        {'experimentPrefix': 'deepq1_adaptive', 'prefix': 'exp1', 'configFile': 'configs/simple_config.cfg'}]
+                        {'experimentPrefix': 'deepq1_adaptive', 'prefix': 'exp1', 'configFile': 'configs/simple_config.cfg'},
+                        {'experimentPrefix': 'deepq1_adaptive', 'prefix': 'steep15_inf-04', 'configFile': 'configs/simple_config.cfg'}]
+    experimentPrefix = 'exp4_deepq1_adaptive'
+    experimentParams = [{'experimentPrefix': 'exp4_deepq1_adaptive', 'prefix': 'rf_avg_queue_length', 'configFile': 'configs/simple_deep_avg_queue_length.cfg'},
+                        {'experimentPrefix': 'exp4_deepq1_adaptive', 'prefix': 'rf_throughput', 'configFile': 'configs/simple_deep_throughput.cfg'},
+                        {'experimentPrefix': 'exp4_deepq1_adaptive', 'prefix': 'rf_adaptive_lane_occup', 'configFile': 'configs/simple_deep_adaptive_lane_occupancy.cfg'}]
+
 
     numberOfRuns = 1
 
