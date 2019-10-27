@@ -3,9 +3,9 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="../networks/single.net.xml"/>
+        <net-file value="../networks/single_shorter.net.xml"/>
         <route-files value="../routes/single.rou.xml"/>
-        <additional-files value="../other/single.tlsp.xml"/> 
+        <additional-files value="../other/single.tlsp.xml"/>
     </input>
 
     <time>

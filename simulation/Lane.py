@@ -2,7 +2,7 @@ from traci import lane as tLane
 import SimulationManager as sm #import SimulationManager as simulationMgr
 from simulation.Vehicle import VehicleFactory
 import numpy as np
-from SimulationConfig import VEHICLE_AVG_LENGTH
+from SimulationConfig import VEHICLE_AVG_LENGTH, LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY
 import SimulationManager as sm
 
 class Lane(object):
@@ -78,7 +78,7 @@ class Lane(object):
 
     def getMaxAcceptableQueueLength(self):
         return (self.getMaxPossibleQueueLength()
-            * sm.SimulationManager.getCurrentSimulation().config.getFloat(LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY)))
+            * sm.SimulationManager.getCurrentSimulation().config.getFloat(LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY))
 
 class LaneFactory(object):
 

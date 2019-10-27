@@ -87,7 +87,8 @@ if __name__ == '__main__':
         {'steps': 1000, 'pWE':20, 'pEW':19, 'pNS':23, 'pSN':21, 'start_change_in': 900},
         {'steps': 1000, 'pWE':13, 'pEW':15, 'pNS':12, 'pSN':14, 'start_change_in': 950},
         {'steps': 1000, 'pWE':3, 'pEW':2, 'pNS':4, 'pSN':3, 'start_change_in': 850},
+        {'steps': 1000, 'pWE':1, 'pEW':1.5, 'pNS':2, 'pSN':1.5, 'start_change_in': 850},
         {'steps': 1000, 'pWE':13, 'pEW':15, 'pNS':9, 'pSN':8, 'start_change_in': 850},
-        {'steps': 1000, 'pWE':19, 'pEW':23, 'pNS':18, 'pSN':20, 'start_change_in': 950},
+        {'steps': 2000, 'pWE':19, 'pEW':23, 'pNS':18, 'pSN':20, 'start_change_in': 950},
     ]
     generate_routefile(params, "./simulation_files/routes/single.rou.xml")
