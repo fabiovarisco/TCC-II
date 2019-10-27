@@ -76,6 +76,10 @@ class Lane(object):
             maxQueueLength = self.getLength() / sm.SimulationManager.getCurrentSimulation().config.getInt(VEHICLE_AVG_LENGTH)
         return maxQueueLength
 
+    def getMaxAcceptableQueueLength(self):
+        return (self.getMaxPossibleQueueLength()
+            * sm.SimulationManager.getCurrentSimulation().config.getFloat(LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY)))
+
 class LaneFactory(object):
 
     lanes = {}

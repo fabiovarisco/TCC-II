@@ -8,7 +8,7 @@ from tl_controller.TrafficLightControllerQLearningFPVCL import TrafficLightContr
 from tl_controller.qlearning.ControllerAlgorithmQLearning import ControllerAlgorithmQLearning
 from tl_controller.qlearning.ControllerAlgorithmDeepQLearning import ControllerAlgorithmDeepQLearning
 from tl_controller.qlearning.RewardFunction import RewardCumulativeDelay, RewardThroughput, AdaptiveRewardFunction, AdaptiveLaneOccupancyReward, RewardWaitingVehicles
-from tl_controller.qlearning.StateRepresentation import StateRepresentation, StateQueueLengthDiscretized, StateQueueLength, StateCurrentStage
+from tl_controller.qlearning.StateRepresentation import StateRepresentation, StateQueueLengthDiscretized, StateQueueLength, StateCurrentStage, RewardAverageQueueLength
 from tl_controller.qlearning.QLearningAlgorithmFactory import QLearningAlgorithmFactory
 
 class TrafficLightFactory(object):
@@ -106,7 +106,7 @@ class TrafficLightFactory(object):
         rf = AdaptiveLaneOccupancyReward(trafficLight.controller,
                 activationFunction = AdaptiveRewardFunction.activationAdaptedSigmoid,
                 steepness = 7, inf_point = 0.3)
-        rf.addFunction(RewardWaitingVehicles(trafficLight.controller), weight = 1, inverse = True)
+        rf.addFunction(RewardAverageQueueLength(trafficLight.controller), weight = 1, inverse = True)
         rf.addFunction(RewardThroughput(trafficLight.controller), weight = 1, inverse = False)
 
 
@@ -118,17 +118,24 @@ class TrafficLightFactory(object):
         return trafficLight
 
     @staticmethod
-    def createTrafficLightDeepQLearningFPVCLWaitingVehiclesRF(id):
+    def createTrafficLightDeepQLearningFPVCLFromRF(id, RewardFunction):
         trafficLight = TrafficLightFactory.createBasicTrafficLightDeepQLearningFPVCL(id)
 
-        rf = RewardWaitingVehicles(trafficLight.controller)
-
-        trafficLight.controller.setRewardFunction(rf)
+        trafficLight.controller.setRewardFunction(RewardFunction(trafficLight.controller))
         trafficLight.controller.setStateRepresentation(StateQueueLength(trafficLight.controller,
                                                                 stateComponent = StateCurrentStage(trafficLight.controller, stateRepresentationType = StateRepresentation.STATE_REPRESENTATION_NP_ARRAY),
                                                                 stateRepresentationType = StateRepresentation.STATE_REPRESENTATION_NP_ARRAY
                                                                 ))
         return trafficLight
 
+    @staticmethod
+    def createTrafficLightDeepQLearningFPVCLWaitingVehiclesRF(id):
+        return TrafficLightFactory.createTrafficLightDeepQLearningFPVCLFromRF(id, RewardWaitingVehicles)
+
+    @staticmethod
+    def createTrafficLightDeepQLearningFPVCLAvgQueueLengthRF(id):
+        return TrafficLightFactory.createTrafficLightDeepQLearningFPVCLFromRF(id, RewardAverageQueueLength)
+
 TLC_TYPE_FUNCTIONS = {'DeepQLearningAdaptiveLaneOccupancyRF': TrafficLightFactory.createTrafficLightDeepQLearningFPVCLAdaptiveLaneOccupancyRF,
-                       'DeepQLearningWaitingVehiclesRF': TrafficLightFactory.createTrafficLightDeepQLearningFPVCLWaitingVehiclesRF}
+                       'DeepQLearningWaitingVehiclesRF': TrafficLightFactory.createTrafficLightDeepQLearningFPVCLWaitingVehiclesRF,
+                       'DeepQLearningAvgQueueLengthRF': TrafficLightFactory.createTrafficLightDeepQLearningFPVCLAvgQueueLengthRF}

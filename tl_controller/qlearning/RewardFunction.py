@@ -132,6 +132,37 @@ class RewardWaitingVehicles(RewardFunction):
 
         return reward
 
+class RewardAverageQueueLength(RewardFunction):
+
+    def __init__(self, controller):
+        super().__init__(controller)
+        
+    def step(self, step):
+        pass
+
+    def getReward(self):
+        averageQueueLength = 0
+        averageMaxAcceptableQueueLength = 0
+
+        n = 0
+        for s in self.controller.trafficLight.getStages():
+            for sl in s.getSignalLanes():
+                averageQueueLength += sl.incoming.getQueueLength()
+                averageMaxAcceptableQueueLength += sl.incoming.getMaxAcceptableQueueLength()
+                n += 1
+        averageQueueLength = averageQueueLength / n
+        averageMaxAcceptableQueueLength = averageMaxAcceptableQueueLength / n
+
+        reward = 1 - (averageQueueLength / averageMaxAcceptableQueueLength)
+
+        sm.SimulationManager.getCurrentSimulation().notify(EVENT_REWARD_FUNCTION,
+                    tl_id=self.controller.trafficLight.getId(),
+                    reward_type='avg_queue_length', previous=averageQueueLength,
+                    current=averageQueueLength, max=averageMaxAcceptableQueueLength, reward=reward)
+
+        return reward
+
+
 from SimulationConfig import QLEARNING_REWARD_WEIGHT_THROUGHPUT, QLEARNING_REWARD_WEIGHT_QUEUE_RATIO, CONSTANT_SATURATION_FLOW, TLC_STAGE_MAX_LENGTH, LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY, VEHICLE_AVG_LENGTH, TLC_QLEARNING_ACTION_MAX_GREEN, TLC_QLEARNING_ACTION_UNIT_LENGTH
 import SimulationManager as sm
 
@@ -170,8 +201,7 @@ class RewardThroughput(RewardFunction):
                     maxLength = qL
                     maxLengthIndex = i
                 i += 1
-            laneAceptableQueueLength = (s.getSignalLanes()[maxLengthIndex].incoming.getMaxPossibleQueueLength()
-                    * sm.SimulationManager.getCurrentSimulation().config.getFloat(LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY))
+            laneAceptableQueueLength = s.getSignalLanes()[maxLengthIndex].incoming.getMaxAcceptableQueueLength()
             queueRatio += maxLength / laneAceptableQueueLength
 
         queueRatio = 1 - (queueRatio / len(self.controller.trafficLight.getStages()))
