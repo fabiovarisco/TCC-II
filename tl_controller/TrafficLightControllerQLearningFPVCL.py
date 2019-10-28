@@ -23,5 +23,11 @@ class TrafficLightControllerQLearningFPVCL(tlcQLearning.TrafficLightControllerQL
 
     def takeAction(self, action, step):
         self.nextStepIn = action * sm.SimulationManager.getCurrentSimulation().config.getInt(TLC_QLEARNING_ACTION_UNIT_LENGTH)
-        self.trafficLight.advanceStage()
-        self.resetCounterStep = step + sm.SimulationManager.getCurrentSimulation().config.getInt(TL_STAGE_LOST_TIME)
+        self.resetActionStep = step
+        
+    def step(self, step):
+        if (step - self.resetActionStep > self.nextStepIn):
+            self.trafficLight.advanceStage()
+            
+        if (step - self.resetActionStep > self.nextStepIn + sm.SimulationManager.getCurrentSimulation().config.getInt(TL_STAGE_LOST_TIME)):
+            super().step(step)

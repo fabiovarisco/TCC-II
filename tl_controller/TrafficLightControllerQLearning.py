@@ -26,9 +26,8 @@ class TrafficLightControllerQLearning(tlc.TrafficLightController, ABC):
         self.rewardFunction = rewardFunction
 
     def step(self, step):
-        if (step - self.resetCounterStep > self.nextStepIn):
-            self.rewardFunction.step(step)
-            self.algorithm.step(step, self)
+        self.rewardFunction.step(step)
+        self.algorithm.step(step, self)
 
     def getReward(self):
         return self.rewardFunction.getReward()
