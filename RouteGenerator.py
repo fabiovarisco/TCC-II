@@ -99,6 +99,22 @@ if __name__ == '__main__':
         {'steps': 1000, 'pWE':13, 'pEW':15, 'pNS':9, 'pSN':8, 'repeat':1, 'start_change_in': 850},
         {'steps': 5000, 'pWE':19, 'pEW':23, 'pNS':18, 'pSN':20, 'repeat':1, 'start_change_in': 950},
     ]
+
+    params = [
+        {'steps': 5000, 'pWE':20, 'pEW':19, 'pNS':23, 'pSN':21, 'repeat':1, 'start_change_in': 4900},
+        {'steps': 5000, 'pWE':13, 'pEW':15, 'pNS':12, 'pSN':14, 'repeat':1, 'start_change_in': 4950},
+        {'steps': 5000, 'pWE':3, 'pEW':2, 'pNS':4, 'pSN':3, 'repeat':1, 'start_change_in': 4850},
+        {'steps': 3000, 'pWE':1, 'pEW':1.5, 'pNS':2, 'pSN':1.5, 'repeat':1, 'start_change_in': 2850},
+        {'steps': 2000, 'pWE':1, 'pEW':1.5, 'pNS':2, 'pSN':1.5, 'repeat':1, 'start_change_in': 1900},
+        {'steps': 5000, 'pWE':13, 'pEW':15, 'pNS':9, 'pSN':8, 'repeat':1, 'start_change_in': 4850},
+        {'steps': 10000, 'pWE':19, 'pEW':23, 'pNS':18, 'pSN':20, 'repeat':1, 'start_change_in': 950},
+    ]
+
+    # params = [
+    #     {'steps': 20000, 'pWE':20, 'pEW':19, 'pNS':23, 'pSN':21, 'repeat':1, 'start_change_in': 4800},
+    #     {'steps': 20000, 'pWE':13, 'pEW':15, 'pNS':12, 'pSN':14, 'repeat':1, 'start_change_in': 950}
+    # ]
+
     import argparse
 
     parser = argparse.ArgumentParser()

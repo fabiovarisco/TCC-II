@@ -205,12 +205,22 @@ if __name__ == '__main__':
                         {'experimentPrefix': 'exp4_deepq1_adaptive', 'prefix': 'rf_throughput', 'configFile': 'configs/simple_deep_throughput.cfg'},
                         {'experimentPrefix': 'exp4_deepq1_adaptive', 'prefix': 'rf_adaptive_lane_occup', 'configFile': 'configs/simple_deep_adaptive_lane_occupancy.cfg'}]
 
+    experimentPrefix = 'exp7_deepq1_veh_number'
+    #experimentParams = [{'prefix': f'{experimentPrefix}_th2qr1', 'configFile': 'configs/fpvpl_throughput2_queueratio1.cfg'},
+    #                    {'prefix': f'{experimentPrefix}_th1qr1', 'configFile': 'configs/fpvpl_throughput1_queueratio1.cfg'},
+    #                    {'prefix': f'{experimentPrefix}_th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
+    experimentParams = [{'experimentPrefix': 'exp6_deepq1_veh_number', 'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp6_deepq1_veh_number', 'prefix': 'rf_throughput', 'configFile': 'configs/simple_deep_throughput.cfg'}]
 
     numberOfRuns = 1
 
     stats_sc = 'state_change'
     stats_ml = 'max_length'
     stats_tt = 'travel_time'
+    stats_ql = 'queue_length'
+    lane_id = 'lane_id'
+
+    col_ql = 'queue_length'
     col_sc = 'new_state'
     col_ml = 'max_length'
     col_tt = 'ttime'
@@ -222,7 +232,10 @@ if __name__ == '__main__':
     kinds = [sAgg.PLOT_KIND_SCATTER, sAgg.PLOT_KIND_LINE]
 
     for e in experimentParams:
-        e['results'] = readResults(e['experimentPrefix'], e['prefix'], [stats_sc, stats_ml, stats_tt], numberOfRuns)
+        e['results'] = readResults(e['experimentPrefix'], e['prefix'], [stats_sc, stats_ml, stats_tt, stats_ql], numberOfRuns)
+        df = e['results'][0][stats_ql]
+        df = df.groupby(['step', 'tl_id'], as_index=False).agg({'queue_length' : 'mean'})
+        e['results'][0][stats_ql] = df
 
     #createPlot(experimentPrefix, label_ql, experimentParams, numberOfRuns, file_prefixes, y_columns, kinds, aggregateDFsBy=aggregateDFsBy,
     #            groupRunsColumn = col_ml, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_ml)
@@ -233,14 +246,16 @@ if __name__ == '__main__':
     #createPlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ml, col_ml, discretizeStepBy = 120)
     #createPlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, discretizeStepBy = 120)
 
-    createSinglePlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ml, col_ml, 'Avg Queue Length', discretizeStepBy = 120)
-    createSinglePlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, 'Avg Travel Time', discretizeStepBy = 120)
+    createSinglePlotAveragesOnly(experimentPrefix, f"max_{label_ql}_avg", experimentParams, stats_ml, col_ml, 'Avg Max Queue Length', discretizeStepBy = 900)
+    createSinglePlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, 'Avg Travel Time', discretizeStepBy = 900)
+    createSinglePlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ql, col_ql, 'Avg Queue Length', discretizeStepBy = 900)
+
 
     for e in experimentParams:
-        describe(e['results'], stats_ml, col_ml)
+        describe(e['results'], stats_ql, col_ql)
 
     for e in experimentParams:
         describe(e['results'], stats_tt, col_tt)
 
-    getMinMeanAndStd(experimentParams, stats_ml, col_ml, 'mean')
+    getMinMeanAndStd(experimentParams, stats_ql, col_ql, 'mean')
     getMinMeanAndStd(experimentParams, stats_tt, col_tt, 'mean')

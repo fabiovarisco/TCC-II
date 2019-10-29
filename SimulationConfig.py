@@ -32,6 +32,8 @@ LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY = 'lane_max_acceptable_queue_occupancy' # Ma
 VEHICLE_AVG_LENGTH = 'vehicle_avg_length'
 
 TLC_TYPE='tlc_type'
+QLEARNING_REWARD_PARAM='qlearning_reward_param'
+QLEARNING_STATE_PARAMS='qlearning_state_params'
 
 class SimulationConfig(object):
 
