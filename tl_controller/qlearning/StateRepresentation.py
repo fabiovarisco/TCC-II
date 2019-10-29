@@ -47,6 +47,14 @@ class StateQueueLength(StateRepresentation):
             self.stateArr.append(s.getMaxLaneLength())
         return super().getCurrentState()
 
+class StateVehicleNumber(StateRepresentation):
+
+    def getCurrentState(self):
+        self.stateArr = []
+        for s in self.controller.trafficLight.getStages():
+            self.stateArr.append(s.getMaxVehicleNumber())
+        return super().getCurrentState()
+
 
 class StateQueueLengthDiscretized(StateRepresentation):
 

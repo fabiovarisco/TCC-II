@@ -33,7 +33,7 @@ class Stage(object):
         maxNumber = 0
         for sl in self.getSignalLanes():
             vehNumber = sl.incoming.getVehicleNumber()
-            print(f"Lane: {sl.incoming.id}; Vehicle Number: {vehNumber}.")
+            #print(f"Lane: {sl.incoming.id}; Vehicle Number: {vehNumber}.")
             maxNumber = max(maxNumber, vehNumber)
         return maxNumber
 

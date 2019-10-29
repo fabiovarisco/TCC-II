@@ -151,8 +151,8 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
             # Inference the Max-Q-Value in next action time.
             next_action_list = self.extract_possible_actions(new_state)
             next_max_q = self.function_approximator.inference_q(next_action_list).max()
-            print('===Next Max Q===')
-            print(next_max_q)
+            #print('===Next Max Q===')
+            #print(next_max_q)
             # Update real Q-Values.
             real_q_selected = self.update_q(
                     np.array([lastPredictedQ]),
@@ -163,17 +163,17 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
             real_q_arr = np.copy(lastPredictedQArr)
             real_q_arr[lastActionKey] = real_q_selected[0]
 
-            print('last key')
-            print(lastActionKey)
-            print('last predicted q arr')
-            print(lastPredictedQArr)
-            print('real q arr')
-            print(real_q_arr)
-            print('===== Learning ======')
-            print('last predicted q')
-            print(lastPredictedQArr[lastActionKey])
-            print('real q')
-            print(real_q_arr[lastActionKey])
+            #print('last key')
+            #print(lastActionKey)
+            # print('last predicted q arr')
+            # print(lastPredictedQArr)
+            # print('real q arr')
+            # print(real_q_arr)
+            # print('===== Learning ======')
+            # print('last predicted q')
+            # print(lastPredictedQArr[lastActionKey])
+            # print('real q')
+            # print(real_q_arr[lastActionKey])
             '''
             if self.q_logs_arr.shape[0] > 0:
                 self.q_logs_arr = np.r_[
@@ -193,22 +193,22 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
         state_arr = controller.getCurrentState()
         # Draw samples of next possible actions from any distribution.
         next_action_arr = self.extract_possible_actions(state_arr)
-        print('next_action_arr')
-        print(next_action_arr)
+        # print('next_action_arr')
+        # print(next_action_arr)
         # Inference Q-Values.
         predicted_q_arr = self.function_approximator.inference_q(next_action_arr)
 
-        print('predicted_q_arr')
-        print(predicted_q_arr)
+        # print('predicted_q_arr')
+        # print(predicted_q_arr)
         # Select action.
         actionKey= self.select_action_key(next_action_arr, predicted_q_arr)
         #action_arr, predicted_q = self.select_action(next_action_arr, predicted_q_arr)
         action_arr = next_action_arr[actionKey]
         predicted_q = predicted_q_arr[actionKey]
-        print('===Action arr===')
-        print(action_arr)
-        print('====Predicted Q====')
-        print(predicted_q)
+        # print('===Action arr===')
+        # print(action_arr)
+        # print('====Predicted Q====')
+        # print(predicted_q)
 
         # Take next action
         controller.takeAction(action_arr[-1], step)

@@ -136,7 +136,7 @@ class RewardAverageQueueLength(RewardFunction):
 
     def __init__(self, controller):
         super().__init__(controller)
-        
+
     def step(self, step):
         pass
 
@@ -159,6 +159,37 @@ class RewardAverageQueueLength(RewardFunction):
                     tl_id=self.controller.trafficLight.getId(),
                     reward_type='avg_queue_length', previous=averageQueueLength,
                     current=averageQueueLength, max=averageMaxAcceptableQueueLength, reward=reward)
+
+        return reward
+
+class RewardAverageVehicleNumber(RewardFunction):
+
+    def __init__(self, controller):
+        super().__init__(controller)
+
+    def step(self, step):
+        pass
+
+    def getReward(self):
+        averageVehicleNumber= 0
+        averageMaxAcceptableQueueLength = 0
+
+        n = 0
+        for s in self.controller.trafficLight.getStages():
+            for sl in s.getSignalLanes():
+                averageVehicleNumber += sl.incoming.getVehicleNumber()
+                averageMaxAcceptableQueueLength += sl.incoming.getMaxAcceptableQueueLength()
+                n += 1
+
+        averageVehicleNumber = averageVehicleNumber / n
+        averageMaxAcceptableQueueLength = averageMaxAcceptableQueueLength / n
+
+        reward = 1 - (averageVehicleNumber / averageMaxAcceptableQueueLength)
+
+        sm.SimulationManager.getCurrentSimulation().notify(EVENT_REWARD_FUNCTION,
+                    tl_id=self.controller.trafficLight.getId(),
+                    reward_type='avg_vehicle_number', previous=averageVehicleNumber,
+                    current=averageVehicleNumber, max=averageMaxAcceptableQueueLength, reward=reward)
 
         return reward
 
