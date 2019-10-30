@@ -177,7 +177,8 @@ TLC_TYPE_FUNCTIONS = {'DeepQLearningAdaptiveLaneOccupancyRF': TrafficLightFactor
                        }
 
 TLC_QLEARNING_REWARD_FUNCTION = {'AverageVehicleNumber' : RewardAverageVehicleNumber,
-                            'Throughput': RewardThroughput}
+                            'Throughput': RewardThroughput,
+                            'CumulativeVehicleDelay' : RewardCumulativeVehicleDelay}
 
 TLC_QLEARNING_STATE_REPRESENTATION = {'QueueLength' : StateQueueLength,
                                         'VehicleNumber' : StateVehicleNumber,

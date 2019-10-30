@@ -14,18 +14,15 @@ class Lane(object):
         self.previousStepVehicleIDs = []
         self.queueLength = 0
         self.queueLengthStep = 0
+        self.cumulativeVehicleDelay = {}
+        self.vehicleNumberOfStops = {}
+        self.vehicleLastSpeed = {}
         #self.detectorid = detectorid
 
     def getQueueLength(self):
-        if (self.queueLengthStep == sm.SimulationManager.getCurrentSimulationStep()): return self.queueLength
-        else:
-            length = 0
-            for id in self.getLastStepVehicleIDs():
-                if (VehicleFactory.getVehicleSpeed(id) < 2):
-                    length += 1
-            self.queueLength = length
-            self.queueLengthStep = sm.SimulationManager.getCurrentSimulationStep()
-            return length
+        if (self.queueLengthStep != sm.SimulationManager.getCurrentSimulationStep()): 
+            self.calculateLaneVehicleIndicators(sm.SimulationManager.getCurrentSimulationStep())
+        return self.queueLength
 
     def getLastStepHaltingNumber(self):
         return tLane.getLastStepHaltingNumber(self.id)
@@ -52,6 +49,8 @@ class Lane(object):
         newVehicleIDs = self.getLastStepVehicleIDs()
         self.deltaNumber = np.sum(~np.isin(newVehicleIDs, self.previousStepVehicleIDs))
         self.previousStepVehicleIDs = newVehicleIDs
+
+        self.calculateLaneVehicleIndicators(step)
         '''
         if (self.id == '2i_0'):
             print(newVehicleIDs)
@@ -59,6 +58,29 @@ class Lane(object):
             print(~np.isin(newVehicleIDs, self.previousStepVehicleIDs))
             print(self.deltaNumber)
             '''
+
+    def calculateLaneVehicleIndicators(self, step):
+        length = 0
+        cumulativeVehicleDelay = {}
+        vehicleNumberOfStops = {}
+        vehicleLastSpeed = {}
+        for id in self.getLastStepVehicleIDs():
+            vehSpeed = VehicleFactory.getVehicleSpeed(id)
+            if (vehSpeed < 2):
+                length += 1
+                cumulativeVehicleDelay[id] = self.cumulativeVehicleDelay.get(id, d=0) + 1
+                if (self.vehicleLastSpeed.get(id, d=3) > 2):
+                    vehicleNumberOfStops = self.vehicleNumberOfStops.get(id, d=0) + 1
+            else:
+                vehicleNumberOfStops[id] = self.vehicleNumberOfStops.get(id, d=0)
+                cumulativeVehicleDelay[id] = self.cumulativeVehicleDelay.get(id, d=0)
+            vehicleLastSpeed[id] = vehSpeed
+        
+        self.vehicleNumberOfStops = vehicleNumberOfStops
+        self.vehicleLastSpeed = vehicleLastSpeed
+        self.cumulativeVehicleDelay = cumulativeVehicleDelay
+        self.queueLength = length
+        self.queueLengthStep = step
 
     def getWidth(self):
         return tLane.getWidth(self.id)
@@ -79,6 +101,18 @@ class Lane(object):
     def getMaxAcceptableQueueLength(self):
         return (self.getMaxPossibleQueueLength()
             * sm.SimulationManager.getCurrentSimulation().config.getFloat(LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY))
+
+    def getNumberOfStops(self):
+        numberOfStops = 0
+        for n in self.vehicleNumberOfStops:
+            numberOfStops += n
+        return numberOfStops
+
+    def getCumulativeVehicleDelay(self):
+        delay = 0
+        for vehicleDelay in self.cumulativeVehicleDelay:
+            delay += vehicleDelay
+        return delay
 
 class LaneFactory(object):
 

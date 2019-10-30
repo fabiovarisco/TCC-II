@@ -27,6 +27,7 @@ class TrafficLight(object):
         self.outgoing = []
         self.currentStage = 0
         self.cumulativeDelay = 0
+        self.vehicleCumulativeDelay = {}
         self.currentStageCumulativeDelay = 0
 
     def _initLinks(self):
@@ -125,6 +126,18 @@ class TrafficLight(object):
         self.cumulativeDelay += delayAtCurrentStep
         self.currentStageCumulativeDelay += delayAtCurrentStep
         self.controller.step(step)
+
+    def getCumulativeVehicleDelay(self):
+        delay = 0 
+        for l in self.incoming:
+            delay += l.getCumulativeVehicleDelay()
+        return delay
+
+    def getTotalNumberOfStops(self):
+        numberOfStops = 0
+        for l in self.incoming:
+            numberOfStops += l.getNumberOfStops()
+        return numberOfStops
 
     def getCompleteRedYellowGreenDefinition(self):
         return tTL.getCompleteRedYellowGreenDefinition(self.id)
