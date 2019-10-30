@@ -45,11 +45,15 @@ def get_options():
 # this is the main entry point of this script
 if __name__ == "__main__":
     options = get_options()
-    experimentPrefix = 'exp7_deepq1_veh_number'
+    experimentPrefix = 'exp9_deepq1_rfs'
     #experimentParams = [{'prefix': f'{experimentPrefix}_th2qr1', 'configFile': 'configs/fpvpl_throughput2_queueratio1.cfg'},
     #                    {'prefix': f'{experimentPrefix}_th1qr1', 'configFile': 'configs/fpvpl_throughput1_queueratio1.cfg'},
     #                    {'prefix': f'{experimentPrefix}_th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
-    experimentParams = [{'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg'},
-                        {'prefix': 'rf_throughput', 'configFile': 'configs/simple_deep_throughput.cfg'}]
+    experimentParams = [{'prefix': 'rf_avg_queue_length', 'configFile': 'configs/simple_deep_avg_queue_length.cfg'},
+                        {'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg'},
+                        {'prefix': 'rf_throughput', 'configFile': 'configs/simple_deep_throughput.cfg'},
+                        {'prefix': 'rf_vehicle_delay', 'configFile': 'configs/simple_deep_reward_vehicle_delay.cfg'}
+                        {'prefix': 'rf_vehicle_delay_diff', 'configFile': 'configs/simple_deep_reward_vehicle_delay_diff.cfg'}
+                        ]
     #                    {'prefix': 'rf_adaptive_lane_occup', 'configFile': 'configs/simple_deep_adaptive_lane_occupancy.cfg'}]
     s = SimulationManager(options, experimentPrefix, experimentParams, 1)

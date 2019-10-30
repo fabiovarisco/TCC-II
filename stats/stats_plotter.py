@@ -205,12 +205,17 @@ if __name__ == '__main__':
                         {'experimentPrefix': 'exp4_deepq1_adaptive', 'prefix': 'rf_throughput', 'configFile': 'configs/simple_deep_throughput.cfg'},
                         {'experimentPrefix': 'exp4_deepq1_adaptive', 'prefix': 'rf_adaptive_lane_occup', 'configFile': 'configs/simple_deep_adaptive_lane_occupancy.cfg'}]
 
-    experimentPrefix = 'exp7_deepq1_veh_number'
+    experimentPrefix = 'exp8_deepq1_vehicle_delay'
     #experimentParams = [{'prefix': f'{experimentPrefix}_th2qr1', 'configFile': 'configs/fpvpl_throughput2_queueratio1.cfg'},
     #                    {'prefix': f'{experimentPrefix}_th1qr1', 'configFile': 'configs/fpvpl_throughput1_queueratio1.cfg'},
     #                    {'prefix': f'{experimentPrefix}_th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
-    experimentParams = [{'experimentPrefix': 'exp6_deepq1_veh_number', 'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg'},
-                        {'experimentPrefix': 'exp6_deepq1_veh_number', 'prefix': 'rf_throughput', 'configFile': 'configs/simple_deep_throughput.cfg'}]
+    experimentParams = [{'experimentPrefix': 'exp5_deepq1_decision_point', 'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp5_deepq1_decision_point', 'prefix': 'rf_throughput', 'configFile': 'configs/simple_deep_throughput.cfg'},
+                        {'experimentPrefix': 'exp8_deepq1_vehicle_delay', 'prefix': 'rf_vehicle_delay'}]
+
+    experimentParams = [{'experimentPrefix': 'exp8_deepq1_vehicle_delay', 'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp8_deepq1_vehicle_delay', 'prefix': 'rf_throughput', 'configFile': 'configs/simple_deep_throughput.cfg'},
+                        {'experimentPrefix': 'exp8_deepq1_vehicle_delay', 'prefix': 'rf_vehicle_delay', 'configFile': 'configs/simple_deep_reward_vehicle_delay.cfg'}]
 
     numberOfRuns = 1
 

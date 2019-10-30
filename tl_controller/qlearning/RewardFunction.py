@@ -115,10 +115,23 @@ class RewardCumulativeVehicleDelay(RewardFunction):
     def step(self, step):
         self.previousStepCumulativeDelay = self.currentStepCumulativeDelay
         self.currentStepCumulativeDelay = self.controller.trafficLight.getCumulativeVehicleDelay()
-        
+
     def getReward(self):
 
-        reward = ((self.previousStepCumulativeDelay - self.currentStepCumulativeDelay) 
+        reward = 1 - (self.currentStepCumulativeDelay / self.maxPossibleDelay)
+
+        sm.SimulationManager.getCurrentSimulation().notify(EVENT_REWARD_FUNCTION,
+                    tl_id=self.controller.trafficLight.getId(),
+                    reward_type='vehicle_cumulative_delay', previous=self.previousStepCumulativeDelay,
+                    current=self.currentStepCumulativeDelay, max=self.maxPossibleDelay, reward=reward)
+
+        return reward
+
+class RewardCumulativeVehicleDelayDiff(RewardCumulativeVehicleDelay):
+
+    def getReward(self):
+
+        reward = ((self.previousStepCumulativeDelay - self.currentStepCumulativeDelay)
                         / self.maxPossibleDelay)
 
         sm.SimulationManager.getCurrentSimulation().notify(EVENT_REWARD_FUNCTION,
@@ -134,7 +147,7 @@ class RewardNumberOfStops(RewardFunction):
         super().__init__(controller)
         self.previousNumberOfStops = 0
         self.currentNumberOfStops = 0
-        
+
         self.maxNumberOfStops = 0
         for s in self.controller.trafficLight.getStages():
             for sl in s.getSignalLanes():
@@ -145,10 +158,10 @@ class RewardNumberOfStops(RewardFunction):
     def step(self, step):
         self.previousNumberOfStops = self.currentNumberOfStops
         self.currentNumberOfStops = self.controller.trafficLight.getTotalNumberOfStops()
-        
+
     def getReward(self):
 
-        reward = ((self.previousNumberOfStops - self.currentNumberOfStops) 
+        reward = ((self.previousNumberOfStops - self.currentNumberOfStops)
                         / self.maxNumberOfStops)
 
         sm.SimulationManager.getCurrentSimulation().notify(EVENT_REWARD_FUNCTION,

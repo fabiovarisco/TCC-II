@@ -20,7 +20,7 @@ class Lane(object):
         #self.detectorid = detectorid
 
     def getQueueLength(self):
-        if (self.queueLengthStep != sm.SimulationManager.getCurrentSimulationStep()): 
+        if (self.queueLengthStep != sm.SimulationManager.getCurrentSimulationStep()):
             self.calculateLaneVehicleIndicators(sm.SimulationManager.getCurrentSimulationStep())
         return self.queueLength
 
@@ -68,14 +68,14 @@ class Lane(object):
             vehSpeed = VehicleFactory.getVehicleSpeed(id)
             if (vehSpeed < 2):
                 length += 1
-                cumulativeVehicleDelay[id] = self.cumulativeVehicleDelay.get(id, d=0) + 1
-                if (self.vehicleLastSpeed.get(id, d=3) > 2):
-                    vehicleNumberOfStops = self.vehicleNumberOfStops.get(id, d=0) + 1
+                cumulativeVehicleDelay[id] = self.cumulativeVehicleDelay.get(id, 0) + 1
+                if (self.vehicleLastSpeed.get(id, 3) > 2):
+                    vehicleNumberOfStops[id] = self.vehicleNumberOfStops.get(id, 0) + 1
             else:
-                vehicleNumberOfStops[id] = self.vehicleNumberOfStops.get(id, d=0)
-                cumulativeVehicleDelay[id] = self.cumulativeVehicleDelay.get(id, d=0)
+                vehicleNumberOfStops[id] = self.vehicleNumberOfStops.get(id, 0)
+                cumulativeVehicleDelay[id] = self.cumulativeVehicleDelay.get(id, 0)
             vehicleLastSpeed[id] = vehSpeed
-        
+
         self.vehicleNumberOfStops = vehicleNumberOfStops
         self.vehicleLastSpeed = vehicleLastSpeed
         self.cumulativeVehicleDelay = cumulativeVehicleDelay
@@ -104,13 +104,13 @@ class Lane(object):
 
     def getNumberOfStops(self):
         numberOfStops = 0
-        for n in self.vehicleNumberOfStops:
+        for id, n in self.vehicleNumberOfStops.items():
             numberOfStops += n
         return numberOfStops
 
     def getCumulativeVehicleDelay(self):
         delay = 0
-        for vehicleDelay in self.cumulativeVehicleDelay:
+        for id, vehicleDelay in self.cumulativeVehicleDelay.items():
             delay += vehicleDelay
         return delay
 
