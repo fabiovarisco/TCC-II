@@ -110,10 +110,10 @@ if __name__ == '__main__':
         {'steps': 10000, 'pWE':19, 'pEW':23, 'pNS':18, 'pSN':20, 'repeat':1, 'start_change_in': 950},
     ]
 
-    # params = [
-    #     {'steps': 20000, 'pWE':20, 'pEW':19, 'pNS':23, 'pSN':21, 'repeat':1, 'start_change_in': 4800},
-    #     {'steps': 20000, 'pWE':13, 'pEW':15, 'pNS':12, 'pSN':14, 'repeat':1, 'start_change_in': 950}
-    # ]
+    params = [
+        {'steps': 20000, 'pWE':20, 'pEW':19, 'pNS':23, 'pSN':21, 'repeat':1, 'start_change_in': 19500},
+        {'steps': 20000, 'pWE':13, 'pEW':15, 'pNS':12, 'pSN':14, 'repeat':1, 'start_change_in': 950}
+    ]
 
     import argparse
 

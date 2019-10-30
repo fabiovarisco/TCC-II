@@ -35,6 +35,9 @@ TLC_TYPE='tlc_type'
 QLEARNING_REWARD_PARAM='qlearning_reward_param'
 QLEARNING_STATE_PARAMS='qlearning_state_params'
 
+QLEARNING_STATE_LENGTH='qlearning_state_length'
+DEEP_QLEARNING_HIDDEN_LAYER='deep_qlearning_hidden_layer'
+
 class SimulationConfig(object):
 
     def __init__(self, configFile):

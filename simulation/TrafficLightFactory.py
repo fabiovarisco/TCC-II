@@ -64,9 +64,11 @@ class TrafficLightFactory(object):
         trafficLight = tl.TrafficLight(id)
         tlController = TrafficLightControllerQLearningFPVCL(trafficLight)
 
+        state_length = sm.SimulationManager.getCurrentSimulation().config.getInt(QLEARNING_STATE_LENGTH)
+        hidden_neuroun_count = sm.SimulationManager.getCurrentSimulation().config.getInt(DEEP_QLEARNING_HIDDEN_LAYER)
         tlController.setQLearningAlgorithm(
-            QLearningAlgorithmFactory.getDeepQLearningAlgorithmLSTM(3,
-                                                        hidden_neuron_count=40))
+            QLearningAlgorithmFactory.getDeepQLearningAlgorithmLSTM(state_length,
+                                                        hidden_neuron_count=hidden_neuroun_count))
 
         trafficLight.setController(tlController)
         #trafficLight.controller.setRewardFunction(RewardCumulativeDelay(tl.controller))
@@ -93,10 +95,12 @@ class TrafficLightFactory(object):
         trafficLight = TrafficLightFactory.createTrafficLight(id)
         tlController = TrafficLightFactory.createTrafficLightController(trafficLight, TrafficLightControllerQLearningFPVCL)
 
+        state_length = sm.SimulationManager.getCurrentSimulation().config.getInt(QLEARNING_STATE_LENGTH)
+        hidden_neuroun_count = sm.SimulationManager.getCurrentSimulation().config.getInt(DEEP_QLEARNING_HIDDEN_LAYER)
         tlController.setQLearningAlgorithm(
-            QLearningAlgorithmFactory.getDeepQLearningAlgorithmLSTM(3,
-                                                        hidden_neuron_count=40))
-
+            QLearningAlgorithmFactory.getDeepQLearningAlgorithmLSTM(state_length,
+                                                        hidden_neuron_count=hidden_neuroun_count))
+                                                        
         trafficLight.setController(tlController)
         return trafficLight
 
