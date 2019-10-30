@@ -182,4 +182,5 @@ TLC_QLEARNING_REWARD_FUNCTION = {'AverageVehicleNumber' : RewardAverageVehicleNu
 
 TLC_QLEARNING_STATE_REPRESENTATION = {'QueueLength' : StateQueueLength,
                                         'VehicleNumber' : StateVehicleNumber,
-                                        'CurrentStage': StateCurrentStage }
+                                        'CurrentStage': StateCurrentStage,
+                                        'ApproachingVehicles': StateApproachingVehicleNumber }
