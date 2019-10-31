@@ -33,3 +33,8 @@ class QLearningAlgorithmFactory(object):
             QLearningAlgorithmFactory.deep_qlearning_algorithm = deep_qlearning_algorithm
 
         return QLearningAlgorithmFactory.deep_qlearning_algorithm
+
+    @staticmethod
+    def resetFactory():
+        QLearningAlgorithmFactory.deep_qlearning_algorithm = None
+        QLearningAlgorithmFactory.qlearning_algorithm = None

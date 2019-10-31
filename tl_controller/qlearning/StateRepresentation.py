@@ -55,12 +55,37 @@ class StateVehicleNumber(StateRepresentation):
             self.stateArr.append(s.getMaxVehicleNumber())
         return super().getCurrentState()
 
+class StateVehicleNumberDiscretized(StateRepresentation):
+
+    def __init__(self, controller, discretizeByValue = 1, stateComponent = None):
+        super().__init__(controller, stateComponent)
+        self.discretizeByValue = discretizeByValue
+
+    def getCurrentState(self):
+        self.stateArr = []
+        for s in self.controller.trafficLight.getStages():
+            self.stateArr.append(math.ceil(s.getMaxVehicleNumber() / self.discretizeByValue))
+        return super().getCurrentState()
+
+
 class StateApproachingVehicleNumber(StateRepresentation):
 
     def getCurrentState(self):
         self.stateArr = []
         for s in self.controller.trafficLight.getStages():
             self.stateArr.append(s.getMaxVehicleNumber() - s.getMaxLaneLength())
+        return super().getCurrentState()
+
+class StateApproachingVehicleNumberDiscretized(StateRepresentation):
+
+    def __init__(self, controller, discretizeByValue = 1, stateComponent = None):
+        super().__init__(controller, stateComponent)
+        self.discretizeByValue = discretizeByValue
+
+    def getCurrentState(self):
+        self.stateArr = []
+        for s in self.controller.trafficLight.getStages():
+            self.stateArr.append(math.ceil((s.getMaxVehicleNumber() - s.getMaxLaneLength()) / self.discretizeByValue))
         return super().getCurrentState()
 
 

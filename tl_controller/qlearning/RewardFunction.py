@@ -161,6 +161,19 @@ class RewardNumberOfStops(RewardFunction):
 
     def getReward(self):
 
+        reward = 1 - (self.currentNumberOfStops / self.maxNumberOfStops)
+
+        sm.SimulationManager.getCurrentSimulation().notify(EVENT_REWARD_FUNCTION,
+                    tl_id=self.controller.trafficLight.getId(),
+                    reward_type='vehicle_number_of_stops', previous=self.previousNumberOfStops,
+                    current=self.currentNumberOfStops, max=self.maxNumberOfStops, reward=reward)
+
+        return reward
+
+class RewardNumberOfStopsDiff(RewardNumberOfStops):
+
+    def getReward(self):
+
         reward = ((self.previousNumberOfStops - self.currentNumberOfStops)
                         / self.maxNumberOfStops)
 

@@ -7,7 +7,7 @@ import pandas as pd
 
 import stats_aggregator as sAgg
 
-PLOT_COLORS = ['blue', 'gray', 'orange', 'red', 'green', 'black']
+PLOT_COLORS = ['blue', 'gray', 'orange', 'red', 'green', 'black', 'yellow', 'pink']
 
 def initSubPlots(label, row_labels, col_labels, x_label, y_label):
     #plt.figure("queuelength_simulations")
@@ -84,12 +84,12 @@ def getMinMeanAndStd(experimentParams, filePrefix, col, func):
     print(f'Min Mean: {minMean}. Experiment: {minMeanPrefix}.')
     print(f'Min Std: {minStd}. Experiment: {minStdPrefix}.\n')
 
-def createSinglePlotAveragesOnly(folder, label, experimentParams, file_prefix, y_column, title, discretizeStepBy = None):
+def createSinglePlotAveragesOnly(folder, label, experimentParams, file_prefix, y_column, title, aggFunc = 'mean', discretizeStepBy = None):
 
     result = None
     y_columns = []
     for e in experimentParams:
-        dfAll = aggregateDFs(e['results'], file_prefix, 'step', y_column, 'mean')
+        dfAll = aggregateDFs(e['results'], file_prefix, 'step', y_column, aggFunc)
         new_y_col = f"{y_column}_{e['experimentPrefix']}_{e['prefix']}"
         dfAll.rename(columns={y_column: new_y_col}, inplace=True)
         y_columns.append(new_y_col)
@@ -101,7 +101,7 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, file_prefix, y
         base_column = 'disc_step'
         result = discretizeStep(result, discretizeStepBy, base_column)
 
-    result = sAgg.aggregate(result, base_column, {col:'mean' for col in y_columns})
+    result = sAgg.aggregate(result, base_column, {col:aggFunc for col in y_columns})
 
     fig = plt.figure(label)
     fig.suptitle(title, fontsize=16)
@@ -111,8 +111,8 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, file_prefix, y
 
     # Shrink current axis's height by 10% on the bottom
     box = ax.get_position()
-    ax.set_position([box.x0, box.y0 + box.height * 0.15,
-                     box.width, box.height * 0.85])
+    ax.set_position([box.x0, box.y0 + box.height * 0.25,
+                     box.width, box.height * 0.75])
 
     # Put a legend below current axis
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.075),
@@ -217,6 +217,29 @@ if __name__ == '__main__':
                         {'experimentPrefix': 'exp8_deepq1_vehicle_delay', 'prefix': 'rf_throughput', 'configFile': 'configs/simple_deep_throughput.cfg'},
                         {'experimentPrefix': 'exp8_deepq1_vehicle_delay', 'prefix': 'rf_vehicle_delay', 'configFile': 'configs/simple_deep_reward_vehicle_delay.cfg'}]
 
+    experimentPrefix = 'exp9_deepq1_rfs'
+    #experimentParams = [{'prefix': f'{experimentPrefix}_th2qr1', 'configFile': 'configs/fpvpl_throughput2_queueratio1.cfg'},
+    #                    {'prefix': f'{experimentPrefix}_th1qr1', 'configFile': 'configs/fpvpl_throughput1_queueratio1.cfg'},
+    #                    {'prefix': f'{experimentPrefix}_th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
+    experimentParams = [{'experimentPrefix': 'exp9_deepq1_rfs', 'prefix': 'rf_avg_queue_length', 'configFile': 'configs/simple_deep_avg_queue_length.cfg'},
+                        {'experimentPrefix': 'exp9_deepq1_rfs', 'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp9_deepq1_rfs', 'prefix': 'rf_throughput', 'configFile': 'configs/simple_deep_throughput.cfg'},
+                        {'experimentPrefix': 'exp9_deepq1_rfs', 'prefix': 'rf_vehicle_delay', 'configFile': 'configs/simple_deep_reward_vehicle_delay.cfg'},
+                        {'experimentPrefix': 'exp9_deepq1_rfs', 'prefix': 'rf_vehicle_delay_diff', 'configFile': 'configs/simple_deep_reward_vehicle_delay_diff.cfg'}]
+    experimentPrefix = 'dummy'
+    experimentParams = [{'experimentPrefix': 'dummy', 'prefix': 'rf_number_stops', 'configFile': 'configs/simple_deep_number_stops.cfg'},
+                        {'experimentPrefix': 'dummy', 'prefix': 'rf_number_stops_diff', 'configFile': 'configs/simple_deep_number_stops_diff.cfg'},
+                        {'experimentPrefix': 'dummy', 'prefix': 'rf_vehicle_delay', 'configFile': 'configs/simple_deep_reward_vehicle_delay.cfg'}]
+
+    experimentPrefix = 'exp10_deepq1_rfs_no_reset'
+    experimentParams = [{'experimentPrefix': 'exp10_deepq1_rfs_no_reset', 'prefix': 'rf_avg_queue_length', 'configFile': 'configs/simple_deep_avg_queue_length.cfg'},
+                        {'experimentPrefix': 'exp10_deepq1_rfs_no_reset', 'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp10_deepq1_rfs_no_reset', 'prefix': 'rf_throughput', 'configFile': 'configs/simple_deep_throughput.cfg'},
+                        {'experimentPrefix': 'exp10_deepq1_rfs_no_reset', 'prefix': 'rf_vehicle_delay', 'configFile': 'configs/simple_deep_reward_vehicle_delay.cfg'},
+                        {'experimentPrefix': 'exp10_deepq1_rfs_no_reset', 'prefix': 'rf_vehicle_delay_diff', 'configFile': 'configs/simple_deep_reward_vehicle_delay_diff.cfg'},
+                        {'experimentPrefix': 'exp10_deepq1_rfs_no_reset', 'prefix': 'rf_number_stops', 'configFile': 'configs/simple_deep_number_stops.cfg'},
+                        {'experimentPrefix': 'exp10_deepq1_rfs_no_reset', 'prefix': 'rf_number_stops_diff', 'configFile': 'configs/simple_deep_number_stops_diff.cfg'}]
+    #
     numberOfRuns = 1
 
     stats_sc = 'state_change'
@@ -251,9 +274,9 @@ if __name__ == '__main__':
     #createPlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ml, col_ml, discretizeStepBy = 120)
     #createPlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, discretizeStepBy = 120)
 
-    createSinglePlotAveragesOnly(experimentPrefix, f"max_{label_ql}_avg", experimentParams, stats_ml, col_ml, 'Avg Max Queue Length', discretizeStepBy = 900)
-    createSinglePlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, 'Avg Travel Time', discretizeStepBy = 900)
-    createSinglePlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ql, col_ql, 'Avg Queue Length', discretizeStepBy = 900)
+    createSinglePlotAveragesOnly(experimentPrefix, f"max_{label_ql}_avg", experimentParams, stats_ml, col_ml, 'Max Queue Length', aggFunc = 'max', discretizeStepBy = 300)
+    createSinglePlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, 'Avg Travel Time', discretizeStepBy = 300)
+    createSinglePlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ql, col_ql, 'Avg Queue Length', discretizeStepBy = 300)
 
 
     for e in experimentParams:

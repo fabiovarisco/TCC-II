@@ -56,7 +56,7 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
             `np.ndarray` of actions.
         '''
         actions = self.controller.getPossibleActions(state_arr)
-        actions_arr = np.zeros((28, 4))
+        actions_arr = np.zeros((len(actions), len(state_arr) + 1))
         state_length = len(state_arr)
         for i, a in enumerate(actions):
             actions_arr[i][:state_length] = state_arr

@@ -114,6 +114,35 @@ if __name__ == '__main__':
         {'steps': 20000, 'pWE':20, 'pEW':19, 'pNS':23, 'pSN':21, 'repeat':1, 'start_change_in': 19500},
         {'steps': 20000, 'pWE':13, 'pEW':15, 'pNS':12, 'pSN':14, 'repeat':1, 'start_change_in': 950}
     ]
+    # ========= ENTIRE DAY ============
+    params = [
+        {'steps': 3600, 'pWE':20, 'pEW':22, 'pNS':26, 'pSN':27, 'repeat':1, 'start_change_in': 2400}, # 4
+        {'steps': 3600, 'pWE':17, 'pEW':16, 'pNS':21, 'pSN':21, 'repeat':1, 'start_change_in': 3000}, # 5
+        {'steps': 3600, 'pWE':9, 'pEW':10, 'pNS':15, 'pSN':14, 'repeat':1, 'start_change_in': 900}, # 6
+        {'steps': 1800, 'pWE':6, 'pEW':6, 'pNS':9, 'pSN':10, 'repeat':1, 'start_change_in': 900}, # 7
+        {'steps': 1800, 'pWE':3, 'pEW':2, 'pNS':6, 'pSN':5, 'repeat':1, 'start_change_in': 1200}, # 7:30
+        {'steps': 1800, 'pWE':1.5, 'pEW':1.2, 'pNS':4, 'pSN':3, 'repeat':1, 'start_change_in': 900}, # 8
+        {'steps': 1800, 'pWE':1.5, 'pEW':1.2, 'pNS':5, 'pSN':5, 'repeat':2, 'start_change_in': 900}, # 8:30
+        {'steps': 1800, 'pWE':3, 'pEW':2, 'pNS':7, 'pSN':8, 'repeat':1, 'start_change_in': 900}, # 9
+        {'steps': 1800, 'pWE':8, 'pEW':7, 'pNS':11, 'pSN':12, 'repeat':1, 'start_change_in': 900}, # 9:30
+        {'steps': 3600, 'pWE':12, 'pEW':11, 'pNS':15, 'pSN':15, 'repeat':1, 'start_change_in': 2100}, # 10
+        {'steps': 3600, 'pWE':14, 'pEW':15, 'pNS':18, 'pSN':19, 'repeat':1, 'start_change_in': 1800}, # 11
+        {'steps': 3600, 'pWE':10, 'pEW':11, 'pNS':15, 'pSN':14, 'repeat':1, 'start_change_in': 1800}, # 12
+        {'steps': 3600, 'pWE':10, 'pEW':11, 'pNS':15, 'pSN':14, 'repeat':1, 'start_change_in': 1800}, # 13
+        {'steps': 3600, 'pWE':16, 'pEW':17, 'pNS':20, 'pSN':22, 'repeat':1, 'start_change_in': 1800}, # 14
+        {'steps': 3600, 'pWE':20, 'pEW':22, 'pNS':25, 'pSN':26, 'repeat':1, 'start_change_in': 2400}, # 15
+        {'steps': 1800, 'pWE':14, 'pEW':15, 'pNS':20, 'pSN':20, 'repeat':1, 'start_change_in': 1200}, # 16
+        {'steps': 1800, 'pWE':9, 'pEW':8, 'pNS':14, 'pSN':15, 'repeat':1, 'start_change_in': 1200}, # 16:30
+        {'steps': 1800, 'pWE':5, 'pEW':6, 'pNS':10, 'pSN':11, 'repeat':1, 'start_change_in': 900}, # 17
+        {'steps': 1800, 'pWE':2, 'pEW':2, 'pNS':5, 'pSN':5, 'repeat':1, 'start_change_in': 900}, # 17:30
+        {'steps': 1800, 'pWE':1.3, 'pEW':1.2, 'pNS':3, 'pSN':4, 'repeat':1, 'start_change_in': 900}, # 18
+        {'steps': 1800, 'pWE':2, 'pEW':3, 'pNS':6, 'pSN':6, 'repeat':1, 'start_change_in': 900}, # 18:30
+        {'steps': 3600, 'pWE':5, 'pEW':4, 'pNS':10, 'pSN':11, 'repeat':1, 'start_change_in': 1800}, # 19
+        {'steps': 3600, 'pWE':10, 'pEW':8, 'pNS':15, 'pSN':16, 'repeat':1, 'start_change_in': 1800}, # 20
+        {'steps': 3600, 'pWE':16, 'pEW':17, 'pNS':20, 'pSN':22, 'repeat':1, 'start_change_in': 1800}, # 21
+        {'steps': 3600, 'pWE':20, 'pEW':20, 'pNS':25, 'pSN':26, 'repeat':1, 'start_change_in': 2400}, # 2
+        {'steps': 3600, 'pWE':25, 'pEW':24, 'pNS':30, 'pSN':29, 'repeat':1, 'start_change_in': 2400} # 23
+    ]
 
     import argparse
 

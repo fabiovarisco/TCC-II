@@ -45,7 +45,7 @@ def get_options():
 # this is the main entry point of this script
 if __name__ == "__main__":
     options = get_options()
-    experimentPrefix = 'exp9_deepq1_rfs'
+    experimentPrefix = 'dummy'
     #experimentParams = [{'prefix': f'{experimentPrefix}_th2qr1', 'configFile': 'configs/fpvpl_throughput2_queueratio1.cfg'},
     #                    {'prefix': f'{experimentPrefix}_th1qr1', 'configFile': 'configs/fpvpl_throughput1_queueratio1.cfg'},
     #                    {'prefix': f'{experimentPrefix}_th1qr2', 'configFile': 'configs/fpvpl_throughput1_queueratio2.cfg'}]
@@ -53,6 +53,10 @@ if __name__ == "__main__":
                         {'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg'},
                         {'prefix': 'rf_throughput', 'configFile': 'configs/simple_deep_throughput.cfg'},
                         {'prefix': 'rf_vehicle_delay', 'configFile': 'configs/simple_deep_reward_vehicle_delay.cfg'},
-                        {'prefix': 'rf_vehicle_delay_diff', 'configFile': 'configs/simple_deep_reward_vehicle_delay_diff.cfg'}]
+                        {'prefix': 'rf_vehicle_delay_diff', 'configFile': 'configs/simple_deep_reward_vehicle_delay_diff.cfg'},
+                        {'prefix': 'rf_number_stops', 'configFile': 'configs/simple_deep_number_stops.cfg'},
+                        {'prefix': 'rf_number_stops_diff', 'configFile': 'configs/simple_deep_number_stops_diff.cfg'}]
+                        #{'prefix': 'fixed_time', 'configFile': 'configs/simple_fixed_time.cfg'}
     #                    {'prefix': 'rf_adaptive_lane_occup', 'configFile': 'configs/simple_deep_adaptive_lane_occupancy.cfg'}]
+    experimentParams = [{'prefix': 'webster_like', 'configFile': 'configs/simple_webster_like.cfg'}]
     s = SimulationManager(options, experimentPrefix, experimentParams, 1)

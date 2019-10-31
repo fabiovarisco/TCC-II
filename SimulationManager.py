@@ -12,6 +12,7 @@ from stats.StatisticsTotalTravelTime import StatisticsTotalTravelTime
 from stats.StatisticsQueueLength import StatisticsQueueLength
 from stats.StatisticsRewardFunction import StatisticsRewardFunction, StatisticsAdaptiveRewardFunctionWeight
 from stats.StatisticsQLearningRewards import StatisticsQLearningRewards
+from tl_controller.qlearning.QLearningAlgorithmFactory import QLearningAlgorithmFactory
 from simulation import Simulation
 from simulation.event_constants import *
 from SimulationConfig import SimulationConfig, DEMAND_NUMBER_SIMULATION_STEPS, ISOLATED_INTERSECTION_DEMAND_PWE, ISOLATED_INTERSECTION_DEMAND_PEW, ISOLATED_INTERSECTION_DEMAND_PNS, ISOLATED_INTERSECTION_DEMAND_PSN
@@ -50,6 +51,7 @@ class SimulationManager(object):
 
 
     def _run(self, simulationId, options):
+        QLearningAlgorithmFactory.resetFactory()
         s = Simulation.Simulation(self.experimentPrefix, simulationId, options, self.config)
         SimulationManager.currentSimulation = s
         self._subscribeToStatistics(s)
