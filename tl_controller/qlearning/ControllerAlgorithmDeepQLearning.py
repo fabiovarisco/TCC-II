@@ -223,7 +223,7 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
         self.t += 1
 
         if (self.t % 50 == 0):
-            self.epsilon_greedy_rate *= 0.8
+            self.epsilon_greedy_rate *= 0.9
 
     @staticmethod
     def createLSTMApproximator(state_array_length, hidden_neuron_count = 40):

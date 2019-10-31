@@ -4,7 +4,7 @@
 
     <input>
         <net-file value="../networks/single.net.xml"/>
-        <route-files value="../routes/isolated_entire_day.rou.xml"/>
+        <route-files value="../routes/isolated_half_day.rou.xml"/>
         <additional-files value="../other/single.tlsp.xml"/>
     </input>
 

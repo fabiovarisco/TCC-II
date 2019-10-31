@@ -154,3 +154,6 @@ class ControllerAlgorithmQLearning(GreedyQLearning):
 
         # Episode.
         self.t += 1
+
+        if (self.t % 50 == 0):
+            self.epsilon_greedy_rate *= 0.9

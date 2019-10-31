@@ -20,7 +20,7 @@ class QLearningAlgorithmFactory(object):
         return QLearningAlgorithmFactory.qlearning_algorithm
 
     @staticmethod
-    def getDeepQLearningAlgorithmLSTM(state_array_length, epsilon_greedy_rate=0.5, learning_rate=1e-05, discounting_rate=0.1, hidden_neuron_count=40):
+    def getDeepQLearningAlgorithmLSTM(state_array_length, epsilon_greedy_rate=0.7, learning_rate=1e-05, discounting_rate=0.1, hidden_neuron_count=40):
 
         if QLearningAlgorithmFactory.deep_qlearning_algorithm is None:
             deep_qlearning_algorithm = ControllerAlgorithmDeepQLearning(
