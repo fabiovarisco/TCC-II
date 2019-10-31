@@ -109,8 +109,8 @@ class RewardCumulativeVehicleDelay(RewardFunction):
         for s in self.controller.trafficLight.getStages():
             for sl in s.getSignalLanes():
                 self.maxPossibleDelay += sl.incoming.getMaxPossibleQueueLength()
-        self.maxPossibleDelay *= (maxStageLength / 2)
-
+        #self.maxPossibleDelay *= (maxStageLength / 2)
+        self.maxPossibleDelay = maxStageLength
 
     def step(self, step):
         self.previousStepCumulativeDelay = self.currentStepCumulativeDelay
@@ -152,7 +152,8 @@ class RewardNumberOfStops(RewardFunction):
         for s in self.controller.trafficLight.getStages():
             for sl in s.getSignalLanes():
                 self.maxNumberOfStops += sl.incoming.getMaxPossibleQueueLength()
-        self.maxNumberOfStops *= 2
+        #self.maxNumberOfStops *= 2
+        self.maxNumberOfStops *= 0.25
 
 
     def step(self, step):
