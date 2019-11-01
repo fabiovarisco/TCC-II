@@ -72,6 +72,6 @@ if __name__ == "__main__":
                         {'prefix': 'rf_vehicle_number_w_p_stps', 'configFile': 'configs/simple_qlearning_avg_vehicle_number_w_penalty_stops.cfg'},
                         {'prefix': 'rf_veh_delay_w_p_stps', 'configFile': 'configs/simple_qlearning_veh_delay_w_penalty_stops.cfg'},
                         {'prefix': 'fixed_time', 'configFile': 'configs/simple_fixed_time.cfg'}]
-    experimentPrefix = 'dummy'
-    experimentParams = [{'prefix': 'rf_vehicle_number_w_p_stps', 'configFile': 'configs/simple_qlearning_avg_vehicle_number_w_penalty_stops.cfg'}]
+    #experimentPrefix = 'dummy'
+    #experimentParams = [{'prefix': 'rf_vehicle_number_w_p_stps', 'configFile': 'configs/simple_qlearning_avg_vehicle_number_w_penalty_stops.cfg'}]
     s = SimulationManager(options, experimentPrefix, experimentParams, 1)

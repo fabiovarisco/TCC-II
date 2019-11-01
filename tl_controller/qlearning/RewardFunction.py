@@ -68,12 +68,12 @@ class RewardWithPenalty(RewardFunction, ABC):
         self.baseRF = baseRewardFunction
 
     def step(self, step):
-        self.baseRF.step()
+        self.baseRF.step(step)
 
     @abstractmethod
     def getPenalty(self):
-        pass 
-    
+        pass
+
     def getReward(self):
         baseReward = self.baseRF.getReward()
         penalty = self.getPenalty()
@@ -89,9 +89,10 @@ class RewardAdditionalStopsPenalty(RewardWithPenalty):
 
     def getPenalty(self):
         numberOfStops = 0
-        max = 0 
+        max = 0
         for l in self.controller.trafficLight.incoming:
             numberOfStops += l.getNumberOfExtraStops()
+            #numberOfStops += l.getNumberOfStops()
             max += (l.getMaxAcceptableQueueLength() / 2)
         return (numberOfStops / max)
 
