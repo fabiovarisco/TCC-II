@@ -258,6 +258,17 @@ if __name__ == '__main__':
     experimentParams = [{'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_avg_queue_length', 'configFile': 'configs/simple_qlearning_avg_queue_length.cfg'},
                         {'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'}]
 
+    experimentPrefix = 'exp12_half_day'
+    experimentParams = [{'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_avg_queue_length', 'configFile': 'configs/simple_qlearning_avg_queue_length.cfg'},
+                        {'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_throughput', 'configFile': 'configs/simple_qlearning_throughput.cfg'},
+                        {'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_vehicle_delay', 'configFile': 'configs/simple_qlearning_reward_vehicle_delay.cfg'},
+                        {'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_number_stops', 'configFile': 'configs/simple_qlearning_number_stops.cfg'},
+                        {'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_avg_queue_length_w_p_stps', 'configFile': 'configs/simple_qlearning_avg_queue_length_w_penalty_stops.cfg'},
+                        {'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_vehicle_number_w_p_stps', 'configFile': 'configs/simple_qlearning_avg_vehicle_number_w_penalty_stops.cfg'},
+                        {'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_veh_delay_w_p_stps', 'configFile': 'configs/simple_qlearning_veh_delay_w_penalty_stops.cfg'},
+                        {'experimentPrefix': 'exp12_half_day', 'prefix': 'fixed_time', 'configFile': 'configs/simple_fixed_time.cfg'}]
+
     numberOfRuns = 1
 
     stats_sc = 'state_change'

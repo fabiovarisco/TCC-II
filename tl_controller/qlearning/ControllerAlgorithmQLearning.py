@@ -14,7 +14,7 @@ class ControllerAlgorithmQLearning(GreedyQLearning):
         self.t = 0
         self.lastAction = {}
         self.lastState = {}
-        np.seed(42)
+        np.random.seed(42)
 
     def extract_possible_actions(self, state_key):
         '''
