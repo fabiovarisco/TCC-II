@@ -254,6 +254,10 @@ if __name__ == '__main__':
                         {'experimentPrefix': 'exp11_entire_day', 'prefix': 'rf_number_stops_diff', 'configFile': 'configs/simple_deep_number_stops_diff.cfg'},
                         #{'experimentPrefix': 'exp11_entire_day', 'prefix': 'webster_like', 'configFile': 'configs/simple_webster_like.cfg'},
                         {'experimentPrefix': 'exp11_entire_day', 'prefix': 'fixed_time', 'configFile': 'configs/simple_fixed_time.cfg'}]
+    experimentPrefix = 'exp12_half_day'
+    experimentParams = [{'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_avg_queue_length', 'configFile': 'configs/simple_qlearning_avg_queue_length.cfg'},
+                        {'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'}]
+
     numberOfRuns = 1
 
     stats_sc = 'state_change'
@@ -288,9 +292,9 @@ if __name__ == '__main__':
     #createPlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ml, col_ml, discretizeStepBy = 120)
     #createPlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, discretizeStepBy = 120)
 
-    createSinglePlotAveragesOnly(experimentPrefix, f"max_{label_ql}_avg", experimentParams, stats_ml, col_ml, 'Max Queue Length', aggFunc = 'max', discretizeStepBy = 1800)
-    createSinglePlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, 'Avg Travel Time', discretizeStepBy = 1800)
-    createSinglePlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ql, col_ql, 'Avg Queue Length', discretizeStepBy = 1800)
+    createSinglePlotAveragesOnly(experimentPrefix, f"max_{label_ql}_avg", experimentParams, stats_ml, col_ml, 'Max Queue Length', aggFunc = 'max', discretizeStepBy = 3600)
+    createSinglePlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, 'Avg Travel Time', discretizeStepBy = 3600)
+    createSinglePlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ql, col_ql, 'Avg Queue Length', discretizeStepBy = 3600)
 
 
     for e in experimentParams:

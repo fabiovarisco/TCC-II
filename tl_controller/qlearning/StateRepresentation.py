@@ -57,8 +57,8 @@ class StateVehicleNumber(StateRepresentation):
 
 class StateVehicleNumberDiscretized(StateRepresentation):
 
-    def __init__(self, controller, discretizeByValue = 1, stateComponent = None):
-        super().__init__(controller, stateComponent)
+    def __init__(self, controller, discretizeByValue = 1, stateComponent = None, stateRepresentationType = None):
+        super().__init__(controller, stateComponent, stateRepresentationType = stateRepresentationType)
         self.discretizeByValue = discretizeByValue
 
     def getCurrentState(self):
@@ -78,8 +78,8 @@ class StateApproachingVehicleNumber(StateRepresentation):
 
 class StateApproachingVehicleNumberDiscretized(StateRepresentation):
 
-    def __init__(self, controller, discretizeByValue = 1, stateComponent = None):
-        super().__init__(controller, stateComponent)
+    def __init__(self, controller, discretizeByValue = 1, stateComponent = None, stateRepresentationType = None):
+        super().__init__(controller, stateComponent, stateRepresentationType = stateRepresentationType)
         self.discretizeByValue = discretizeByValue
 
     def getCurrentState(self):
@@ -91,8 +91,8 @@ class StateApproachingVehicleNumberDiscretized(StateRepresentation):
 
 class StateQueueLengthDiscretized(StateRepresentation):
 
-    def __init__(self, controller, discretizeByValue = 1, stateComponent = None):
-        super().__init__(controller, stateComponent)
+    def __init__(self, controller, discretizeByValue = 1, stateComponent = None, stateRepresentationType = None):
+        super().__init__(controller, stateComponent, stateRepresentationType = None)
         self.discretizeByValue = discretizeByValue
 
     def getCurrentState(self):

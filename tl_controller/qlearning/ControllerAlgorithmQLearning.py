@@ -4,6 +4,7 @@ from pyqlearning.qlearning.greedy_q_learning import GreedyQLearning
 
 import SimulationManager as sm
 from simulation.event_constants import EVENT_QLEARNING_DECISION
+import numpy as np
 
 class ControllerAlgorithmQLearning(GreedyQLearning):
 
@@ -13,6 +14,7 @@ class ControllerAlgorithmQLearning(GreedyQLearning):
         self.t = 0
         self.lastAction = {}
         self.lastState = {}
+        np.seed(42)
 
     def extract_possible_actions(self, state_key):
         '''

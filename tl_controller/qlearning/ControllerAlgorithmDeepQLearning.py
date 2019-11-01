@@ -23,6 +23,8 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
         self.lastActionKey = {}
         self.lastAction = {}
 
+        np.seed(42)
+
 
     def inference(self, state_arr, limit=1):
         '''
