@@ -104,13 +104,20 @@ class Lane(object):
 
     def getNumberOfStops(self):
         numberOfStops = 0
-        for id, n in self.vehicleNumberOfStops.items():
+        for _, n in self.vehicleNumberOfStops.items():
             numberOfStops += n
+        return numberOfStops
+    
+    def getNumberOfExtraStops(self):
+        numberOfStops = 0
+        for _, n in self.vehicleNumberOfStops.items():
+            if (n > 1):
+                numberOfStops += (n - 1)
         return numberOfStops
 
     def getCumulativeVehicleDelay(self):
         delay = 0
-        for id, vehicleDelay in self.cumulativeVehicleDelay.items():
+        for _, vehicleDelay in self.cumulativeVehicleDelay.items():
             delay += vehicleDelay
         return delay
 

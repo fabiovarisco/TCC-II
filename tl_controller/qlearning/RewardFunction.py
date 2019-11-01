@@ -60,6 +60,40 @@ class AdaptiveRewardFunction(RewardFunction, ABC):
 
         return reward
 
+class RewardWithPenalty(RewardFunction, ABC):
+
+    def __init__(self, controller, baseRewardFunction):
+        RewardFunction.__init__(self, controller)
+        self.controller = controller
+        self.baseRF = baseRewardFunction
+
+    def step(self, step):
+        self.baseRF.step()
+
+    @abstractmethod
+    def getPenalty(self):
+        pass 
+    
+    def getReward(self):
+        baseReward = self.baseRF.getReward()
+        penalty = self.getPenalty()
+        reward = baseReward - penalty
+
+        sm.SimulationManager.getCurrentSimulation().notify(EVENT_REWARD_FUNCTION,
+                    tl_id=self.controller.trafficLight.getId(),
+                    reward_type='reward_with_penalty', previous=baseReward,
+                    current=baseReward, max=penalty, reward=reward)
+        return reward
+
+class RewardAdditionalStopsPenalty(RewardWithPenalty):
+
+    def getPenalty(self):
+        numberOfStops = 0
+        max = 0 
+        for l in self.controller.trafficLight.incoming:
+            numberOfStops += l.getNumberOfExtraStops()
+            max += (l.getMaxAcceptableQueueLength() / 2)
+        return (numberOfStops / max)
 
 # On second thought, this measure seems problematic as the total cumulative delay is always increasing
 class RewardCumulativeDelay(RewardFunction):

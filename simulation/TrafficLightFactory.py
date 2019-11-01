@@ -154,7 +154,13 @@ class TrafficLightFactory(object):
 
     @staticmethod
     def createRewardFunction(rewardFunctionParam, controller):
-        return TLC_QLEARNING_REWARD_FUNCTION[rewardFunctionParam](controller)
+        if (rewardFunctionParam == 'AdditionalStopsPenalty'):
+            baseRF = TrafficLightFactory.createRewardFunction(
+                sm.SimulationManager.getCurrentSimulation().config.get(QLEARNING_PENALTY_BASE_REWARD_PARAM),
+                controller)
+            return TLC_QLEARNING_REWARD_FUNCTION[rewardFunctionParam](controller, baseRF)
+        else:
+            return TLC_QLEARNING_REWARD_FUNCTION[rewardFunctionParam](controller)
 
     @staticmethod
     def createStateRepresentation(stateRepresentationParams, discretizeValueParams, controller, stateRepresentationType = StateRepresentation.STATE_REPRESENTATION_NP_ARRAY):
@@ -249,7 +255,8 @@ TLC_QLEARNING_REWARD_FUNCTION = {'AverageVehicleNumber' : RewardAverageVehicleNu
                             'CumulativeVehicleDelayDiff': RewardCumulativeVehicleDelayDiff,
                             'AverageQueueLength': RewardAverageQueueLength,
                             'NumberOfStops': RewardNumberOfStops,
-                            'NumberOfStopsDiff': RewardNumberOfStopsDiff }
+                            'NumberOfStopsDiff': RewardNumberOfStopsDiff,
+                            'AdditionalStopsPenalty': RewardAdditionalStopsPenalty }
 
 TLC_QLEARNING_STATE_REPRESENTATION = {'QueueLength' : StateQueueLength,
                                         'VehicleNumber' : StateVehicleNumber,
