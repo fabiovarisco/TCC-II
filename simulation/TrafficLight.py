@@ -77,7 +77,7 @@ class TrafficLight(object):
 
     def getPreviousStage(self):
         return self.lastActiveStage
-        
+
     def getNextStage(self):
         return (self.currentStage + 1) % len(self.stages)
 
@@ -283,6 +283,12 @@ class TrafficLight(object):
         self.vehicles_throughput_max = veh_throughput_max
         self.vehicles_throughput_total = veh_throughput_total
 
+    def getMaxAcceptableQueueLengthForStage(self, stage_index):
+        acceptable_queue_length = 0
+        for sl in self.controller.trafficLight.stages[stage_index].getSignalLanes:
+            acceptable_queue_length += l.getMaxAcceptableQueueLength()
+        return acceptable_queue_length
+        
     @staticmethod
     def calculateVehiclesNotDispatched(veh_number_now, approaching_at_stage_start, arriving_current_stage):
         return veh_number_now - approaching_at_stage_start - arriving_current_stage

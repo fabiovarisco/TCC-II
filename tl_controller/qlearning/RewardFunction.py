@@ -96,6 +96,13 @@ class RewardAdditionalStopsPenalty(RewardWithPenalty):
             max += (l.getMaxAcceptableQueueLength() / 2)
         return (numberOfStops / max)
 
+class RewardResidualQueuePenalty(RewardWithPenalty):
+
+    def getPenalty(self):
+        residual_queue_total = self.controller.trafficLight.vehicles_not_dispatched_total
+        max = self.controller.trafficLight.getMaxAcceptableQueueLengthForStage(self.controller.trafficLight.getPreviousStage()) / 2
+        return residual_queue_total / max
+
 # On second thought, this measure seems problematic as the total cumulative delay is always increasing
 class RewardCumulativeDelay(RewardFunction):
 
