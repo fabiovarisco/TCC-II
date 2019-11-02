@@ -284,13 +284,17 @@
 
     <tlLogic id="0" type="static" programID="0" offset="0">
         <phase duration="1000" state="GGGGGGgggrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="yyyyyyyyyrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="2"  state="yyyyyyyyyrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="1000" state="rrrrrrrrrGGGGGGgggrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="rrrrrrrrryyyyyyyyyrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="2"  state="rrrrrrrrryyyyyyyyyrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="1000" state="rrrrrrrrrrrrrrrrrrGGGGGGgggrrrrrrrrr"/>
-        <phase duration="5"  state="rrrrrrrrrrrrrrrrrryyyyyyyyyrrrrrrrrr"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrryyyyyyyyyrrrrrrrrr"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="1000" state="rrrrrrrrrrrrrrrrrrrrrrrrrrrGGGGGGggg"/>
-        <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrryyyyyyyyy"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrryyyyyyyyy"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="0" type="traffic_light" x="310.00" y="310.00" incLanes="4i_0 4i_1 4i_2 2i_0 2i_1 2i_2 3i_0 3i_1 3i_2 1i_0 1i_1 1i_2" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_3_1 :0_3_2 :0_36_0 :0_37_0 :0_38_0 :0_9_0 :0_10_0 :0_11_0 :0_12_0 :0_12_1 :0_12_2 :0_39_0 :0_40_0 :0_41_0 :0_18_0 :0_19_0 :0_20_0 :0_21_0 :0_21_1 :0_21_2 :0_42_0 :0_43_0 :0_44_0 :0_27_0 :0_28_0 :0_29_0 :0_30_0 :0_30_1 :0_30_2 :0_45_0 :0_46_0 :0_47_0" shape="300.40,323.60 319.60,323.60 320.04,321.38 320.60,320.60 321.38,320.04 322.38,319.71 323.60,319.60 323.60,300.40 321.38,299.96 320.60,299.40 320.04,298.62 319.71,297.62 319.60,296.40 300.40,296.40 299.96,298.62 299.40,299.40 298.62,299.96 297.62,300.29 296.40,300.40 296.40,319.60 298.62,320.04 299.40,320.60 299.96,321.38 300.29,322.38">

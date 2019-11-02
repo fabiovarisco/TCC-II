@@ -61,17 +61,22 @@ if __name__ == "__main__":
     experimentParams = [{'prefix': 'fixed_time', 'configFile': 'configs/simple_fixed_time.cfg'}]
     #                    {'prefix': 'rf_adaptive_lane_occup', 'configFile': 'configs/simple_deep_adaptive_lane_occupancy.cfg'}]
     #experimentParams = [{'prefix': 'webster_like', 'configFile': 'configs/simple_webster_like.cfg'}]
-    experimentPrefix = 'exp12_half_day'
+    experimentPrefix = 'exp13_half_day'
     experimentParams = [{'prefix': 'rf_avg_queue_length', 'configFile': 'configs/simple_qlearning_avg_queue_length.cfg'},
                         {'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
                         {'prefix': 'rf_throughput', 'configFile': 'configs/simple_qlearning_throughput.cfg'},
+                        {'prefix': 'rf_actual_throughput', 'configFile': 'configs/simple_qlearning_actual_throughput.cfg'},
                         {'prefix': 'rf_vehicle_delay', 'configFile': 'configs/simple_qlearning_reward_vehicle_delay.cfg'},
                         #{'prefix': 'rf_vehicle_delay_diff', 'configFile': 'configs/simple_qlearning_reward_vehicle_delay_diff.cfg'},
                         {'prefix': 'rf_number_stops', 'configFile': 'configs/simple_qlearning_number_stops.cfg'},
                         {'prefix': 'rf_avg_queue_length_w_p_stps', 'configFile': 'configs/simple_qlearning_avg_queue_length_w_penalty_stops.cfg'},
                         {'prefix': 'rf_vehicle_number_w_p_stps', 'configFile': 'configs/simple_qlearning_avg_vehicle_number_w_penalty_stops.cfg'},
                         {'prefix': 'rf_veh_delay_w_p_stps', 'configFile': 'configs/simple_qlearning_veh_delay_w_penalty_stops.cfg'},
-                        {'prefix': 'fixed_time', 'configFile': 'configs/simple_fixed_time.cfg'}]
+                        {'prefix': 'rf_avg_queue_length_w_p_residual_queue', 'configFile': 'configs/simple_qlearning_avg_queue_length_w_penalty_residual_queue.cfg'},
+                        {'prefix': 'rf_vehicle_number_w_p_residual_queue', 'configFile': 'configs/simple_qlearning_avg_vehicle_number_w_penalty_residual_queue.cfg'},
+                        {'prefix': 'rf_veh_delay_w_p_residual_queue', 'configFile': 'configs/simple_qlearning_veh_delay_w_penalty_residual_queue.cfg'},
+                        {'prefix': 'fixed_time', 'configFile': 'configs/simple_fixed_time.cfg'},
+                        {'prefix': 'webster_like', 'configFile': 'configs/simple_webster_like.cfg'}]
     experimentPrefix = 'dummy'
-    experimentParams = [{'prefix': 'fixed_time', 'configFile': 'configs/iso_3_lanes_4_stages_fixed_time.cfg'}]
+    experimentParams = [{'prefix': 'rf_veh_delay_w_p_residual_queue', 'configFile': 'configs/simple_qlearning_veh_delay_w_penalty_residual_queue.cfg'}]
     s = SimulationManager(options, experimentPrefix, experimentParams, 1)

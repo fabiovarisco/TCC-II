@@ -112,7 +112,7 @@ class TrafficLight(object):
             for sl in self.stages[self.lastActiveStage]:
                 l_residual_queue = sl.incoming.getQueueLengthAtBeginningOfStage() - sl.incoming.getVehicleThroughput()
                 residualQueue = max(residualQueue, l_residual_queue)
-
+        
         self.nextStageStartsAt = (sm.SimulationManager.getCurrentSimulationStep() + self.__stageLostTime)
         self.notifyStageChange(tl_id = self.id,
                                 start_at_step = self.nextStageStartsAt,
@@ -214,6 +214,12 @@ class TrafficLight(object):
         numberOfStops = 0
         for l in self.incoming:
             numberOfStops += l.getNumberOfStops()
+        return numberOfStops
+
+    def getNumberOfStopsForStage(self, stage_index):
+        numberOfStops = 0
+        for sl in self.stages[self.lastActiveStage].incoming:
+            numberOfStops += sl.incoming.getNumberOfStops()
         return numberOfStops
 
     def getCompleteRedYellowGreenDefinition(self):
