@@ -41,17 +41,20 @@ class Stage(object):
     def resolveStages(phases, incomingLanes, outgoingLanes):
         stages = []
         i = 0
+
         for phase in phases:
             # Stage definition example: GrGr
             # If the Phase contains a green stage, keep track of Lanes composing the stage
             # Create a stage with the lanes that are Green for this stage
-            if (re.search('G', phase.state)):
+            print(phase)
+            if (re.search('[G|g]', phase.state)):
                 s = Stage(phase.state, i)
                 print(f"Stage {i}: {phase.state}. Dur: {phase.duration}")
-                matches = re.finditer('G', phase.state)
+                matches = re.finditer('[G|g]', phase.state)
                 for m in matches:
                     s.addSignalLane(m.start(), incomingLanes[m.start()], outgoingLanes[m.start()])
-                    print(f"Signal Lane: {m.start()}")
+                    print(f"Signal Lane: {m.start()}. In: {incomingLanes[m.start()].id}. Out: {outgoingLanes[m.start()].id}")
+                    print()
                 stages.append(s)
             i += 1
         return stages

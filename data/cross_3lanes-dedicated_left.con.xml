@@ -4,19 +4,19 @@
 <!-- Straight connections -->
 	<connection from="1i" fromLane="0" toLane="0" to="2o"/>
 	<connection from="1i" fromLane="1" toLane="1" to="2o"/>
-	<connection from="1i" fromLane="2" toLane="2"  to="2o"/>
+<!--	<connection from="1i" fromLane="2" toLane="2"  to="2o"/> -->
 
 	<connection from="2i" fromLane="0" toLane="0" to="1o"/>
 	<connection from="2i" fromLane="1" toLane="1" to="1o"/>
-	<connection from="2i" fromLane="2" toLane="2" to="1o"/>
+<!--	<connection from="2i" fromLane="2" toLane="2" to="1o"/> -->
 
 	<connection from="3i" fromLane="0" toLane="0" to="4o"/>
 	<connection from="3i" fromLane="1" toLane="1" to="4o"/>
-	<connection from="3i" fromLane="2" toLane="2" to="4o"/>
+<!--	<connection from="3i" fromLane="2" toLane="2" to="4o"/> -->
 
 	<connection from="4i" fromLane="0" toLane="0" to="3o"/>
 	<connection from="4i" fromLane="1" toLane="1" to="3o"/>
-	<connection from="4i" fromLane="2" toLane="2" to="3o"/>
+<!--	<connection from="4i" fromLane="2" toLane="2" to="3o"/> -->
 
 <!-- Right turn connections -->
 	<connection from="1i" fromLane="0" toLane="0" to="3o"/>

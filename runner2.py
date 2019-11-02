@@ -64,8 +64,7 @@ if __name__ == "__main__":
     experimentPrefix = 'exp12_half_day'
     experimentParams = [{'prefix': 'rf_avg_queue_length', 'configFile': 'configs/simple_qlearning_avg_queue_length.cfg'},
                         {'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
-                        {'prefix': 'rf_throughput', 'config
-                        File': 'configs/simple_qlearning_throughput.cfg'},
+                        {'prefix': 'rf_throughput', 'configFile': 'configs/simple_qlearning_throughput.cfg'},
                         {'prefix': 'rf_vehicle_delay', 'configFile': 'configs/simple_qlearning_reward_vehicle_delay.cfg'},
                         #{'prefix': 'rf_vehicle_delay_diff', 'configFile': 'configs/simple_qlearning_reward_vehicle_delay_diff.cfg'},
                         {'prefix': 'rf_number_stops', 'configFile': 'configs/simple_qlearning_number_stops.cfg'},
@@ -74,5 +73,5 @@ if __name__ == "__main__":
                         {'prefix': 'rf_veh_delay_w_p_stps', 'configFile': 'configs/simple_qlearning_veh_delay_w_penalty_stops.cfg'},
                         {'prefix': 'fixed_time', 'configFile': 'configs/simple_fixed_time.cfg'}]
     experimentPrefix = 'dummy'
-    experimentParams = [{'prefix': 'fixed_time', 'configFile': 'configs/simple_fixed_time.cfg'}]
+    experimentParams = [{'prefix': 'fixed_time', 'configFile': 'configs/iso_3_lanes_4_stages_fixed_time.cfg'}]
     s = SimulationManager(options, experimentPrefix, experimentParams, 1)
