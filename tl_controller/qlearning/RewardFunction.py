@@ -329,34 +329,32 @@ class RewardThroughput(RewardFunction):
         self.weight_throughput = sm.SimulationManager.getCurrentSimulation().config.getInt(QLEARNING_REWARD_WEIGHT_THROUGHPUT)
         self.weight_queue_ratio = sm.SimulationManager.getCurrentSimulation().config.getInt(QLEARNING_REWARD_WEIGHT_QUEUE_RATIO)
         self.maxStageLength = sm.SimulationManager.getCurrentSimulation().config.getInt(TLC_STAGE_MAX_LENGTH)
+        self.saturationFlowConstant = sm.SimulationManager.getCurrentSimulation().config.getInt(CONSTANT_SATURATION_FLOW)
 
     def step(self, step):
         pass
 
-    def _getThroughputForCurrentStage(self):
-        s = self.controller.trafficLight.getStages()[self.controller.trafficLight.getCurrentStage()]
-        stageLength = self.controller.nextStepIn
+    def _getThroughputForPreviousStage(self):
+        s = self.controller.trafficLight.getStages()[self.controller.trafficLight.getPreviousStage()]
+        stageLength = self.controller.lastStageTime
         throughput = 0
         maxThroughput = 0
         for sl in s.getSignalLanes():
-            saturationFlow = sm.SimulationManager.getCurrentSimulation().config.getInt(CONSTANT_SATURATION_FLOW) * sl.incoming.getWidth()
+            saturationFlow = self.saturationFlowConstant * sl.incoming.getWidth()
             throughput += (saturationFlow / 3600) * stageLength
             maxThroughput += (saturationFlow / 3600) * self.maxStageLength
         return throughput / maxThroughput
 
     def _getQueueRatio(self):
-        s = self.controller.trafficLight.getStages()[self.controller.trafficLight.getCurrentStage()]
         queueRatio = 0
         for s in self.controller.trafficLight.getStages():
             maxLength = 0
             maxLengthIndex = 0
-            i = 0
-            for sl in s.getSignalLanes():
+            for i, sl in enumerate(s.getSignalLanes()):
                 qL = sl.incoming.getQueueLength()
                 if (qL > maxLength):
                     maxLength = qL
                     maxLengthIndex = i
-                i += 1
             laneAceptableQueueLength = s.getSignalLanes()[maxLengthIndex].incoming.getMaxAcceptableQueueLength()
             queueRatio += maxLength / laneAceptableQueueLength
 
@@ -364,7 +362,7 @@ class RewardThroughput(RewardFunction):
         return queueRatio
 
     def getReward(self):
-        throughput = self._getThroughputForCurrentStage()
+        throughput = self._getThroughputForPreviousStage()
         queue_ratio = self._getQueueRatio()
         totalWeight = self.weight_throughput + self.weight_queue_ratio
         reward = (((self.weight_throughput * throughput)
@@ -375,6 +373,18 @@ class RewardThroughput(RewardFunction):
                     reward_type='throughput_queueratio', previous=throughput,
                     current=queue_ratio, max=totalWeight, reward=reward)
         return reward
+
+class RewardActualThroughput(RewardThroughput):
+
+    def _getThroughputForPreviousStage(self):
+        s = self.controller.trafficLight.getStages()[self.controller.trafficLight.getPreviousStage()]
+        throughput = 0
+        maxThroughput = 0
+        for sl in s.getSignalLanes():
+            throughput += sl.incoming.getVehicleThroughput()
+            saturationFlow = self.saturationFlowConstant * sl.incoming.getWidth()
+            maxThroughput += (saturationFlow / 3600) * self.maxStageLength
+        return throughput / maxThroughput
 
 class AdaptiveLaneOccupancyReward(AdaptiveRewardFunction):
 

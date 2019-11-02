@@ -75,6 +75,9 @@ class TrafficLight(object):
     def getCurrentStage(self):
         return self.currentStage
 
+    def getPreviousStage(self):
+        return self.lastActiveStage
+        
     def getNextStage(self):
         return (self.currentStage + 1) % len(self.stages)
 
@@ -179,7 +182,7 @@ class TrafficLight(object):
     def step(self, step):
         for l in self.incoming:
             l.step(step)
-            
+
         delayAtCurrentStep = self.getTotalDelayAtCurrentTimeStep()
         self.cumulativeDelay += delayAtCurrentStep
         self.currentStageCumulativeDelay += delayAtCurrentStep
@@ -265,7 +268,7 @@ class TrafficLight(object):
                 self.approachingVehiclesAtLastStageStart[sl.incoming.id],
                 self.arrivingVehiclesDuringLastStage[sl.incoming.id] 
             )
-            veh_not_dispatched = max(veh_not_dispatched, l_veh_not_dispatched)
+            veh_not_dispatched_max = max(veh_not_dispatched_max, l_veh_not_dispatched)
             veh_not_dispatched_total += l_veh_not_dispatched
             l_vehicle_throughput = TrafficLight.calculateActualThroughput(
                 self.vehicleNumberAtLastStageStart[sl.incoming.id],
@@ -274,6 +277,11 @@ class TrafficLight(object):
             )
             veh_throughput_max = max(veh_throughput_max, l_vehicle_throughput)
             veh_throughput_total += l_vehicle_throughput
+
+        self.vehicles_not_dispatched_max = veh_not_dispatched_max
+        self.vehicles_not_dispatched_total = veh_not_dispatched_total
+        self.vehicles_throughput_max = veh_throughput_max
+        self.vehicles_throughput_total = veh_throughput_total
 
     @staticmethod
     def calculateVehiclesNotDispatched(veh_number_now, approaching_at_stage_start, arriving_current_stage):
