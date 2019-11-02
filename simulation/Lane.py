@@ -17,7 +17,8 @@ class Lane(object):
         self.cumulativeVehicleDelay = {}
         self.vehicleNumberOfStops = {}
         self.vehicleLastSpeed = {}
-        #self.detectorid = detectorid
+        self.vehicleThroughput = 0
+        self.queueLengthAtBeginningOfStage = 0
 
     def getQueueLength(self):
         if (self.queueLengthStep != sm.SimulationManager.getCurrentSimulationStep()):
@@ -58,8 +59,8 @@ class Lane(object):
     def step(self, step):
         newVehicleIDs = self.getLastStepVehicleIDs()
         self.deltaNumber = np.sum(~np.isin(newVehicleIDs, self.previousStepVehicleIDs))
-        self.previousStepVehicleIDs = newVehicleIDs
         self.vehicleThroughput += np.sum(~np.isin(self.previousStepVehicleIDs, newVehicleIDs))
+        self.previousStepVehicleIDs = newVehicleIDs
 
         self.calculateLaneVehicleIndicators(step)
         '''
@@ -118,7 +119,7 @@ class Lane(object):
         for _, n in self.vehicleNumberOfStops.items():
             numberOfStops += n
         return numberOfStops
-    
+
     def getNumberOfExtraStops(self):
         numberOfStops = 0
         for _, n in self.vehicleNumberOfStops.items():

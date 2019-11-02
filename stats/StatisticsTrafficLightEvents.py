@@ -28,7 +28,7 @@ class StatisticsStageChange(ObserverStatistics):
 class StatisticsStageTime(ObserverStatistics):
 
     """docstring for StatisticsStageChange."""
-    def __init__(self, runID, folder, filePrefix = "state_change"):
+    def __init__(self, runID, folder, filePrefix = "stage_time"):
         super(StatisticsStageTime, self).__init__(runID, folder, ['step', 'tl_id', 'start_at_step', 'stage', 'stage_time', 'time_beyond_queue_clearance', 'residual_queue'], filePrefix)
 
     def update(self, step, **kwargs):
@@ -41,7 +41,7 @@ class StatisticsStageTime(ObserverStatistics):
 class StatisticsCycleTime(ObserverStatistics):
 
     """docstring for StatisticsStageChange."""
-    def __init__(self, runID, folder, filePrefix = "state_change"):
+    def __init__(self, runID, folder, filePrefix = "cycle_time"):
         super(StatisticsCycleTime, self).__init__(runID, folder, ['step', 'tl_id', 'start_at_step', 'cycle_time'], filePrefix)
 
     def update(self, step, **kwargs):

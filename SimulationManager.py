@@ -48,8 +48,6 @@ class SimulationManager(object):
             e['simulations'] = simulations
             print('\n')
 
-
-
     def _run(self, simulationId, options):
         QLearningAlgorithmFactory.resetFactory()
         s = Simulation.Simulation(self.experimentPrefix, simulationId, options, self.config)
@@ -62,7 +60,7 @@ class SimulationManager(object):
         s.subscribe(EVENT_SIMULATION_STEP, StatisticsMaxLength)
         s.subscribe(EVENT_STAGE_CHANGE, StatisticsStageChange)
         s.subscribe(EVENT_STAGE_CHANGE, StatisticsStageTime)
-        s.subscribe(EVENT_CYCLE_CHANGE, StatisticsCycleTime)
+        s.subscribe(EVENT_CYCLE_TIME, StatisticsCycleTime)
         s.subscribe(EVENT_SIMULATION_STEP, StatisticsTotalTravelTime)
         s.subscribe(EVENT_SIMULATION_STEP, StatisticsQueueLength)
         s.subscribe(EVENT_QLEARNING_DECISION, StatisticsQLearningRewards)

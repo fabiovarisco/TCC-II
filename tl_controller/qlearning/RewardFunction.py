@@ -152,7 +152,7 @@ class RewardCumulativeVehicleDelay(RewardFunction):
             for sl in s.getSignalLanes():
                 self.maxPossibleDelay += sl.incoming.getMaxPossibleQueueLength()
         #self.maxPossibleDelay *= (maxStageLength / 2)
-        self.maxPossibleDelay = maxStageLength
+        self.maxPossibleDelay *= maxStageLength
 
     def step(self, step):
         self.previousStepCumulativeDelay = self.currentStepCumulativeDelay

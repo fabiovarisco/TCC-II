@@ -13,10 +13,10 @@ class TrafficLight(object):
     def __init__(self, id):
         super(TrafficLight, self).__init__()
         self.id = id
-        
+
+        self._initVariables()
         self._initLinks()
         self._initStages()
-        self._initVariables()
 
     def setController(self, controller):
         self.controller = controller
@@ -33,13 +33,7 @@ class TrafficLight(object):
         self.arrivingVehiclesDuringLastStage = {}
         self.approachingVehiclesAtLastStageStart = {}
         self.vehicleNumberAtLastStageStart = {}
-        for l in self.incoming:
-            self.arrivingVehiclesDuringLastStage[l.id] = 0
-            self.approachingVehiclesAtLastStageStart[l.id] = 0
-            self.vehicleNumberAtLastStageStart[l.id] = 0
 
-        self.stageTimes = [0 for i in range(0, self.stages)]
-        self.lastStageTimes = self.stageTimes
         self.__stageLostTime = sm.SimulationManager.getCurrentSimulation().config.getInt(TL_STAGE_LOST_TIME)
         self.queueClearsAtStepForLane = {}
         self.lastCycleBeginAt = 0
@@ -65,6 +59,14 @@ class TrafficLight(object):
         self.phaseNumber = len(self.logic.getPhases())
 
         self.stages = Stage.resolveStages(self.logic.getPhases(), self.incoming, self.outgoing)
+
+        for l in self.incoming:
+            self.arrivingVehiclesDuringLastStage[l.id] = 0
+            self.approachingVehiclesAtLastStageStart[l.id] = 0
+            self.vehicleNumberAtLastStageStart[l.id] = 0
+
+        self.stageTimes = [0 for i in range(0, len(self.stages))]
+        self.lastStageTimes = self.stageTimes
 
     def getId(self):
         return self.id
@@ -102,17 +104,22 @@ class TrafficLight(object):
     def advanceStage(self):
         self.lastActiveStage = self.currentStage
         self.stageTimes[self.lastActiveStage] = sm.SimulationManager.getCurrentSimulationStep() - self.nextStageStartsAt
-        
+
         wastedTime = -1
         residualQueue = -1
-        if (len(self.queueClearsAtStepForLane) == len(self.stages[self.lastActiveStage].getSignalLanes())):
+        activeStageLanes = {}
+        for l in self.stages[self.lastActiveStage].getSignalLanes():
+            if l.incoming.id not in activeStageLanes:
+                activeStageLanes[l.incoming.id] = 0
+
+        if (len(self.queueClearsAtStepForLane) == len(activeStageLanes)):
             queueClearsAt = max(self.queueClearsAtStepForLane.values())
             wastedTime = sm.SimulationManager.getCurrentSimulationStep() - queueClearsAt
         else:
-            for sl in self.stages[self.lastActiveStage]:
+            for sl in self.stages[self.lastActiveStage].getSignalLanes():
                 l_residual_queue = sl.incoming.getQueueLengthAtBeginningOfStage() - sl.incoming.getVehicleThroughput()
                 residualQueue = max(residualQueue, l_residual_queue)
-        
+
         self.nextStageStartsAt = (sm.SimulationManager.getCurrentSimulationStep() + self.__stageLostTime)
         self.notifyStageChange(tl_id = self.id,
                                 start_at_step = self.nextStageStartsAt,
@@ -128,15 +135,15 @@ class TrafficLight(object):
             for t in self.stageTimes:
                 self.lastCycleTime += t
             self.lastCycleTime += self.__stageLostTime * len(self.stages)
-            self.lastStageTimes = self.stageTimes 
+            self.lastStageTimes = self.stageTimes
             self.stageTimes = [0 for i in range(len(self.stages))]
             self.notifyCycleTime(tl_id = self.id,
                                 start_at_step = self.nextStageStartsAt - self.lastCycleTime,
                                 cycle_time = self.lastCycleTime)
-            
+
             self.lastCycleBeginAt = self.nextStageStartsAt
 
-        
+
         self._advancePhase()
         self.currentStageCumulativeDelay = 0
         self.notifyStageChange(traffic_light = self)
@@ -186,11 +193,12 @@ class TrafficLight(object):
         delayAtCurrentStep = self.getTotalDelayAtCurrentTimeStep()
         self.cumulativeDelay += delayAtCurrentStep
         self.currentStageCumulativeDelay += delayAtCurrentStep
-        
-        for sl in self.stages[self.currentStage]:
-            if sl.incoming.getVehicleThroughput() >= sl.incoming.getQueueLengthAtBeginningOfStage():
-                self.queueClearsAtStepForLane[sl.incoming.id] = step
 
+        for sl in self.stages[self.currentStage].getSignalLanes():
+            if sl.incoming.id not in self.queueClearsAtStepForLane:
+                if sl.incoming.getVehicleThroughput() >= sl.incoming.getQueueLengthAtBeginningOfStage():
+                    self.queueClearsAtStepForLane[sl.incoming.id] = step
+                    
         if (step == self.nextStageStartsAt):
             self.calculateVehicleIndicatorsForLastStage()
             self.getVehicleIndicatorsAtStageStart()
@@ -201,11 +209,12 @@ class TrafficLight(object):
         self.controller.step(step)
 
         if (step == self.nextStageStartsAt):
-            for sl in self.stages[self.currentStage]:
+            for sl in self.stages[self.currentStage].getSignalLanes():
                 sl.incoming.startActiveStage()
+            self.queueClearsAtStepForLane = {}
 
     def getCumulativeVehicleDelay(self):
-        delay = 0 
+        delay = 0
         for l in self.incoming:
             delay += l.getCumulativeVehicleDelay()
         return delay
@@ -227,7 +236,7 @@ class TrafficLight(object):
 
     def getTotalCumulativeDelay(self):
         return self.cumulativeDelay
-    
+
     def getCurrentStageCumulativeDelay(self):
         return self.currentStageCumulativeDelay
 
@@ -252,7 +261,7 @@ class TrafficLight(object):
 
     def resetArrivingVehiclesIndicator(self):
         for l in self.incoming:
-            self.arrivingVehiclesDuringLastStage[l.id] = 0 
+            self.arrivingVehiclesDuringLastStage[l.id] = 0
 
     def gatherArrivingVehiclesIndicator(self):
         for l in self.incoming:
@@ -272,7 +281,7 @@ class TrafficLight(object):
             l_veh_not_dispatched = TrafficLight.calculateVehiclesNotDispatched(
                 sl.incoming.getVehicleNumber(),
                 self.approachingVehiclesAtLastStageStart[sl.incoming.id],
-                self.arrivingVehiclesDuringLastStage[sl.incoming.id] 
+                self.arrivingVehiclesDuringLastStage[sl.incoming.id]
             )
             veh_not_dispatched_max = max(veh_not_dispatched_max, l_veh_not_dispatched)
             veh_not_dispatched_total += l_veh_not_dispatched
@@ -291,10 +300,10 @@ class TrafficLight(object):
 
     def getMaxAcceptableQueueLengthForStage(self, stage_index):
         acceptable_queue_length = 0
-        for sl in self.controller.trafficLight.stages[stage_index].getSignalLanes:
-            acceptable_queue_length += l.getMaxAcceptableQueueLength()
+        for sl in self.controller.trafficLight.stages[stage_index].getSignalLanes():
+            acceptable_queue_length += sl.incoming.getMaxAcceptableQueueLength()
         return acceptable_queue_length
-        
+
     @staticmethod
     def calculateVehiclesNotDispatched(veh_number_now, approaching_at_stage_start, arriving_current_stage):
         return veh_number_now - approaching_at_stage_start - arriving_current_stage
