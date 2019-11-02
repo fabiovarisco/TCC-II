@@ -15,7 +15,8 @@ class TrafficLightControllerQLearning(tlc.TrafficLightController, ABC):
 
         self.resetActionStep = 0
         self.nextStepIn = sm.SimulationManager.getCurrentSimulation().config.getInt(TL_STAGE_MIN_GREEN_TIME)
-
+        self.lastStageTime = 0
+        
     def setQLearningAlgorithm(self, qLearningAlgorithm):
         self.algorithm = qLearningAlgorithm
 

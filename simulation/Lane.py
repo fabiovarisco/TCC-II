@@ -45,10 +45,21 @@ class Lane(object):
     def getVehicleNumber(self):
         return tLane.getLastStepVehicleNumber(self.id)
 
+    def startActiveStage(self):
+        self.queueLengthAtBeginningOfStage = self.getQueueLength()
+        self.vehicleThroughput = 0
+
+    def getQueueLengthAtBeginningOfStage(self):
+        return self.queueLengthAtBeginningOfStage
+
+    def getVehicleThroughput(self):
+        return self.vehicleThroughput
+
     def step(self, step):
         newVehicleIDs = self.getLastStepVehicleIDs()
         self.deltaNumber = np.sum(~np.isin(newVehicleIDs, self.previousStepVehicleIDs))
         self.previousStepVehicleIDs = newVehicleIDs
+        self.vehicleThroughput += np.sum(~np.isin(self.previousStepVehicleIDs, newVehicleIDs))
 
         self.calculateLaneVehicleIndicators(step)
         '''

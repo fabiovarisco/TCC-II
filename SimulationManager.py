@@ -7,7 +7,7 @@ import traci  # noqa
 import matplotlib.pyplot as plt
 
 from stats.StatisticsMaxLength import StatisticsMaxLength
-from stats.StatisticsStageChange import StatisticsStageChange
+from stats.StatisticsTrafficLightEvents import StatisticsStageChange, StatisticsStageTime, StatisticsCycleTime
 from stats.StatisticsTotalTravelTime import StatisticsTotalTravelTime
 from stats.StatisticsQueueLength import StatisticsQueueLength
 from stats.StatisticsRewardFunction import StatisticsRewardFunction, StatisticsAdaptiveRewardFunctionWeight
@@ -61,6 +61,8 @@ class SimulationManager(object):
     def _subscribeToStatistics(self, s):
         s.subscribe(EVENT_SIMULATION_STEP, StatisticsMaxLength)
         s.subscribe(EVENT_STAGE_CHANGE, StatisticsStageChange)
+        s.subscribe(EVENT_STAGE_CHANGE, StatisticsStageTime)
+        s.subscribe(EVENT_CYCLE_CHANGE, StatisticsCycleTime)
         s.subscribe(EVENT_SIMULATION_STEP, StatisticsTotalTravelTime)
         s.subscribe(EVENT_SIMULATION_STEP, StatisticsQueueLength)
         s.subscribe(EVENT_QLEARNING_DECISION, StatisticsQLearningRewards)
