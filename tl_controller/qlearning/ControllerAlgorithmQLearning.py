@@ -94,8 +94,6 @@ class ControllerAlgorithmQLearning(GreedyQLearning):
         for i, c in self.q_df.iterrows():
             print(f"I: {i}; S: {c['state_key']}; A: {c['action_key']}; R: {c['q_value']}.")
 
-
-
     def step(self, step, controller):
         self.controller = controller
         tlID = controller.trafficLight.getId()
@@ -157,5 +155,5 @@ class ControllerAlgorithmQLearning(GreedyQLearning):
         # Episode.
         self.t += 1
 
-        if (self.t % 50 == 0):
-            self.epsilon_greedy_rate *= 0.9
+        #if (self.t % 50 == 0):
+        #    self.epsilon_greedy_rate *= 0.9

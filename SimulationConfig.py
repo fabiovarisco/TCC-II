@@ -38,6 +38,13 @@ QLEARNING_PENALTY_BASE_REWARD_PARAM='qlearning_penalty_base_reward_param'
 QLEARNING_STATE_PARAMS='qlearning_state_params'
 QLEARNING_STATE_DISCRETIZE_PARAMS='qlearning_state_discretize_params'
 
+QLEARNING_EPSILON_GREEDY_RATE='qlearning_epsilon_greedy_rate'
+QLEARNING_GAMMA_VALUE='qlearning_gamma_value'
+QLEARNING_LEARNING_RATE='qlearning_learning_rate'
+DEEP_QLEARNING_SEQUENCE_LENGTH='deep_qlearning_sequence_length'
+DEEP_QLEARNING_DISCOUNTING_RATE='deep_qlearning_discounting_rate'
+DEEP_QLEARNING_HIDDEN_NEURON_COUNT='deep_qlearning_hidden_neuron_count'
+
 QLEARNING_STATE_LENGTH='qlearning_state_length'
 DEEP_QLEARNING_HIDDEN_LAYER='deep_qlearning_hidden_layer'
 
@@ -59,6 +66,9 @@ class SimulationConfig(object):
 
         #for key, value in self.values.items():
         #    print(f"Key: {key}; Value: {value}")
+
+    def set(self, key, value):
+        self.values[key] = value
 
     def get(self, key):
         if key not in self.values:

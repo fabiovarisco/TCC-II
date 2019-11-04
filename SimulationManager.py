@@ -15,7 +15,7 @@ from stats.StatisticsQLearningRewards import StatisticsQLearningRewards
 from tl_controller.qlearning.QLearningAlgorithmFactory import QLearningAlgorithmFactory
 from simulation import Simulation
 from simulation.event_constants import *
-from SimulationConfig import SimulationConfig, DEMAND_NUMBER_SIMULATION_STEPS, ISOLATED_INTERSECTION_DEMAND_PWE, ISOLATED_INTERSECTION_DEMAND_PEW, ISOLATED_INTERSECTION_DEMAND_PNS, ISOLATED_INTERSECTION_DEMAND_PSN
+from SimulationConfig import SimulationConfig, DEMAND_NUMBER_SIMULATION_STEPS, ISOLATED_INTERSECTION_DEMAND_PWE, ISOLATED_INTERSECTION_DEMAND_PEW, ISOLATED_INTERSECTION_DEMAND_PNS, ISOLATED_INTERSECTION_DEMAND_PSN, QLEARNING_EPSILON_GREEDY_RATE
 
 
 class SimulationManager(object):
@@ -30,26 +30,41 @@ class SimulationManager(object):
         #self.config = SimulationConfig(experimentParams[0]['configFile'])
         #self._generate_routefile()
         self.experimentPrefix = experimentPrefix
-        print(f"====== Starting Experiment {experimentPrefix} ======")
         if not os.path.exists(f"./output/{experimentPrefix}"):
             os.mkdir(f"./output/{experimentPrefix}")
-
+            
+        sys.stdout = open(f"./output/{experimentPrefix}/logs.txt", "w")
+        
+        print(f"====== Starting Experiment {experimentPrefix} ======")
         self.simulations = []
         print('====== Starting Simulation runs ======\n')
         for e in experimentParams:
             print(f"====== Starting Trial {e['prefix']} ======")
             print(f"Reading config file {e['configFile']}...")
             self.config = SimulationConfig(e['configFile'])
+
+            simulationParams = Simulationmanager.__getSimulationParams(e['params'])
+            for sp in simulationParams:
+                print(sp)
             simulations = []
-            for i in range(0, numberOfRuns):
-                print(f'Starting simulation {i + 1} of {numberOfRuns}...')
-                simulations.append(self._run(f"{e['prefix']}_{i}", options))
-                print('\n\n')
-            e['simulations'] = simulations
-            print('\n')
+            for sp in simulationParams:
+                QLearningAlgorithmFactory.resetFactory()
+                print(f'========= Starting SIMULATION with params ============')
+                prefix = sp.pop('prefix')
+                for key, value in sp.items():
+                    self.config.set(key, value)
+                    print(f"{key}: {value}")
+
+                for i in range(0, numberOfRuns):
+                    print(f'Starting simulation {i + 1} of {numberOfRuns}...')
+                    simulations.append(self._run(f"{e['prefix']}_{prefix}_{i}", options))
+                    print('\n\n')
+                    self.config.set(QLEARNING_EPSILON_GREEDY_RATE, self.config.getFloat(QLEARNING_EPSILON_GREEDY_RATE) * 0.7)
+
+                e['simulations'] = {'prefix': prefix, 'simulations': simulations}
+                print('\n')
 
     def _run(self, simulationId, options):
-        QLearningAlgorithmFactory.resetFactory()
         s = Simulation.Simulation(self.experimentPrefix, simulationId, options, self.config)
         SimulationManager.currentSimulation = s
         self._subscribeToStatistics(s)
@@ -67,6 +82,33 @@ class SimulationManager(object):
         s.subscribe(EVENT_ADAPTIVE_REWARD_FUNCTION_WEIGHT, StatisticsAdaptiveRewardFunctionWeight)
         s.subscribe(EVENT_REWARD_FUNCTION, StatisticsRewardFunction)
 
+    @staticmethod
+    def __getSimulationParams(params):
+        if (len(params) == 0): return []
+
+        param_array = []
+        param = params[0]
+
+        p = param['from']
+        while (p <= param['to']):
+            param_array.append({param['key']: p, prefix: str(p)})
+            self.config.set(param['key'], p)
+            if 'increment_value' in param:
+                p += param['increment_value']
+            else: 
+                p *= param['increment_factor']
+
+        if (len(params) == 1):
+            return param_array
+        result = []
+        for np in SimulationManager.__getSimulationParams(params[1:]):
+            for p in param_array:
+                p_prefix = p.pop('prefix', '')
+                np_prefix = np.pop('prefix', '')
+                result.append({**p, **np, prefix: f"{p_prefix}_{np_prefix}")
+
+        return result            
+        
     @staticmethod
     def getCurrentSimulation():
         return SimulationManager.currentSimulation

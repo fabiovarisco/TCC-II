@@ -228,7 +228,7 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
         #    self.epsilon_greedy_rate *= 0.9
 
     @staticmethod
-    def createLSTMApproximator(state_array_length, hidden_neuron_count = 40):
+    def createLSTMApproximator(state_array_length, hidden_neuron_count = 40,  learning_rate=1e-05, discounting_rate=0.1, sequence_length=5):
         # Conv LSTM as a Function Approximator.
         from pyqlearning.functionapproximator.lstm_fa import LSTMFA
         # LSTM model.
@@ -277,9 +277,9 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
             # The batch size.
             batch_size=1,
             # Learning rate.
-            learning_rate=1e-05,
+            learning_rate=learning_rate,
             # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-            learning_attenuate_rate=0.1,
+            learning_attenuate_rate=discounting_rate,
             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             attenuate_epoch=50,
             # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
@@ -306,9 +306,9 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
             # Delegate LSTM Model.
             lstm_model=lstm_model,
             # The length of sequences.
-            seq_len=5,
+            seq_len=sequence_length,
             # Learning rate.
-            learning_rate=1e-05,
+            learning_rate=learning_rate,
             # is-a `pydbm.loss.interface.computable_loss.ComputableLoss`.
             computable_loss=None,
             # is-a `pydbm.optimization.opt_params.OptParams`.
