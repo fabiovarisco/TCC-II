@@ -47,8 +47,12 @@ class Lane(object):
         return tLane.getLastStepVehicleNumber(self.id)
 
     def startActiveStage(self):
+        self.vehicleNumberAtBeginningOfStage = self.getVehicleNumber()
         self.queueLengthAtBeginningOfStage = self.getQueueLength()
         self.vehicleThroughput = 0
+
+    def getVehicleNumberAtBeginningOfStage(self):
+        return self.vehicleNumberAtBeginningOfStage
 
     def getQueueLengthAtBeginningOfStage(self):
         return self.queueLengthAtBeginningOfStage

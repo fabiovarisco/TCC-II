@@ -103,6 +103,25 @@ class RewardResidualQueuePenalty(RewardWithPenalty):
         max = self.controller.trafficLight.getMaxAcceptableQueueLengthForStage(self.controller.trafficLight.getPreviousStage()) / 2
         return residual_queue_total / max
 
+class RewardWastedTimePenalty(RewardWithPenalty):
+
+    def __init__(self, controller, baseRewardFunction):
+        RewardWithPenalty.__init__(self, controller, baseRewardFunction)
+        self.maxStageLength = (sm.SimulationManager.getCurrentSimulation().config.getInt(TLC_QLEARNING_ACTION_MAX_GREEN) *
+                         sm.SimulationManager.getCurrentSimulation().config.getInt(TLC_QLEARNING_ACTION_UNIT_LENGTH))
+
+    def getPenalty(self):
+        return self.controller.trafficLight.wastedTimeLastStage / self.maxStageLength
+
+class RewardWastedTimePenaltyLogistic(RewardWastedTimePenalty):
+
+    def _adaptedLogistic(self, x):
+        x = (x * 2) - 1
+        return 1 / (1 + math.exp(-5 * (x + 0.4)))
+
+    def getPenalty(self):
+        return self._adaptedLogistic(super().getPenalty())
+
 # On second thought, this measure seems problematic as the total cumulative delay is always increasing
 class RewardCumulativeDelay(RewardFunction):
 
@@ -387,11 +406,27 @@ class RewardActualThroughput(RewardThroughput):
         s = self.controller.trafficLight.getStages()[self.controller.trafficLight.getPreviousStage()]
         throughput = 0
         maxThroughput = 0
+
+        totalVehicleNumber = 0
         for sl in s.getSignalLanes():
+            totalVehicleNumber += sl.incoming.getVehicleNumberAtBeginningOfStage()
             throughput += sl.incoming.getVehicleThroughput()
-            saturationFlow = self.saturationFlowConstant * sl.incoming.getWidth()
-            maxThroughput += (saturationFlow / 3600) * self.maxStageLength
-        return throughput / maxThroughput
+        totalVehicleNumber += (totalVehicleNumber * 0.4)
+        if (totalVehicleNumber == 0):
+            return 1
+        else:
+            return throughput / totalVehicleNumber
+
+class RewardActualThroughputMaxQueueRatio(RewardActualThroughput):
+
+    def _getQueueRatio(self):
+        queueRatio = 0
+        maxQueueRatio = 0
+        for l in self.controller.trafficLight.incoming:
+            maxQueueRatio = max(maxQueueRatio, (l.getQueueLength() / l.getMaxAcceptableQueueLength()))
+        queueRatio = 1 - maxQueueRatio
+        return queueRatio
+
 
 class AdaptiveLaneOccupancyReward(AdaptiveRewardFunction):
 

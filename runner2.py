@@ -80,4 +80,5 @@ if __name__ == "__main__":
     experimentPrefix = 'dummy'
     experimentParams = [{'prefix': 'rf_veh_delay_w_p_residual_queue', 'configFile': 'configs/simple_qlearning_veh_delay_w_penalty_residual_queue.cfg'}]
     experimentParams = [{'prefix': 'rf_actual_throughput', 'configFile': 'configs/simple_qlearning_actual_throughput.cfg'}]
+    experimentParams = [{'prefix': 'rf_actual_throughput_max_qr', 'configFile': 'configs/simple_qlearning_actual_throughput_max_queue_ratio.cfg'}]
     s = SimulationManager(options, experimentPrefix, experimentParams, 1)

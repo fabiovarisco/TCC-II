@@ -105,8 +105,8 @@ class TrafficLight(object):
         self.lastActiveStage = self.currentStage
         self.stageTimes[self.lastActiveStage] = sm.SimulationManager.getCurrentSimulationStep() - self.nextStageStartsAt
 
-        wastedTime = -1
-        residualQueue = -1
+        wastedTime = 0
+        residualQueue = 0
         activeStageLanes = {}
         for l in self.stages[self.lastActiveStage].getSignalLanes():
             if l.incoming.id not in activeStageLanes:
@@ -120,9 +120,12 @@ class TrafficLight(object):
                 l_residual_queue = sl.incoming.getQueueLengthAtBeginningOfStage() - sl.incoming.getVehicleThroughput()
                 residualQueue = max(residualQueue, l_residual_queue)
 
+        self.wastedTimeLastStage = wastedTime
+        self.residualQueueLastStage = residualQueue
+        
         self.nextStageStartsAt = (sm.SimulationManager.getCurrentSimulationStep() + self.__stageLostTime)
         self.notifyStageChange(tl_id = self.id,
-                                start_at_step = self.nextStageStartsAt,
+                                start_at_step = sm.SimulationManager.getCurrentSimulationStep() - self.stageTimes[self.lastActiveStage],
                                 stage = self.lastActiveStage,
                                 stage_time = self.stageTimes[self.lastActiveStage],
                                 time_beyond_queue_clearance = wastedTime,
@@ -198,7 +201,7 @@ class TrafficLight(object):
             if sl.incoming.id not in self.queueClearsAtStepForLane:
                 if sl.incoming.getVehicleThroughput() >= sl.incoming.getQueueLengthAtBeginningOfStage():
                     self.queueClearsAtStepForLane[sl.incoming.id] = step
-                    
+
         if (step == self.nextStageStartsAt):
             self.calculateVehicleIndicatorsForLastStage()
             self.getVehicleIndicatorsAtStageStart()

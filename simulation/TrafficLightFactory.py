@@ -153,14 +153,16 @@ class TrafficLightFactory(object):
         return trafficLight
 
     @staticmethod
-    def createRewardFunction(rewardFunctionParam, controller):
-        if (rewardFunctionParam in TLC_QLEARNING_REWARDS_WITH_PENALTY):
+    def createRewardFunction(rewardFunctionParams, controller):
+        if (rewardFunctionParams[0] in TLC_QLEARNING_REWARDS_WITH_PENALTY):
+            if (len(rewardFunctionParams) < 2):
+                raise Exception("The Reward Functions with penalty require a base reward function to be specified last.")
             baseRF = TrafficLightFactory.createRewardFunction(
-                sm.SimulationManager.getCurrentSimulation().config.get(QLEARNING_PENALTY_BASE_REWARD_PARAM),
+                rewardFunctionParams[1:],
                 controller)
-            return TLC_QLEARNING_REWARD_FUNCTION[rewardFunctionParam](controller, baseRF)
+            return TLC_QLEARNING_REWARD_FUNCTION[rewardFunctionParams[0]](controller, baseRF)
         else:
-            return TLC_QLEARNING_REWARD_FUNCTION[rewardFunctionParam](controller)
+            return TLC_QLEARNING_REWARD_FUNCTION[rewardFunctionParams[0]](controller)
 
     @staticmethod
     def createStateRepresentation(stateRepresentationParams, discretizeValueParams, controller, stateRepresentationType = StateRepresentation.STATE_REPRESENTATION_NP_ARRAY):
@@ -182,10 +184,10 @@ class TrafficLightFactory(object):
         return stateComponent
 
     @staticmethod
-    def createTrafficLightQLearningFPVCLFromRFandSR(id, rewardFunctionParam, stateRepresentationParams, discretizeValueParams):
+    def createTrafficLightQLearningFPVCLFromRFandSR(id, rewardFunctionParams, stateRepresentationParams, discretizeValueParams):
 
         trafficLight = TrafficLightFactory.createBasicTrafficLightQLearningFPVCL(id)
-        rf = TrafficLightFactory.createRewardFunction(rewardFunctionParam, trafficLight.controller)
+        rf = TrafficLightFactory.createRewardFunction(rewardFunctionParams, trafficLight.controller)
         sc = TrafficLightFactory.createStateRepresentation(stateRepresentationParams, discretizeValueParams, trafficLight.controller,
                                                             stateRepresentationType = StateRepresentation.STATE_REPRESENTATION_STRING)
 
@@ -197,13 +199,10 @@ class TrafficLightFactory(object):
     @staticmethod
     def createTrafficLightQLearningFPVCLFromParams(id):
 
-        rfParam = sm.SimulationManager.getCurrentSimulation().config.get(QLEARNING_REWARD_PARAM)
-        srParams = sm.SimulationManager.getCurrentSimulation().config.get(QLEARNING_STATE_PARAMS)
-        discretizeParams = sm.SimulationManager.getCurrentSimulation().config.get(QLEARNING_STATE_DISCRETIZE_PARAMS)
-        srList = srParams.split(',')
-        discretizeList = discretizeParams.split(',')
+        rfList = TrafficLightFactory.getRewardFunctionParams()
+        srList, discretizeList = TrafficLightFactory.getStateRepresentationParams()
 
-        return TrafficLightFactory.createTrafficLightQLearningFPVCLFromRFandSR(id, rfParam, srList, discretizeList)
+        return TrafficLightFactory.createTrafficLightQLearningFPVCLFromRFandSR(id, rfList, srList, discretizeList)
 
     @staticmethod
     def createTrafficLightDeepQLearningFPVCLFromRFandSR(id, rewardFunctionParam, stateRepresentationParams, discretizeValueParams):
@@ -218,14 +217,24 @@ class TrafficLightFactory(object):
 
     @staticmethod
     def createTrafficLightDeepQLearningFPVCLFromParams(id):
+        rfList = TrafficLightFactory.getRewardFunctionParams()
+        srList, discretizeList = TrafficLightFactory.getStateRepresentationParams()
+        return TrafficLightFactory.createTrafficLightDeepQLearningFPVCLFromRFandSR(id,
+                                        rfParam, srList, discretizeList)
 
-        rfParam = sm.SimulationManager.getCurrentSimulation().config.get(QLEARNING_REWARD_PARAM)
+    @staticmethod
+    def getStateRepresentationParams():
         srParams = sm.SimulationManager.getCurrentSimulation().config.get(QLEARNING_STATE_PARAMS)
         discretizeParams = sm.SimulationManager.getCurrentSimulation().config.get(QLEARNING_STATE_DISCRETIZE_PARAMS)
         srList = srParams.split(',')
         discretizeList = discretizeParams.split(',')
-        return TrafficLightFactory.createTrafficLightDeepQLearningFPVCLFromRFandSR(id,
-                                        rfParam, srList, discretizeList)
+        return srList, discretizeList
+
+    @staticmethod
+    def getRewardFunctionParams():
+        rfParams = sm.SimulationManager.getCurrentSimulation().config.get(QLEARNING_REWARD_PARAM)
+        rfList = rfParams.split(',')
+        return rfList
 
     @staticmethod
     def createTrafficLightDeepQLearningFPVCLWaitingVehiclesRF(id):
@@ -258,9 +267,12 @@ TLC_QLEARNING_REWARD_FUNCTION = {'AverageVehicleNumber' : RewardAverageVehicleNu
                             'NumberOfStops': RewardNumberOfStops,
                             'NumberOfStopsDiff': RewardNumberOfStopsDiff,
                             'AdditionalStopsPenalty': RewardAdditionalStopsPenalty,
-                            'ResidualQueuePenalty': RewardResidualQueuePenalty }
+                            'ResidualQueuePenalty': RewardResidualQueuePenalty,
+                            'WastedTimePenalty': RewardWastedTimePenalty,
+                            'WastedTimePenaltyLogistic': RewardWastedTimePenaltyLogistic,
+                            'ActualThroughputMaxQueueRatio': RewardActualThroughputMaxQueueRatio }
 
-TLC_QLEARNING_REWARDS_WITH_PENALTY = ['ResidualQueuePenalty', 'AdditionalStopsPenalty']
+TLC_QLEARNING_REWARDS_WITH_PENALTY = ['ResidualQueuePenalty', 'AdditionalStopsPenalty', 'WastedTimePenalty', 'WastedTimePenaltyLogistic']
 
 TLC_QLEARNING_STATE_REPRESENTATION = {'QueueLength' : StateQueueLength,
                                         'VehicleNumber' : StateVehicleNumber,

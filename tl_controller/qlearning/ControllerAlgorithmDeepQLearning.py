@@ -40,9 +40,9 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
         next_action_arr = self.extract_possible_actions(state_arr)
         next_q_arr = self.function_approximator.inference_q(next_action_arr)
         action_arr, q = self.select_action(next_action_arr, next_q_arr)
-        print('==Action Array==')
+        #print('==Action Array==')
         print(action_arr)
-        print('==Q Array==')
+        #print('==Q Array==')
         print(q)
         return (action_arr[0], q[0])
 
@@ -224,8 +224,8 @@ class ControllerAlgorithmDeepQLearning(DeepQNetwork):
         # Episode.
         self.t += 1
 
-        if (self.t % 50 == 0):
-            self.epsilon_greedy_rate *= 0.9
+        #if (self.t % 50 == 0):
+        #    self.epsilon_greedy_rate *= 0.9
 
     @staticmethod
     def createLSTMApproximator(state_array_length, hidden_neuron_count = 40):
