@@ -1,0 +1,62 @@
+====== Starting Experiment exp14_hyperparam_tuning ======
+====== Starting Simulation runs ======
+
+====== Starting Trial rf_avg_veh_number ======
+Reading config file configs/simple_qlearning_avg_vehicle_number.cfg...
+{'qlearning_learning_rate': 1e-05, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '1e-05_0.7_0.6'}
+{'qlearning_learning_rate': 0.0001, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '0.0001_0.7_0.6'}
+{'qlearning_learning_rate': 0.001, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '0.001_0.7_0.6'}
+{'qlearning_learning_rate': 0.01, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '0.01_0.7_0.6'}
+{'qlearning_learning_rate': 0.1, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '0.1_0.7_0.6'}
+{'qlearning_learning_rate': 1e-05, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '1e-05_0.7999999999999999_0.6'}
+{'qlearning_learning_rate': 0.0001, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '0.0001_0.7999999999999999_0.6'}
+{'qlearning_learning_rate': 0.001, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '0.001_0.7999999999999999_0.6'}
+{'qlearning_learning_rate': 0.01, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '0.01_0.7999999999999999_0.6'}
+{'qlearning_learning_rate': 0.1, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '0.1_0.7999999999999999_0.6'}
+{'qlearning_learning_rate': 1e-05, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '1e-05_0.8999999999999999_0.6'}
+{'qlearning_learning_rate': 0.0001, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '0.0001_0.8999999999999999_0.6'}
+{'qlearning_learning_rate': 0.001, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '0.001_0.8999999999999999_0.6'}
+{'qlearning_learning_rate': 0.01, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '0.01_0.8999999999999999_0.6'}
+{'qlearning_learning_rate': 0.1, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.6, 'prefix': '0.1_0.8999999999999999_0.6'}
+{'qlearning_learning_rate': 1e-05, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '1e-05_0.7_0.7'}
+{'qlearning_learning_rate': 0.0001, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '0.0001_0.7_0.7'}
+{'qlearning_learning_rate': 0.001, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '0.001_0.7_0.7'}
+{'qlearning_learning_rate': 0.01, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '0.01_0.7_0.7'}
+{'qlearning_learning_rate': 0.1, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '0.1_0.7_0.7'}
+{'qlearning_learning_rate': 1e-05, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '1e-05_0.7999999999999999_0.7'}
+{'qlearning_learning_rate': 0.0001, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '0.0001_0.7999999999999999_0.7'}
+{'qlearning_learning_rate': 0.001, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '0.001_0.7999999999999999_0.7'}
+{'qlearning_learning_rate': 0.01, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '0.01_0.7999999999999999_0.7'}
+{'qlearning_learning_rate': 0.1, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '0.1_0.7999999999999999_0.7'}
+{'qlearning_learning_rate': 1e-05, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '1e-05_0.8999999999999999_0.7'}
+{'qlearning_learning_rate': 0.0001, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '0.0001_0.8999999999999999_0.7'}
+{'qlearning_learning_rate': 0.001, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '0.001_0.8999999999999999_0.7'}
+{'qlearning_learning_rate': 0.01, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '0.01_0.8999999999999999_0.7'}
+{'qlearning_learning_rate': 0.1, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.7, 'prefix': '0.1_0.8999999999999999_0.7'}
+{'qlearning_learning_rate': 1e-05, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '1e-05_0.7_0.7999999999999999'}
+{'qlearning_learning_rate': 0.0001, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '0.0001_0.7_0.7999999999999999'}
+{'qlearning_learning_rate': 0.001, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '0.001_0.7_0.7999999999999999'}
+{'qlearning_learning_rate': 0.01, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '0.01_0.7_0.7999999999999999'}
+{'qlearning_learning_rate': 0.1, 'qlearning_gamma_value': 0.7, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '0.1_0.7_0.7999999999999999'}
+{'qlearning_learning_rate': 1e-05, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '1e-05_0.7999999999999999_0.7999999999999999'}
+{'qlearning_learning_rate': 0.0001, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '0.0001_0.7999999999999999_0.7999999999999999'}
+{'qlearning_learning_rate': 0.001, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '0.001_0.7999999999999999_0.7999999999999999'}
+{'qlearning_learning_rate': 0.01, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '0.01_0.7999999999999999_0.7999999999999999'}
+{'qlearning_learning_rate': 0.1, 'qlearning_gamma_value': 0.7999999999999999, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '0.1_0.7999999999999999_0.7999999999999999'}
+{'qlearning_learning_rate': 1e-05, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '1e-05_0.8999999999999999_0.7999999999999999'}
+{'qlearning_learning_rate': 0.0001, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '0.0001_0.8999999999999999_0.7999999999999999'}
+{'qlearning_learning_rate': 0.001, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '0.001_0.8999999999999999_0.7999999999999999'}
+{'qlearning_learning_rate': 0.01, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '0.01_0.8999999999999999_0.7999999999999999'}
+{'qlearning_learning_rate': 0.1, 'qlearning_gamma_value': 0.8999999999999999, 'qlearning_epsilon_greedy_rate': 0.7999999999999999, 'prefix': '0.1_0.8999999999999999_0.7999999999999999'}
+========= Starting SIMULATION with params ============
+qlearning_learning_rate: 1e-05
+qlearning_gamma_value: 0.7
+qlearning_epsilon_greedy_rate: 0.6
+Starting simulation 1 of 4...
+ Retrying in 1 seconds
+Could not connect to TraCI server at localhost:53295 [Errno 111] Connection refused
+ Retrying in 2 seconds
+Get QLearning algorithm with params: e-greedy-rate 0.6; gamma_value 0.7; alpha_value 1e-05.
+CurrentStage 0
+VehicleNumberDiscretized 3
+Executing 0 of min 3600.

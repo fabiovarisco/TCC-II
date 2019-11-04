@@ -32,9 +32,9 @@ class SimulationManager(object):
         self.experimentPrefix = experimentPrefix
         if not os.path.exists(f"./output/{experimentPrefix}"):
             os.mkdir(f"./output/{experimentPrefix}")
-            
+
         sys.stdout = open(f"./output/{experimentPrefix}/logs.txt", "w")
-        
+
         print(f"====== Starting Experiment {experimentPrefix} ======")
         self.simulations = []
         print('====== Starting Simulation runs ======\n')
@@ -43,7 +43,7 @@ class SimulationManager(object):
             print(f"Reading config file {e['configFile']}...")
             self.config = SimulationConfig(e['configFile'])
 
-            simulationParams = Simulationmanager.__getSimulationParams(e['params'])
+            simulationParams = SimulationManager.__getSimulationParams(e['params'])
             for sp in simulationParams:
                 print(sp)
             simulations = []
@@ -91,24 +91,24 @@ class SimulationManager(object):
 
         p = param['from']
         while (p <= param['to']):
-            param_array.append({param['key']: p, prefix: str(p)})
-            self.config.set(param['key'], p)
+            param_array.append({param['key']: p, 'prefix': str(p)})
             if 'increment_value' in param:
                 p += param['increment_value']
-            else: 
+            else:
                 p *= param['increment_factor']
 
         if (len(params) == 1):
             return param_array
         result = []
         for np in SimulationManager.__getSimulationParams(params[1:]):
+            np_prefix = np.pop('prefix', 'np')
             for p in param_array:
-                p_prefix = p.pop('prefix', '')
-                np_prefix = np.pop('prefix', '')
-                result.append({**p, **np, prefix: f"{p_prefix}_{np_prefix}")
+                p_aux = p.copy()
+                p_prefix = p_aux.pop('prefix', 'p')
+                result.append({**p_aux, **np, 'prefix': f"{p_prefix}_{np_prefix}"})
 
-        return result            
-        
+        return result
+
     @staticmethod
     def getCurrentSimulation():
         return SimulationManager.currentSimulation

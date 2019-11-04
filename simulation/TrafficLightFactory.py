@@ -56,13 +56,13 @@ class TrafficLightFactory(object):
         trafficLight = tl.TrafficLight(id)
         tlController = TrafficLightControllerQLearningFPVCL(trafficLight)
 
-        epsilon_greedy_rate = sm.SimulationManager.getCurrentSimulation().config.getInt(QLEARNING_EPSILON_GREEDY_RATE)
-        gamma_value = sm.SimulationManager.getCurrentSimulation().config.getInt(QLEARNING_GAMMA_VALUE)
-        alpha_value = sm.SimulationManager.getCurrentSimulation().config.getInt(QLEARNING_LEARNING_RATE)
+        epsilon_greedy_rate = sm.SimulationManager.getCurrentSimulation().config.getFloat(QLEARNING_EPSILON_GREEDY_RATE)
+        gamma_value = sm.SimulationManager.getCurrentSimulation().config.getFloat(QLEARNING_GAMMA_VALUE)
+        alpha_value = sm.SimulationManager.getCurrentSimulation().config.getFloat(QLEARNING_LEARNING_RATE)
 
         qlearning_algorithm = QLearningAlgorithmFactory.getQLearningAlgorithm(
                                                 epsilon_greedy_rate = epsilon_greedy_rate,
-                                                gamma_value = gamma_value, 
+                                                gamma_value = gamma_value,
                                                 alpha_value = alpha_value)
 
         tlController.setQLearningAlgorithm(qlearning_algorithm)
@@ -80,17 +80,17 @@ class TrafficLightFactory(object):
         tlController = TrafficLightControllerQLearningFPVCL(trafficLight)
 
         state_length = sm.SimulationManager.getCurrentSimulation().config.getInt(QLEARNING_STATE_LENGTH)
-        
-        epsilon_greedy_rate = sm.SimulationManager.getCurrentSimulation().config.getInt(QLEARNING_EPSILON_GREEDY_RATE)
-        learning_rate = sm.SimulationManager.getCurrentSimulation().config.getInt(QLEARNING_LEARNING_RATE)
+
+        epsilon_greedy_rate = sm.SimulationManager.getCurrentSimulation().config.getFloat(QLEARNING_EPSILON_GREEDY_RATE)
+        learning_rate = sm.SimulationManager.getCurrentSimulation().config.getFloat(QLEARNING_LEARNING_RATE)
         sequence_length = sm.SimulationManager.getCurrentSimulation().config.getInt(DEEP_QLEARNING_SEQUENCE_LENGTH)
-        discounting_rate = sm.SimulationManager.getCurrentSimulation().config.getInt(DEEP_QLEARNING_DISCOUNTING_RATE)
+        discounting_rate = sm.SimulationManager.getCurrentSimulation().config.getFloat(DEEP_QLEARNING_DISCOUNTING_RATE)
         hidden_neuron_count = sm.SimulationManager.getCurrentSimulation().config.getInt(DEEP_QLEARNING_HIDDEN_NEURON_COUNT)
-        
+
         qlearning_algorithm = QLearningAlgorithmFactory.getDeepQLearningAlgorithmLSTM(
                                                 state_length,
                                                 hidden_neuron_count=hidden_neuron_count,
-                                                epsilon_greedy_rate=epsilon_greedy_rate, 
+                                                epsilon_greedy_rate=epsilon_greedy_rate,
                                                 learning_rate=learning_rate,
                                                 discounting_rate=discounting_rate,
                                                 sequence_length=sequence_length)
@@ -122,12 +122,23 @@ class TrafficLightFactory(object):
         tlController = TrafficLightFactory.createTrafficLightController(trafficLight, TrafficLightControllerQLearningFPVCL)
 
         state_length = sm.SimulationManager.getCurrentSimulation().config.getInt(QLEARNING_STATE_LENGTH)
-        hidden_neuroun_count = sm.SimulationManager.getCurrentSimulation().config.getInt(DEEP_QLEARNING_HIDDEN_LAYER)
-        
-        
-        tlController.setQLearningAlgorithm(
-            QLearningAlgorithmFactory.getDeepQLearningAlgorithmLSTM(state_length,
-                                                        hidden_neuron_count=hidden_neuroun_count))
+
+        epsilon_greedy_rate = sm.SimulationManager.getCurrentSimulation().config.getFloat(QLEARNING_EPSILON_GREEDY_RATE)
+        learning_rate = sm.SimulationManager.getCurrentSimulation().config.getFloat(QLEARNING_LEARNING_RATE)
+        sequence_length = sm.SimulationManager.getCurrentSimulation().config.getInt(DEEP_QLEARNING_SEQUENCE_LENGTH)
+        discounting_rate = sm.SimulationManager.getCurrentSimulation().config.getFloat(DEEP_QLEARNING_DISCOUNTING_RATE)
+        hidden_neuron_count = sm.SimulationManager.getCurrentSimulation().config.getInt(DEEP_QLEARNING_HIDDEN_NEURON_COUNT)
+
+        qlearning_algorithm = QLearningAlgorithmFactory.getDeepQLearningAlgorithmLSTM(
+                                                state_length,
+                                                hidden_neuron_count=hidden_neuron_count,
+                                                epsilon_greedy_rate=epsilon_greedy_rate,
+                                                learning_rate=learning_rate,
+                                                discounting_rate=discounting_rate,
+                                                sequence_length=sequence_length)
+
+        tlController.setQLearningAlgorithm(qlearning_algorithm)
+
 
         trafficLight.setController(tlController)
         return trafficLight
@@ -138,11 +149,19 @@ class TrafficLightFactory(object):
         trafficLight = TrafficLightFactory.createTrafficLight(id)
         tlController = TrafficLightFactory.createTrafficLightController(trafficLight, TrafficLightControllerQLearningFPVCL)
 
-        tlController.setQLearningAlgorithm(QLearningAlgorithmFactory.getQLearningAlgorithm())
+        epsilon_greedy_rate = sm.SimulationManager.getCurrentSimulation().config.getFloat(QLEARNING_EPSILON_GREEDY_RATE)
+        gamma_value = sm.SimulationManager.getCurrentSimulation().config.getFloat(QLEARNING_GAMMA_VALUE)
+        alpha_value = sm.SimulationManager.getCurrentSimulation().config.getFloat(QLEARNING_LEARNING_RATE)
+
+        qlearning_algorithm = QLearningAlgorithmFactory.getQLearningAlgorithm(
+                                                epsilon_greedy_rate = epsilon_greedy_rate,
+                                                gamma_value = gamma_value,
+                                                alpha_value = alpha_value)
+
+        tlController.setQLearningAlgorithm(qlearning_algorithm)
         trafficLight.setController(tlController)
 
         return trafficLight
-
 
 
     @staticmethod
@@ -193,7 +212,7 @@ class TrafficLightFactory(object):
         for i in range(len(stateRepresentationParams) - 1, -1, -1):
             s = stateRepresentationParams[i]
             d = int(discretizeValueParams[i])
-            print(s, d)
+            #print(s, d)
             if (d <= 1):
                 cur = TLC_QLEARNING_STATE_REPRESENTATION[s](controller,
                                     stateComponent = stateComponent,
