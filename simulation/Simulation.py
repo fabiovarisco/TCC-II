@@ -51,7 +51,7 @@ class Simulation(object):
         #                 "--step-length", self.config.get(SUMO_SIMULATION_STEP_LENGTH)])
 
         traci.connect(port=8813)
-        traci.load([sumoBinary, "-c", self.config.get(SUMO_SIMULATION_CONFIGURATION_FILE),
+        traci.load(["-c", self.config.get(SUMO_SIMULATION_CONFIGURATION_FILE),
                          "--tripinfo-output", f"{self.runID}_{self.config.get(SUMO_SIMULATION_OUTPUT_FILE)}",
                          "--step-length", self.config.get(SUMO_SIMULATION_STEP_LENGTH)])
         self._preRun()
