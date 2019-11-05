@@ -86,7 +86,8 @@ class Simulation(object):
             for kpi in event_indicators:
                 kpi.save()
                 #kpi.createPlot()
-        traci.close()
+        
+        #traci.close()
 
         sys.stdout.flush()
 
