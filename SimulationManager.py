@@ -38,6 +38,8 @@ class SimulationManager(object):
         print(f"====== Starting Experiment {experimentPrefix} ======")
         self.simulations = []
         print('====== Starting Simulation runs ======\n')
+        traci.init(port=8813)
+        
         for e in experimentParams:
             print(f"====== Starting Trial {e['prefix']} ======")
             print(f"Reading config file {e['configFile']}...")
