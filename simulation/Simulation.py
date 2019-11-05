@@ -50,8 +50,8 @@ class Simulation(object):
         #                 "--tripinfo-output", self.config.get(SUMO_SIMULATION_OUTPUT_FILE),
         #                 "--step-length", self.config.get(SUMO_SIMULATION_STEP_LENGTH)])
 
-        self.connection = traci.connect(port=8813)
-        self.connection.load(["-c", self.config.get(SUMO_SIMULATION_CONFIGURATION_FILE),
+        traci.init(port=8813)
+        traci.load(["-c", self.config.get(SUMO_SIMULATION_CONFIGURATION_FILE),
                          "--tripinfo-output", f"{self.runID}_{self.config.get(SUMO_SIMULATION_OUTPUT_FILE)}",
                          "--step-length", self.config.get(SUMO_SIMULATION_STEP_LENGTH)])
         self._preRun()
@@ -75,7 +75,7 @@ class Simulation(object):
         #tls = TrafficLightStatic("0", "actuated_gap")
         minSteps = self.config.getInt(DEMAND_NUMBER_SIMULATION_STEPS)
         while traci.simulation.getMinExpectedNumber() > 0:
-            self.connection.simulationStep()
+            traci.simulationStep()
             for tl in self.trafficLights:
                 tl.step(self.currentStep)
                 self.notify(EVENT_SIMULATION_STEP, traffic_light = tl)
