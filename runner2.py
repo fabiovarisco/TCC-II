@@ -86,8 +86,14 @@ if __name__ == "__main__":
                             'params': [{'key': QLEARNING_LEARNING_RATE, 'from': 1e-03, 'to': 1e-03, 'increment_factor': 10},
                                         {'key': QLEARNING_GAMMA_VALUE, 'from': 0.7, 'to': 0.99, 'increment_value': 0.1},
                                         {'key': QLEARNING_EPSILON_GREEDY_RATE, 'from': 0.6, 'to': 0.8, 'increment_value': 0.1}]}]
-                        # {'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg',
-                        #     'params': [{'key': QLEARNING_LEARNING_RATE, 'from': 1e-06, 'to': 0.1, 'increment_factor': 10},
+    experimentPrefix = 'exp15_hyperparam_tuning_2'
+    experimentParams = [{'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg',
+                             'params': [{'key': QLEARNING_LEARNING_RATE, 'from': 1e-06, 'to': 0.1, 'increment_factor': 10},
+                                        {'key': DEEP_QLEARNING_HIDDEN_NEURON_COUNT, 'from': 40, 'to': 40, 'increment_factor': 1.5},
+                                        {'key': DEEP_QLEARNING_DISCOUNTING_RATE, 'from': 0.1, 'to': 0.1, 'increment_factor': 10},
+                                        {'key': DEEP_QLEARNING_SEQUENCE_LENGTH, 'from': 5, 'to': 5, 'increment_value': 3},
+                                        {'key': QLEARNING_EPSILON_GREEDY_RATE, 'from': 0.7, 'to': 0.7, 'increment_value': 0.1}]}]
+                      
                         #                 {'key': DEEP_QLEARNING_HIDDEN_NEURON_COUNT, 'from': 5, 'to': 150, 'increment_factor': 1.5},
                         #                 {'key': DEEP_QLEARNING_DISCOUNTING_RATE, 'from': 1e-04, 'to': 0.1, 'increment_factor': 10},
                         #                 {'key': DEEP_QLEARNING_SEQUENCE_LENGTH, 'from': 1, 'to': 20, 'increment_value': 3},
