@@ -81,9 +81,9 @@ if __name__ == "__main__":
     experimentPrefix = 'dummy'
     experimentParams = [{'prefix': 'rf_veh_delay_w_p_residual_queue', 'configFile': 'configs/simple_qlearning_veh_delay_w_penalty_residual_queue.cfg'}]
     experimentParams = [{'prefix': 'rf_actual_throughput', 'configFile': 'configs/simple_qlearning_actual_throughput.cfg'}]
-    experimentPrefix = 'exp14_hyperparam_tuning'
+    experimentPrefix = 'exp14_hyperparam_tuning_2'
     experimentParams = [{'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg',
-                            'params': [{'key': QLEARNING_LEARNING_RATE, 'from': 1e-05, 'to': 0.1, 'increment_factor': 10},
+                            'params': [{'key': QLEARNING_LEARNING_RATE, 'from': 1e-03, 'to': 1e-03, 'increment_factor': 10},
                                         {'key': QLEARNING_GAMMA_VALUE, 'from': 0.7, 'to': 0.99, 'increment_value': 0.1},
                                         {'key': QLEARNING_EPSILON_GREEDY_RATE, 'from': 0.6, 'to': 0.8, 'increment_value': 0.1}]}]
                         # {'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg',
