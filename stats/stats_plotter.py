@@ -66,11 +66,11 @@ def discretizeStep(df, by, col_r):
     return df
 
 def writeTableMinMaxMeanStd(experimentParams, filePrefix, outputFile, col, numberOfRuns):
-    
+
     #      ,exp0,   ,   ,   ,exp1,...,aggregated
     #prefix,mean,std,min,max,...
     header1 = ['']
-    for i in range(0, numberOfRuns): 
+    for i in range(0, numberOfRuns):
         header1.extend([f"ext{(i+1)}",'','',''])
     header1.extend(["aggregated",'','',''])
     header2 = ['prefix']
@@ -80,23 +80,23 @@ def writeTableMinMaxMeanStd(experimentParams, filePrefix, outputFile, col, numbe
     for e in experimentParams:
         line = [e['prefix']]
         for i in range(0, numberOfRuns):
-            line.append(e['results'][i][filePrefix].mean())
-            line.append(e['results'][i][filePrefix].std())
-            line.append(e['results'][i][filePrefix].min())
-            line.append(e['results'][i][filePrefix].max())
+            line.append(e['results'][i][filePrefix][col].mean())
+            line.append(e['results'][i][filePrefix][col].std())
+            line.append(e['results'][i][filePrefix][col].min())
+            line.append(e['results'][i][filePrefix][col].max())
         dfAll = aggregateDFs(e['results'], filePrefix, 'step', col, 'mean')
-        line.append(dfAll.mean())
-        line.append(dfAll.std())
-        line.append(dfAll.min())
-        line.append(dfAll.max())
-        lines.append(line)      
+        line.append(dfAll[col].mean())
+        line.append(dfAll[col].std())
+        line.append(dfAll[col].min())
+        line.append(dfAll[col].max())
+        lines.append(line)
 
-    with open(outputFile, 'w') as f: 
+    with open(outputFile, 'w') as f:
         for line in lines:
-            f.write(','.join(map(str, line)))
-        
+            print(','.join(map(str, line)), file=f)
+
     print(f"Successfully written statistics to {outputFile}")
-        
+
 
 def getMinMeanAndStd(experimentParams, filePrefix, col, func):
     minMean = 999999
@@ -334,31 +334,31 @@ if __name__ == '__main__':
         df = df.groupby(['step', 'tl_id'], as_index=False).agg({'queue_length' : 'mean'})
         e['results'][0][stats_ql] = df
 
-    createPlot(experimentPrefix, f"max_{label_ql}", experimentParams, numberOfRuns, [stats_ml], [col_ml], [sAgg.PLOT_KIND_LINE], aggregateDFsBy=aggregateDFsBy,
-                groupRunsColumn = col_ml, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_ml, discretizeStepBy = 600)
+    #createPlot(experimentPrefix, f"max_{label_ql}", experimentParams, numberOfRuns, [stats_ml], [col_ml], [sAgg.PLOT_KIND_LINE], aggregateDFsBy=aggregateDFsBy,
+    #            groupRunsColumn = col_ml, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_ml, discretizeStepBy = 600)
 
-    createPlot(experimentPrefix, label_tt, experimentParams, numberOfRuns, [stats_tt], [col_tt], [sAgg.PLOT_KIND_LINE], groupByParams = {col_tt : 'mean'},
-                groupRunsColumn = col_tt, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_tt, discretizeStepBy = 600)
+    #createPlot(experimentPrefix, label_tt, experimentParams, numberOfRuns, [stats_tt], [col_tt], [sAgg.PLOT_KIND_LINE], groupByParams = {col_tt : 'mean'},
+    #            groupRunsColumn = col_tt, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_tt, discretizeStepBy = 600)
 
-    createPlot(experimentPrefix, label_ql, experimentParams, numberOfRuns, [stats_ql], [col_ql], [sAgg.PLOT_KIND_LINE], groupByParams = {col_ql : 'mean'},
-                groupRunsColumn = col_ql, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_ql, discretizeStepBy = 600)
+    #createPlot(experimentPrefix, label_ql, experimentParams, numberOfRuns, [stats_ql], [col_ql], [sAgg.PLOT_KIND_LINE], groupByParams = {col_ql : 'mean'},
+    #            groupRunsColumn = col_ql, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_ql, discretizeStepBy = 600)
 
     #createPlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ml, col_ml, discretizeStepBy = 120)
     #createPlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, discretizeStepBy = 120)
 
-    createSinglePlotAveragesOnly(experimentPrefix, f"single_max_{label_ql}_avg", experimentParams, stats_ml, col_ml, 'Max Queue Length', aggFunc = 'max', discretizeStepBy = 600)
-    createSinglePlotAveragesOnly(experimentPrefix, f"single_{label_tt}_avg", experimentParams, stats_tt, col_tt, 'Avg Travel Time', discretizeStepBy = 600)
-    createSinglePlotAveragesOnly(experimentPrefix, f"single_{label_ql}_avg", experimentParams, stats_ql, col_ql, 'Avg Queue Length', discretizeStepBy = 600)
+    #createSinglePlotAveragesOnly(experimentPrefix, f"single_max_{label_ql}_avg", experimentParams, stats_ml, col_ml, 'Max Queue Length', aggFunc = 'max', discretizeStepBy = 600)
+    #createSinglePlotAveragesOnly(experimentPrefix, f"single_{label_tt}_avg", experimentParams, stats_tt, col_tt, 'Avg Travel Time', discretizeStepBy = 600)
+    #createSinglePlotAveragesOnly(experimentPrefix, f"single_{label_ql}_avg", experimentParams, stats_ql, col_ql, 'Avg Queue Length', discretizeStepBy = 600)
 
     writeTableMinMaxMeanStd(experimentParams, stats_ml, f"./output/{experimentPrefix}/stats_max_{label_ql}.csv", col_ml, numberOfRuns)
     writeTableMinMaxMeanStd(experimentParams, stats_tt, f"./output/{experimentPrefix}/stats_{label_tt}.csv", col_tt, numberOfRuns)
     writeTableMinMaxMeanStd(experimentParams, stats_ql, f"./output/{experimentPrefix}/stats_{label_ql}.csv", col_ql, numberOfRuns)
 
-    for e in experimentParams:
-        describe(e['results'], stats_ql, col_ql)
+    #for e in experimentParams:
+    #    describe(e['results'], stats_ql, col_ql)
 
-    for e in experimentParams:
-        describe(e['results'], stats_tt, col_tt)
+    #for e in experimentParams:
+    #    describe(e['results'], stats_tt, col_tt)
 
-    getMinMeanAndStd(experimentParams, stats_ql, col_ql, 'mean')
-    getMinMeanAndStd(experimentParams, stats_tt, col_tt, 'mean')
+    #getMinMeanAndStd(experimentParams, stats_ql, col_ql, 'mean')
+    #getMinMeanAndStd(experimentParams, stats_tt, col_tt, 'mean')
