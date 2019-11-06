@@ -53,10 +53,614 @@ qlearning_learning_rate: 1e-05
 qlearning_gamma_value: 0.7
 qlearning_epsilon_greedy_rate: 0.6
 Starting simulation 1 of 4...
- Retrying in 1 seconds
-Could not connect to TraCI server at localhost:53295 [Errno 111] Connection refused
- Retrying in 2 seconds
 Get QLearning algorithm with params: e-greedy-rate 0.6; gamma_value 0.7; alpha_value 1e-05.
-CurrentStage 0
-VehicleNumberDiscretized 3
 Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 2 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.42; gamma_value 0.7; alpha_value 1e-05.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 3 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.294; gamma_value 0.7; alpha_value 1e-05.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 4 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.20579999999999998; gamma_value 0.7; alpha_value 1e-05.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+
+
+========= Starting SIMULATION with params ============
+qlearning_learning_rate: 0.0001
+qlearning_gamma_value: 0.7
+qlearning_epsilon_greedy_rate: 0.6
+Starting simulation 1 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.6; gamma_value 0.7; alpha_value 0.0001.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 2 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.42; gamma_value 0.7; alpha_value 0.0001.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+
+
+
+Starting simulation 3 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.294; gamma_value 0.7; alpha_value 0.0001.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+Executing 22000 of min 3600.
+
+
+
+Starting simulation 4 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.20579999999999998; gamma_value 0.7; alpha_value 0.0001.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+
+
+========= Starting SIMULATION with params ============
+qlearning_learning_rate: 0.001
+qlearning_gamma_value: 0.7
+qlearning_epsilon_greedy_rate: 0.6
+Starting simulation 1 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.6; gamma_value 0.7; alpha_value 0.001.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 2 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.42; gamma_value 0.7; alpha_value 0.001.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 3 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.294; gamma_value 0.7; alpha_value 0.001.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 4 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.20579999999999998; gamma_value 0.7; alpha_value 0.001.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+
+
+
+
+
+========= Starting SIMULATION with params ============
+qlearning_learning_rate: 0.01
+qlearning_gamma_value: 0.7
+qlearning_epsilon_greedy_rate: 0.6
+Starting simulation 1 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.6; gamma_value 0.7; alpha_value 0.01.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 2 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.42; gamma_value 0.7; alpha_value 0.01.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 3 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.294; gamma_value 0.7; alpha_value 0.01.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 4 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.20579999999999998; gamma_value 0.7; alpha_value 0.01.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+Executing 22000 of min 3600.
+
+
+
+
+
+========= Starting SIMULATION with params ============
+qlearning_learning_rate: 0.1
+qlearning_gamma_value: 0.7
+qlearning_epsilon_greedy_rate: 0.6
+Starting simulation 1 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.6; gamma_value 0.7; alpha_value 0.1.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 2 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.42; gamma_value 0.7; alpha_value 0.1.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 3 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.294; gamma_value 0.7; alpha_value 0.1.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 4 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.20579999999999998; gamma_value 0.7; alpha_value 0.1.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+
+
+========= Starting SIMULATION with params ============
+qlearning_learning_rate: 1e-05
+qlearning_gamma_value: 0.7999999999999999
+qlearning_epsilon_greedy_rate: 0.6
+Starting simulation 1 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.6; gamma_value 0.7999999999999999; alpha_value 1e-05.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
+Executing 13000 of min 3600.
+Executing 14000 of min 3600.
+Executing 15000 of min 3600.
+Executing 16000 of min 3600.
+Executing 17000 of min 3600.
+Executing 18000 of min 3600.
+Executing 19000 of min 3600.
+Executing 20000 of min 3600.
+Executing 21000 of min 3600.
+
+
+
+Starting simulation 2 of 4...
+Get QLearning algorithm with params: e-greedy-rate 0.42; gamma_value 0.7999999999999999; alpha_value 1e-05.
+Executing 0 of min 3600.
+Executing 1000 of min 3600.
+Executing 2000 of min 3600.
+Executing 3000 of min 3600.
+Executing 4000 of min 3600.
+Executing 5000 of min 3600.
+Executing 6000 of min 3600.
+Executing 7000 of min 3600.
+Executing 8000 of min 3600.
+Executing 9000 of min 3600.
+Executing 10000 of min 3600.
+Executing 11000 of min 3600.
+Executing 12000 of min 3600.
