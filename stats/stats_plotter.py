@@ -65,9 +65,37 @@ def discretizeStep(df, by, col_r):
     df[col_r] = (df['step'] / by).round(0)
     return df
 
-def writeTableMinMaxMeanStd(experimentParams, filePrefix, col):
-
+def writeTableMinMaxMeanStd(experimentParams, filePrefix, outputFile, col, numberOfRuns):
+    
+    #      ,exp0,   ,   ,   ,exp1,...,aggregated
+    #prefix,mean,std,min,max,...
+    header1 = ['']
+    for i in range(0, numberOfRuns): 
+        header1.extend([f"ext{(i+1)}",'','',''])
+    header1.extend(["aggregated",'','',''])
+    header2 = ['prefix']
+    for i in range(0, numberOfRuns + 1):
+        header2.extend(['mean','std','min','max'])
+    lines = [header1, header2]
     for e in experimentParams:
+        line = [e['prefix']]
+        for i in range(0, numberOfRuns):
+            line.append(e['results'][i][filePrefix].mean())
+            line.append(e['results'][i][filePrefix].std())
+            line.append(e['results'][i][filePrefix].min())
+            line.append(e['results'][i][filePrefix].max())
+        dfAll = aggregateDFs(e['results'], filePrefix, 'step', col, 'mean')
+        line.append(dfAll.mean())
+        line.append(dfAll.std())
+        line.append(dfAll.min())
+        line.append(dfAll.max())
+        lines.append(line)      
+
+    with open(outputFile, 'w') as f: 
+        for line in lines:
+            f.write(','.join(map(str, line)))
+        
+    print(f"Successfully written statistics to {outputFile}")
         
 
 def getMinMeanAndStd(experimentParams, filePrefix, col, func):
@@ -322,6 +350,9 @@ if __name__ == '__main__':
     createSinglePlotAveragesOnly(experimentPrefix, f"single_{label_tt}_avg", experimentParams, stats_tt, col_tt, 'Avg Travel Time', discretizeStepBy = 600)
     createSinglePlotAveragesOnly(experimentPrefix, f"single_{label_ql}_avg", experimentParams, stats_ql, col_ql, 'Avg Queue Length', discretizeStepBy = 600)
 
+    writeTableMinMaxMeanStd(experimentParams, stats_ml, f"./output/{experimentPrefix}/stats_max_{label_ql}.csv", col_ml, numberOfRuns)
+    writeTableMinMaxMeanStd(experimentParams, stats_tt, f"./output/{experimentPrefix}/stats_{label_tt}.csv", col_tt, numberOfRuns)
+    writeTableMinMaxMeanStd(experimentParams, stats_ql, f"./output/{experimentPrefix}/stats_{label_ql}.csv", col_ql, numberOfRuns)
 
     for e in experimentParams:
         describe(e['results'], stats_ql, col_ql)
