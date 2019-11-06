@@ -65,6 +65,11 @@ def discretizeStep(df, by, col_r):
     df[col_r] = (df['step'] / by).round(0)
     return df
 
+def writeTableMinMaxMeanStd(experimentParams, filePrefix, col):
+
+    for e in experimentParams:
+        
+
 def getMinMeanAndStd(experimentParams, filePrefix, col, func):
     minMean = 999999
     minMeanPrefix = ''
@@ -275,8 +280,8 @@ if __name__ == '__main__':
                         {'experimentPrefix': 'exp14_hyperparam_tuning', 'prefix': 'rf_avg_veh_number_0.01_0.7_0.6', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
                         {'experimentPrefix': 'exp14_hyperparam_tuning', 'prefix': 'rf_avg_veh_number_0.1_0.7_0.6', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'}
     ]
-    
-    numberOfRuns = 5
+
+    numberOfRuns = 4
 
     stats_sc = 'state_change'
     stats_ml = 'max_length'
@@ -308,7 +313,7 @@ if __name__ == '__main__':
                 groupRunsColumn = col_tt, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_tt, discretizeStepBy = 600)
 
     createPlot(experimentPrefix, label_ql, experimentParams, numberOfRuns, [stats_ql], [col_ql], [sAgg.PLOT_KIND_LINE], groupByParams = {col_ql : 'mean'},
-                groupRunsColumn = col_ql, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_tt, discretizeStepBy = 600)
+                groupRunsColumn = col_ql, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_ql, discretizeStepBy = 600)
 
     #createPlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ml, col_ml, discretizeStepBy = 120)
     #createPlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, discretizeStepBy = 120)
