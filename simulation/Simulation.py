@@ -51,7 +51,7 @@ class Simulation(object):
         #                 "--step-length", self.config.get(SUMO_SIMULATION_STEP_LENGTH)])
 
         traci.load(["-c", self.config.get(SUMO_SIMULATION_CONFIGURATION_FILE),
-                         "--tripinfo-output", f"{self.runID}_{self.config.get(SUMO_SIMULATION_OUTPUT_FILE)}",
+                         "--tripinfo-output", f"./output/{self.experimentPrefix}/{self.runID}_{self.config.get(SUMO_SIMULATION_OUTPUT_FILE)}",
                          "--step-length", self.config.get(SUMO_SIMULATION_STEP_LENGTH)])
         self._preRun()
         self._run()
