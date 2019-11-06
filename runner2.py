@@ -86,7 +86,7 @@ if __name__ == "__main__":
                             'params': [{'key': QLEARNING_LEARNING_RATE, 'from': 1e-03, 'to': 1e-03, 'increment_factor': 10},
                                         {'key': QLEARNING_GAMMA_VALUE, 'from': 0.7, 'to': 0.99, 'increment_value': 0.1},
                                         {'key': QLEARNING_EPSILON_GREEDY_RATE, 'from': 0.6, 'to': 0.8, 'increment_value': 0.1}]}]
-    experimentPrefix = 'exp15_hyperparam_tuning_2'
+    experimentPrefix = 'exp15_hyperparam_tuning'
     experimentParams = [{'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg',
                              'params': [{'key': QLEARNING_LEARNING_RATE, 'from': 1e-06, 'to': 0.1, 'increment_factor': 10},
                                         {'key': DEEP_QLEARNING_HIDDEN_NEURON_COUNT, 'from': 40, 'to': 40, 'increment_factor': 1.5},
