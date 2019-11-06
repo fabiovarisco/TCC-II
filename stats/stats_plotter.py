@@ -143,8 +143,8 @@ def createPlotAveragesOnly(folder, label, experimentParams, file_prefix, y_colum
     fig.savefig(f"output/{folder}/{label}.png")
 
 
-def createPlot(label, experimentParams, numberOfRuns, file_prefixes, y_columns, kinds, aggregateDFsBy = None, groupByParams = None, groupRunsColumn = None, groupRunsFunc = None, groupRunsFilePrefix = None, discretizeStepBy = None):
-    col_labels = [str(i) in range(0, numberOfRuns)]
+def createPlot(folder, label, experimentParams, numberOfRuns, file_prefixes, y_columns, kinds, aggregateDFsBy = None, groupByParams = None, groupRunsColumn = None, groupRunsFunc = None, groupRunsFilePrefix = None, discretizeStepBy = None):
+    col_labels = [str(i) for i in range(0, numberOfRuns)]
     if groupRunsFilePrefix is not None: col_labels.append('avg')
     fig, axes = initSubPlots(label, [e['prefix'] for e in experimentParams], col_labels, 'step', y_columns[0])
 
@@ -268,8 +268,15 @@ if __name__ == '__main__':
                         {'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_vehicle_number_w_p_stps', 'configFile': 'configs/simple_qlearning_avg_vehicle_number_w_penalty_stops.cfg'},
                         {'experimentPrefix': 'exp12_half_day', 'prefix': 'rf_veh_delay_w_p_stps', 'configFile': 'configs/simple_qlearning_veh_delay_w_penalty_stops.cfg'},
                         {'experimentPrefix': 'exp12_half_day', 'prefix': 'fixed_time', 'configFile': 'configs/simple_fixed_time.cfg'}]
-
-    numberOfRuns = 1
+    experimentPrefix = 'exp14_hyperparam_tuning'
+    experimentParams = [{'experimentPrefix': 'exp14_hyperparam_tuning', 'prefix': 'rf_avg_veh_number_1e-05_0.7_0.6', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp14_hyperparam_tuning', 'prefix': 'rf_avg_veh_number_0.0001_0.7_0.6', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp14_hyperparam_tuning', 'prefix': 'rf_avg_veh_number_0.001_0.7_0.6', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp14_hyperparam_tuning', 'prefix': 'rf_avg_veh_number_0.01_0.7_0.6', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp14_hyperparam_tuning', 'prefix': 'rf_avg_veh_number_0.1_0.7_0.6', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'}
+    ]
+    
+    numberOfRuns = 5
 
     stats_sc = 'state_change'
     stats_ml = 'max_length'
@@ -294,18 +301,21 @@ if __name__ == '__main__':
         df = df.groupby(['step', 'tl_id'], as_index=False).agg({'queue_length' : 'mean'})
         e['results'][0][stats_ql] = df
 
-    #createPlot(experimentPrefix, label_ql, experimentParams, numberOfRuns, file_prefixes, y_columns, kinds, aggregateDFsBy=aggregateDFsBy,
-    #            groupRunsColumn = col_ml, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_ml)
+    createPlot(experimentPrefix, f"max_{label_ql}", experimentParams, numberOfRuns, [stats_ml], [col_ml], [sAgg.PLOT_KIND_LINE], aggregateDFsBy=aggregateDFsBy,
+                groupRunsColumn = col_ml, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_ml, discretizeStepBy = 600)
 
-    #createPlot(experimentPrefix, label_tt, experimentParams, numberOfRuns, [stats_tt], [col_tt], [sAgg.PLOT_KIND_LINE], groupByParams = {col_tt : 'mean'},
-    #            groupRunsColumn = col_tt, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_tt, discretizeStepBy = 60)
+    createPlot(experimentPrefix, label_tt, experimentParams, numberOfRuns, [stats_tt], [col_tt], [sAgg.PLOT_KIND_LINE], groupByParams = {col_tt : 'mean'},
+                groupRunsColumn = col_tt, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_tt, discretizeStepBy = 600)
+
+    createPlot(experimentPrefix, label_ql, experimentParams, numberOfRuns, [stats_ql], [col_ql], [sAgg.PLOT_KIND_LINE], groupByParams = {col_ql : 'mean'},
+                groupRunsColumn = col_ql, groupRunsFunc = 'mean', groupRunsFilePrefix = stats_tt, discretizeStepBy = 600)
 
     #createPlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ml, col_ml, discretizeStepBy = 120)
     #createPlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, discretizeStepBy = 120)
 
-    createSinglePlotAveragesOnly(experimentPrefix, f"max_{label_ql}_avg", experimentParams, stats_ml, col_ml, 'Max Queue Length', aggFunc = 'max', discretizeStepBy = 3600)
-    createSinglePlotAveragesOnly(experimentPrefix, f"{label_tt}_avg", experimentParams, stats_tt, col_tt, 'Avg Travel Time', discretizeStepBy = 3600)
-    createSinglePlotAveragesOnly(experimentPrefix, f"{label_ql}_avg", experimentParams, stats_ql, col_ql, 'Avg Queue Length', discretizeStepBy = 3600)
+    createSinglePlotAveragesOnly(experimentPrefix, f"single_max_{label_ql}_avg", experimentParams, stats_ml, col_ml, 'Max Queue Length', aggFunc = 'max', discretizeStepBy = 600)
+    createSinglePlotAveragesOnly(experimentPrefix, f"single_{label_tt}_avg", experimentParams, stats_tt, col_tt, 'Avg Travel Time', discretizeStepBy = 600)
+    createSinglePlotAveragesOnly(experimentPrefix, f"single_{label_ql}_avg", experimentParams, stats_ql, col_ql, 'Avg Queue Length', discretizeStepBy = 600)
 
 
     for e in experimentParams:
