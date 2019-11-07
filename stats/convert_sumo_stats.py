@@ -16,7 +16,7 @@ def convertStatsFile(input, output):
                    'timeLoss'])
     for tripinfo in root.iter('tripinfo'):
         lines.append([tripinfo.get('arrival'),
-                        tripinfo.get('id'), 
+                        tripinfo.get('id'),
                         tripinfo.get('departDelay'),
                         tripinfo.get('duration'),
                         tripinfo.get('routeLength'),
@@ -33,17 +33,24 @@ def convertStatsFile(input, output):
 
 if __name__ == '__main__':
 
-    folder = 'exp14_hyperparam_tuning'
+    folder = 'exp14_hyperparam_tuning_2'
     prefix = 'rf_avg_veh_number'
     suffix = 'tripinfo_isolated2.xml'
-    numberOfRuns = 4
-    params = ['1e-05_0.7_0.6',
-                '0.0001_0.7_0.6',
-                '0.001_0.7_0.6',
-                '0.01_0.7_0.6',
-                '0.1_0.7_0.6']
+    numberOfRuns = 5
+    experimentParams = [{'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.6_0.6', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.7_0.6', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.7999999999999999_0.6', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.8999999999999999_0.6', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.6_0.7', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.7_0.7', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.7999999999999999_0.7', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.8999999999999999_0.7', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.6_0.7999999999999999', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+                        {'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.7_0.7999999999999999', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'}
+#                        {'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.7999999999999999_0.7999999999999999', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
+#                        {'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.8999999999999999_0.7999999999999999', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'}
+    ]
 
-    for p in params: 
+    for p in experimentParams:
         for i in range(0, numberOfRuns):
-            convertStatsFile(f"./output/{folder}/{prefix}_{p}_{i}_{suffix}", f"./output/{folder}/sumo_{prefix}_{p}_{i}.csv")
-    
+            convertStatsFile(f"./output/{folder}/{p['prefix']}_{i}_{suffix}", f"./output/{folder}/sumo_{p['prefix']}_{i}.csv")
