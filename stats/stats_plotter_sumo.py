@@ -58,7 +58,7 @@ def writeTableMinMaxMeanStd(experimentParams, outputFile, col, numberOfRuns):
 
 def createPlot(folder, label, experimentParams, numberOfRuns, y_columns, kinds, aggregateDFsBy = None, groupRunsColumn = None, groupRunsFunc = None, discretizeStepBy = None):
     col_labels = [str(i) for i in range(0, numberOfRuns)]
-    if groupRunsFilePrefix is not None: col_labels.append('avg')
+    if groupRunsColumn is not None: col_labels.append('avg')
     fig, axes = sPlotter.initSubPlots(label, [e['prefix'] for e in experimentParams], col_labels, 'step', y_columns[0])
 
     if discretizeStepBy is not None:
@@ -151,7 +151,6 @@ if __name__ == '__main__':
     col_waiting_time = 'waitingTime'
     col_waiting_count = 'waitingCount'
     col_time_loss = 'timeLoss'
-    
     
     generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Departure Delay', col_depart_delay)
 
