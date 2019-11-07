@@ -99,12 +99,12 @@ if __name__ == "__main__":
                         #                 {'key': DEEP_QLEARNING_SEQUENCE_LENGTH, 'from': 1, 'to': 20, 'increment_value': 3},
                         #                 {'key': QLEARNING_EPSILON_GREEDY_RATE, 'from': 0.5, 'to': 0.8, 'increment_value': 0.1}]}
                         # ]
-    experimentPrefix = 'exp20_penalty_rfs'
+    experimentPrefix = 'exp20_penalty_rfs_2'
     experimentParams = [
-        {'prefix': 'fxt', 'configFile': 'configs/single_half_day_fixed_time.cfg'},
-        {'prefix': 'delay', 'configFile': 'configs/single_half_day_qlearning_delay.cfg'},
-        {'prefix': 'delay_prq', 'configFile': 'configs/single_half_day_qlearning_delay_res_queue_penalty.cfg'}]
-       # {'prefix': 'delay_pwt', 'configFile': 'configs/single_half_day_qlearning_delay_wasted_time_penalty.cfg'},
-       # {'prefix': 'delay_pwtl', 'configFile': 'configs/single_half_day_qlearning_delay_wasted_time_penalty_log.cfg'}]
+        #{'prefix': 'fxt', 'configFile': 'configs/single_half_day_fixed_time.cfg'},
+        #{'prefix': 'delay', 'configFile': 'configs/single_half_day_qlearning_delay.cfg'},
+        #{'prefix': 'delay_prq', 'configFile': 'configs/single_half_day_qlearning_delay_res_queue_penalty.cfg'}]
+        {'prefix': 'delay_pwt', 'configFile': 'configs/single_half_day_qlearning_delay_wasted_time_penalty.cfg'},
+        {'prefix': 'delay_pwtl', 'configFile': 'configs/single_half_day_qlearning_delay_wasted_time_penalty_log.cfg'}]
 
     s = SimulationManager(options, experimentPrefix, experimentParams, 10)
