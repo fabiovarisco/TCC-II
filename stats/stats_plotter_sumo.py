@@ -118,10 +118,19 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, titl
 
     # Put a legend below current axis
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.075),
-          fancybox=True, ncol=2)
+          fancybox=True, ncol=2, fontsize='xx-small')
 
 
     plt.savefig(f"output/{folder}/sumo_{label}_single.png")
+
+
+def generateStatistics(folder, experimentParams, numberOfRuns, label, col):
+    createPlot(folder, col, experimentParams, numberOfRuns, [col], [sAgg.PLOT_KIND_LINE], aggregateDFsBy = ['step'], 
+        groupRunsColumn = col, groupRunsFunc = 'mean', discretizeStepBy = 600)
+
+    createSinglePlotAveragesOnly(folder, f"single_{col}_avg", experimentParams, col, label, discretizeStepBy = 600)
+
+    writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/stats_{col}.csv", col, numberOfRuns)
 
 
 if __name__ == '__main__':
@@ -143,20 +152,13 @@ if __name__ == '__main__':
     col_waiting_count = 'waitingCount'
     col_time_loss = 'timeLoss'
     
-    createPlot(experimentPrefix, col_depart_delay, experimentParams, numberOfRuns, [col_depart_delay], [sAgg.PLOT_KIND_LINE], aggregateDFsBy = ['step'], 
-        groupRunsColumn = col_depart_delay, groupRunsFunc = 'mean', discretizeStepBy = 600)
+    
+    generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Departure Delay', col_depart_delay)
 
-    createSinglePlotAveragesOnly(experimentPrefix, f"single_{col_depart_delay}_avg", experimentParams, col_depart_delay, 'Avg Depart Delay', discretizeStepBy = 600)
+    generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Travel Time', col_duration)
 
-    writeTableMinMaxMeanStd(experimentParams, f"./output/{experimentPrefix}/stats_max_{col_depart_delay}.csv", col_depart_delay, numberOfRuns)
+    generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Waiting Time', col_waiting_time)
 
+    generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Waiting Count', col_waiting_count)
 
-
-    createPlot(experimentPrefix, col_duration, experimentParams, numberOfRuns, [col_duration], [sAgg.PLOT_KIND_LINE], aggregateDFsBy = ['step'], 
-        groupRunsColumn = col_duration, groupRunsFunc = 'mean', discretizeStepBy = 600)
-
-    createSinglePlotAveragesOnly(experimentPrefix, f"single_{col_duration}_avg", experimentParams, col_duration, 'Avg Travel Time', discretizeStepBy = 600)
-
-    writeTableMinMaxMeanStd(experimentParams, f"./output/{experimentPrefix}/stats_{col_duration}.csv", col_duration, numberOfRuns)
-
-
+    generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Time Loss', col_time_loss)
