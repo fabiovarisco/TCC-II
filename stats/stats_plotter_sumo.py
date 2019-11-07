@@ -111,8 +111,8 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, titl
 
     # Shrink current axis's height by 10% on the bottom
     box = ax.get_position()
-    ax.set_position([box.x0, box.y0 + box.height * 0.25,
-                     box.width, box.height * 0.75])
+    ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                     box.width, box.height * 0.9])
     #ax.set_position([box.x0 + box.width * 0.3, box.y0,
     #                 box.width * 0.7, box.height])
 
@@ -120,12 +120,11 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, titl
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.075),
           fancybox=True, ncol=2, fontsize='xx-small')
 
-
     plt.savefig(f"output/{folder}/sumo_{label}_single.png")
 
 
 def generateStatistics(folder, experimentParams, numberOfRuns, label, col):
-    createPlot(folder, col, experimentParams, numberOfRuns, [col], [sAgg.PLOT_KIND_LINE], aggregateDFsBy = ['step'], 
+    createPlot(folder, col, experimentParams, numberOfRuns, [col], [sAgg.PLOT_KIND_LINE], aggregateDFsBy = ['step'],
         groupRunsColumn = col, groupRunsFunc = 'mean', discretizeStepBy = 600)
 
     createSinglePlotAveragesOnly(folder, f"single_{col}_avg", experimentParams, col, label, discretizeStepBy = 600)
@@ -151,7 +150,7 @@ if __name__ == '__main__':
     col_waiting_time = 'waitingTime'
     col_waiting_count = 'waitingCount'
     col_time_loss = 'timeLoss'
-    
+
     generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Departure Delay', col_depart_delay)
 
     generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Travel Time', col_duration)

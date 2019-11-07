@@ -145,14 +145,14 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, file_prefix, y
 
     # Shrink current axis's height by 10% on the bottom
     box = ax.get_position()
-    ax.set_position([box.x0, box.y0 + box.height * 0.25,
-                     box.width, box.height * 0.75])
+    ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                     box.width, box.height * 0.9])
     #ax.set_position([box.x0 + box.width * 0.3, box.y0,
     #                 box.width * 0.7, box.height])
 
     # Put a legend below current axis
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.075),
-          fancybox=True, ncol=2)
+          fancybox=True, ncol=2, fontsize='xx-small')
 
 
     plt.savefig(f"output/{folder}/{label}_single.png")
