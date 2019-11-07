@@ -72,21 +72,20 @@ class Simulation(object):
         # we start with phase 2 where EW has green
         # traci.trafficlight.setPhase("0", 2)
         #tls = TrafficLightStatic("0", "actuated_gap")
-        minSteps = self.config.getInt(DEMAND_NUMBER_SIMULATION_STEPS)
         while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()
             for tl in self.trafficLights:
                 tl.step(self.currentStep)
                 self.notify(EVENT_SIMULATION_STEP, traffic_light = tl)
             if (self.currentStep % Simulation.LOG_EVERY_STEPS == 0):
-                print(f'Executing {self.currentStep} of min {minSteps}.')
+                print(f'Executing step {self.currentStep} .')
             self.currentStep += 1
 
         for event_indicators in self.indicators.values():
             for kpi in event_indicators:
                 kpi.save()
                 #kpi.createPlot()
-        
+
         #traci.close()
 
         sys.stdout.flush()

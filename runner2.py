@@ -93,7 +93,7 @@ if __name__ == "__main__":
     #                                     {'key': DEEP_QLEARNING_DISCOUNTING_RATE, 'from': 0.1, 'to': 0.1, 'increment_factor': 10},
     #                                     {'key': DEEP_QLEARNING_SEQUENCE_LENGTH, 'from': 5, 'to': 5, 'increment_value': 3},
     #                                     {'key': QLEARNING_EPSILON_GREEDY_RATE, 'from': 0.7, 'to': 0.7, 'increment_value': 0.1}]}]
-                      
+
                         #                 {'key': DEEP_QLEARNING_HIDDEN_NEURON_COUNT, 'from': 5, 'to': 150, 'increment_factor': 1.5},
                         #                 {'key': DEEP_QLEARNING_DISCOUNTING_RATE, 'from': 1e-04, 'to': 0.1, 'increment_factor': 10},
                         #                 {'key': DEEP_QLEARNING_SEQUENCE_LENGTH, 'from': 1, 'to': 20, 'increment_value': 3},
@@ -106,5 +106,5 @@ if __name__ == "__main__":
         {'prefix': 'delay_prq', 'configFile': 'configs/single_half_day_qlearning_delay_res_queue_penalty.cfg'}]
        # {'prefix': 'delay_pwt', 'configFile': 'configs/single_half_day_qlearning_delay_wasted_time_penalty.cfg'},
        # {'prefix': 'delay_pwtl', 'configFile': 'configs/single_half_day_qlearning_delay_wasted_time_penalty_log.cfg'}]
-   
+
     s = SimulationManager(options, experimentPrefix, experimentParams, 10)

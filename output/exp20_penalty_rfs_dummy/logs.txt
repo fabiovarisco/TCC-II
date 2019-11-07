@@ -1,0 +1,10 @@
+====== Starting Experiment exp20_penalty_rfs_dummy ======
+====== Starting Simulation runs ======
+
+====== Starting Trial fxt ======
+Reading config file configs/single_half_day_fixed_time.cfg...
+{'prefix': ''}
+========= Starting SIMULATION with params ============
+Starting simulation 1 of 10...
+Executing step 0 .
+Executing step 1000 .
