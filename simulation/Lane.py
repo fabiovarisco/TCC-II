@@ -19,6 +19,7 @@ class Lane(object):
         self.vehicleLastSpeed = {}
         self.vehicleThroughput = 0
         self.queueLengthAtBeginningOfStage = 0
+        #print(f"Lane Width: {self.getWidth()}")
 
     def getQueueLength(self):
         if (self.queueLengthStep != sm.SimulationManager.getCurrentSimulationStep()):

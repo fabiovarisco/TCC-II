@@ -1,0 +1,34 @@
+====== Starting Experiment exp20_penalty_rfs_2 ======
+====== Starting Simulation runs ======
+
+====== Starting Trial delay_pwt ======
+Reading config file configs/single_half_day_qlearning_delay_wasted_time_penalty.cfg...
+{'prefix': ''}
+========= Starting SIMULATION with params ============
+Starting simulation 1 of 10...
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Lane Width: 3.2
+Get QLearning algorithm with params: e-greedy-rate 0.7; gamma_value 0.6; alpha_value 0.001.
+Executing step 0 .
