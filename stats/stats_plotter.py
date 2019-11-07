@@ -71,7 +71,7 @@ def writeTableMinMaxMeanStd(experimentParams, filePrefix, outputFile, col, numbe
     #prefix,mean,std,min,max,...
     header1 = ['']
     for i in range(0, numberOfRuns):
-        header1.extend([f"ext{(i+1)}",'','',''])
+        header1.extend([f"exp{(i+1)}",'','',''])
     header1.extend(["aggregated",'','',''])
     header2 = ['prefix']
     for i in range(0, numberOfRuns + 1):
@@ -321,6 +321,7 @@ if __name__ == '__main__':
     col_sc = 'new_state'
     col_ml = 'max_length'
     col_tt = 'ttime'
+
     label_ql = f'queuelength_simulations_{experimentPrefix}'
     label_tt = f"mean_travel_time_{experimentPrefix}"
     file_prefixes = [stats_sc, stats_ml]
