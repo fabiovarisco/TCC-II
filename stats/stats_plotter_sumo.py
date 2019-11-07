@@ -58,7 +58,7 @@ def writeTableMinMaxMeanStd(experimentParams, outputFile, col, numberOfRuns):
 
 def createPlot(folder, label, experimentParams, numberOfRuns, y_columns, kinds, aggregateDFsBy = None, groupRunsColumn = None, groupRunsFunc = None, discretizeStepBy = None):
     col_labels = [str(i) for i in range(0, numberOfRuns)]
-    if groupRunsFilePrefix is not None: col_labels.append('avg')
+    if groupRunsColumn is not None: col_labels.append('avg')
     fig, axes = sPlotter.initSubPlots(label, [e['prefix'] for e in experimentParams], col_labels, 'step', y_columns[0])
 
     if discretizeStepBy is not None:
@@ -142,8 +142,8 @@ if __name__ == '__main__':
     col_waiting_time = 'waitingTime'
     col_waiting_count = 'waitingCount'
     col_time_loss = 'timeLoss'
-    
-    createPlot(experimentPrefix, col_depart_delay, experimentParams, numberOfRuns, [col_depart_delay], [sAgg.PLOT_KIND_LINE], aggregateDFsBy = ['step'], 
+
+    createPlot(experimentPrefix, col_depart_delay, experimentParams, numberOfRuns, [col_depart_delay], [sAgg.PLOT_KIND_LINE], aggregateDFsBy = ['step'],
         groupRunsColumn = col_depart_delay, groupRunsFunc = 'mean', discretizeStepBy = 600)
 
     createSinglePlotAveragesOnly(experimentPrefix, f"single_{col_depart_delay}_avg", experimentParams, col_depart_delay, 'Avg Depart Delay', discretizeStepBy = 600)
@@ -152,11 +152,9 @@ if __name__ == '__main__':
 
 
 
-    createPlot(experimentPrefix, col_duration, experimentParams, numberOfRuns, [col_duration], [sAgg.PLOT_KIND_LINE], aggregateDFsBy = ['step'], 
+    createPlot(experimentPrefix, col_duration, experimentParams, numberOfRuns, [col_duration], [sAgg.PLOT_KIND_LINE], aggregateDFsBy = ['step'],
         groupRunsColumn = col_duration, groupRunsFunc = 'mean', discretizeStepBy = 600)
 
     createSinglePlotAveragesOnly(experimentPrefix, f"single_{col_duration}_avg", experimentParams, col_duration, 'Avg Travel Time', discretizeStepBy = 600)
 
     writeTableMinMaxMeanStd(experimentParams, f"./output/{experimentPrefix}/stats_{col_duration}.csv", col_duration, numberOfRuns)
-
-
