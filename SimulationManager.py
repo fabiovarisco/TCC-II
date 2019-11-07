@@ -45,7 +45,10 @@ class SimulationManager(object):
             print(f"Reading config file {e['configFile']}...")
             self.config = SimulationConfig(e['configFile'])
 
-            simulationParams = SimulationManager.__getSimulationParams(e['params'])
+            if ('params' in e):
+                simulationParams = SimulationManager.__getSimulationParams(e['params'])
+            else: 
+                simulationParams = [{'prefix': ''}]
             for sp in simulationParams:
                 print(sp)
             simulations = []
@@ -61,7 +64,7 @@ class SimulationManager(object):
                     print(f'Starting simulation {i + 1} of {numberOfRuns}...')
                     simulations.append(self._run(f"{e['prefix']}_{prefix}_{i}", options))
                     print('\n\n')
-                    self.config.set(QLEARNING_EPSILON_GREEDY_RATE, self.config.getFloat(QLEARNING_EPSILON_GREEDY_RATE) * 0.7)
+                    self.config.set(QLEARNING_EPSILON_GREEDY_RATE, max(0.1, (self.config.getFloat(QLEARNING_EPSILON_GREEDY_RATE) * 0.7)))
 
                 e['simulations'] = {'prefix': prefix, 'simulations': simulations}
                 print('\n')
@@ -86,7 +89,7 @@ class SimulationManager(object):
 
     @staticmethod
     def __getSimulationParams(params):
-        if (len(params) == 0): return []
+        if (len(params) == 0): return [{}]
 
         param_array = []
         param = params[0]

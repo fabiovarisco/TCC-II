@@ -84,7 +84,7 @@ if __name__ == "__main__":
     experimentPrefix = 'exp14_hyperparam_tuning_2'
     experimentParams = [{'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg',
                             'params': [{'key': QLEARNING_LEARNING_RATE, 'from': 1e-03, 'to': 1e-03, 'increment_factor': 10},
-                                        {'key': QLEARNING_GAMMA_VALUE, 'from': 0.6, 'to': 0.99, 'increment_value': 0.1},
+                                        {'key': QLEARNING_GAMMA_VALUE, 'from': 0.8, 'to': 0.9, 'increment_value': 0.1},
                                         {'key': QLEARNING_EPSILON_GREEDY_RATE, 'from': 0.6, 'to': 0.8, 'increment_value': 0.1}]}]
     #experimentPrefix = 'exp15_hyperparam_tuning'
     # experimentParams = [{'prefix': 'rf_avg_veh_number', 'configFile': 'configs/simple_deep_avg_vehicle_number.cfg',
@@ -99,5 +99,12 @@ if __name__ == "__main__":
                         #                 {'key': DEEP_QLEARNING_SEQUENCE_LENGTH, 'from': 1, 'to': 20, 'increment_value': 3},
                         #                 {'key': QLEARNING_EPSILON_GREEDY_RATE, 'from': 0.5, 'to': 0.8, 'increment_value': 0.1}]}
                         # ]
-
-    s = SimulationManager(options, experimentPrefix, experimentParams, 5)
+    experimentPrefix = 'exp20_penalty_rfs'
+    experimentParams = [
+        {'prefix': 'fxt', 'configFile': 'configs/single_half_day_fixed_time.cfg'},
+        {'prefix': 'delay', 'configFile': 'configs/single_half_day_qlearning_delay.cfg'},
+        {'prefix': 'delay_prq', 'configFile': 'configs/single_half_day_qlearning_delay_res_queue_penalty.cfg'}]
+       # {'prefix': 'delay_pwt', 'configFile': 'configs/single_half_day_qlearning_delay_wasted_time_penalty.cfg'},
+       # {'prefix': 'delay_pwtl', 'configFile': 'configs/single_half_day_qlearning_delay_wasted_time_penalty_log.cfg'}]
+   
+    s = SimulationManager(options, experimentPrefix, experimentParams, 10)
