@@ -92,7 +92,7 @@ class StateApproachingVehicleNumberDiscretized(StateRepresentation):
 class StateQueueLengthDiscretized(StateRepresentation):
 
     def __init__(self, controller, discretizeByValue = 1, stateComponent = None, stateRepresentationType = None):
-        super().__init__(controller, stateComponent, stateRepresentationType = None)
+        super().__init__(controller, stateComponent, stateRepresentationType = stateRepresentationType)
         self.discretizeByValue = discretizeByValue
 
     def getCurrentState(self):
