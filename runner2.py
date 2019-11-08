@@ -107,7 +107,7 @@ if __name__ == "__main__":
         {'prefix': 'delay_pwt', 'configFile': 'configs/single_half_day_qlearning_delay_wasted_time_penalty.cfg'},
         {'prefix': 'delay_pwtl', 'configFile': 'configs/single_half_day_qlearning_delay_wasted_time_penalty_log.cfg'}]
 
-    experimentPrefix = 'exp21_rf_40p'
+    experimentPrefix = 'exp21_rf_60p'
     experimentParams = [
         {'prefix': 'ql', 'configFile': 'configs/single_basic_qlearning_avg_queue_length.cfg'},
         {'prefix': 'veh_n', 'configFile': 'configs/single_basic_qlearning_avg_vehicle_number.cfg'},
