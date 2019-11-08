@@ -127,7 +127,7 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, titl
         ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.075),
             fancybox=True, ncol=2, fontsize='xx-small')
 
-    plt.savefig(f"output/{folder}/sumo_{label}_single.png")
+    plt.savefig(f"output/{folder}/sumo_full_{label}_single.png")
 
     return ax
 
@@ -137,7 +137,7 @@ def generateStatistics(folder, experimentParams, numberOfRuns, label, col, input
     #              groupRunsColumn = col, groupRunsFunc = 'mean', discretizeStepBy = 600)
 
 
-    writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/sumo_stats_{col}.csv", col, numberOfRuns)
+    writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/sumo_full_stats_{col}.csv", col, numberOfRuns)
 
     return createSinglePlotAveragesOnly(folder, f"{col}_avg", experimentParams, col, label, discretizeStepBy = 600, input_ax = input_ax, start_at = 2)
 
@@ -179,12 +179,12 @@ if __name__ == '__main__':
         {'prefix': 'delay_prq_', 'configFile': 'configs/single_basic_qlearning_delay_res_queue_penalty.cfg'},
         {'prefix': 'delay_pwtl_', 'configFile': 'configs/single_basic_qlearning_delay_wasted_time_penalty_log.cfg'},
         {'prefix': 'act_throughput_mqr_', 'configFile': 'configs/single_basic_qlearning_act_throughput_mqr.cfg'}]
-    numberOfRuns = 5
+    numberOfRuns = 10
 
-    experimentParams20p = readFiles(experimentPrefix, copy.deepcopy(experimentParams), fromRun = 5, toRun = 10)
-    experimentParams40p = readFiles(experimentPrefix40p, copy.deepcopy(experimentParams), fromRun = 5, toRun = 10)
-    experimentParams60p = readFiles(experimentPrefix60p, copy.deepcopy(experimentParams), fromRun = 5, toRun = 10)
-    experimentParams80p = readFiles(experimentPrefix80p, copy.deepcopy(experimentParams), fromRun = 5, toRun = 10)
+    experimentParams20p = readFiles(experimentPrefix, copy.deepcopy(experimentParams), fromRun = 0, toRun = 10)
+    experimentParams40p = readFiles(experimentPrefix40p, copy.deepcopy(experimentParams), fromRun = 0, toRun = 10)
+    experimentParams60p = readFiles(experimentPrefix60p, copy.deepcopy(experimentParams), fromRun = 0, toRun = 10)
+    experimentParams80p = readFiles(experimentPrefix80p, copy.deepcopy(experimentParams), fromRun = 0, toRun = 10)
 
     col_depart_delay = 'departDelay'
     col_duration = 'duration'
