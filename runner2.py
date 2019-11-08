@@ -109,9 +109,9 @@ if __name__ == "__main__":
 
     experimentPrefix = 'exp21_rf_20p'
     experimentParams = [
-        {'prefix': 'ql', 'configFile': 'configs/single_basic_qlearning_avg_queue_length.cfg'},
-        {'prefix': 'veh_n', 'configFile': 'configs/single_basic_qlearning_avg_vehicle_number.cfg'},
-        {'prefix': 'delay', 'configFile': 'configs/single_basic_qlearning_delay.cfg'},
+        #{'prefix': 'ql', 'configFile': 'configs/single_basic_qlearning_avg_queue_length.cfg'},
+        #{'prefix': 'veh_n', 'configFile': 'configs/single_basic_qlearning_avg_vehicle_number.cfg'},
+        #{'prefix': 'delay', 'configFile': 'configs/single_basic_qlearning_delay.cfg'},
         {'prefix': 'throughput', 'configFile': 'configs/single_basic_qlearning_throughput.cfg'},
         {'prefix': 'delay_prq', 'configFile': 'configs/single_basic_qlearning_delay_res_queue_penalty.cfg'},
         {'prefix': 'delay_pwtl', 'configFile': 'configs/single_basic_qlearning_delay_wasted_time_penalty_log.cfg'},
