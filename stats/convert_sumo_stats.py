@@ -60,6 +60,10 @@ if __name__ == '__main__':
         {'prefix': 'delay_prq_', 'configFile': 'configs/single_basic_qlearning_delay_res_queue_penalty.cfg'},
         {'prefix': 'delay_pwtl_', 'configFile': 'configs/single_basic_qlearning_delay_wasted_time_penalty_log.cfg'},
         {'prefix': 'act_throughput_mqr_', 'configFile': 'configs/single_basic_qlearning_act_throughput_mqr.cfg'}]
+    folder = 'exp21_rf_80p' 
+    experimentParams = [
+        {'prefix': 'veh_n_pwtl_', 'configFile': 'configs/single_basic_qlearning_veh_n_wasted_time_penalty_log.cfg'},
+    ]
 
     suffix = 'tripinfo_isolated.xml'
     numberOfRuns = 10
