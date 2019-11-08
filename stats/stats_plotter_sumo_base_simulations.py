@@ -2,20 +2,21 @@
 
 import matplotlib.pyplot as plt
 import pandas as pd
+import copy
 
 import stats_aggregator as sAgg
 import stats_plotter as sPlotter
 
-def readFile(folder, prefix, numberOfRuns):
+def readFile(folder, prefix, fromRun = 0, toRun = 0):
     results = []
-    for n in range(0, numberOfRuns):
+    for n in range(fromRun, toRun):
         df = pd.read_csv(f"output/{folder}/sumo_{prefix}_{n}.csv")
         results.append(df)
     return results
 
-def readFiles(folder, params, numberOfRuns):
+def readFiles(folder, params, fromRun = 0, toRun = 0):
     for p in params:
-        p['results'] = readFile(folder, p['prefix'], numberOfRuns)
+        p['results'] = readFile(folder, p['prefix'], fromRun, toRun)
     return params
 
 def aggregateDFs(results, base_column, groupColumn, groupFunc, discretizeStepBy = None):
@@ -59,7 +60,7 @@ def writeTableMinMaxMeanStd(experimentParams, outputFile, col, numberOfRuns):
 def createPlot(folder, label, experimentParams, numberOfRuns, y_columns, kinds, aggregateDFsBy = None, groupRunsColumn = None, groupRunsFunc = None, discretizeStepBy = None):
     col_labels = [str(i) for i in range(0, numberOfRuns)]
     if groupRunsColumn is not None: col_labels.append('avg')
-    fig, axes = sPlotter.initSubPlots(label, [e['prefix'] for e in experimentParams], col_labels, 'step', y_columns[0])
+    fig, axes = sPlotter.initSubPlots(label, [e['prefix'] for e in experimentParams], col_labels, 'step', y_columns[0], size = (30, 30))
 
     if discretizeStepBy is not None:
         x_column = 'disc_step'
@@ -84,7 +85,7 @@ def createPlot(folder, label, experimentParams, numberOfRuns, y_columns, kinds, 
     fig.subplots_adjust(left=0.15, top=0.95)
     fig.savefig(f"output/{folder}/sumo_{label}.png")
 
-def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, title, aggFunc = 'mean', discretizeStepBy = None, ax = None):
+def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, title, aggFunc = 'mean', discretizeStepBy = None, input_ax = None, start_at = 0):
 
     result = None
     y_columns = []
@@ -103,15 +104,18 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, titl
 
     result = sAgg.aggregate(result, base_column, {col:aggFunc for col in y_columns})
 
-    if (ax is None):
+    if (input_ax is None):
         fig = plt.figure(label)
         fig.suptitle(title, fontsize=16)
         ax = plt.subplot(111)
-    for i, y in enumerate(y_columns):
-        ax.plot(result[base_column], result[y], color=sPlotter.PLOT_COLORS[i % len(sPlotter.PLOT_COLORS)], label=y)
+    else:
+        print('Reusing ax')
+        ax = input_ax
 
-    
-    if (ax is None):
+    for i, y in enumerate(y_columns):
+        ax.plot(result[base_column].iloc[start_at:], result[y].iloc[start_at:], color=sPlotter.PLOT_COLORS[i % len(sPlotter.PLOT_COLORS)], label=y)
+
+    if (input_ax is None):
         # Shrink current axis's height by 10% on the bottom
         box = ax.get_position()
         ax.set_position([box.x0, box.y0 + box.height * 0.1,
@@ -128,13 +132,14 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, titl
     return ax
 
 
-def generateStatistics(folder, experimentParams, numberOfRuns, label, col):
-    createPlot(folder, col, experimentParams, numberOfRuns, [col], [sAgg.PLOT_KIND_LINE], aggregateDFsBy = ['step'],
-        groupRunsColumn = col, groupRunsFunc = 'mean', discretizeStepBy = 600)
+def generateStatistics(folder, experimentParams, numberOfRuns, label, col, input_ax = None):
+    #createPlot(folder, col, experimentParams, numberOfRuns, [col], [sAgg.PLOT_KIND_LINE], aggregateDFsBy = ['step'],
+    #              groupRunsColumn = col, groupRunsFunc = 'mean', discretizeStepBy = 600)
 
-    createSinglePlotAveragesOnly(folder, f"{col}_avg", experimentParams, col, label, discretizeStepBy = 600)
 
-    writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/sumo_stats_{col}.csv", col, numberOfRuns)
+    #writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/sumo_stats_{col}.csv", col, numberOfRuns)
+
+    return createSinglePlotAveragesOnly(folder, f"{col}_avg", experimentParams, col, label, discretizeStepBy = 480, input_ax = input_ax, start_at = 2)
 
 
 if __name__ == '__main__':
@@ -163,6 +168,7 @@ if __name__ == '__main__':
     ]
 
     experimentPrefix = 'exp21_rf_20p'
+    experimentPrefix40p = 'exp21_rf_40p'
     experimentParams = [
         {'prefix': 'ql_', 'configFile': 'configs/single_basic_qlearning_avg_queue_length.cfg'},
         {'prefix': 'veh_n_', 'configFile': 'configs/single_basic_qlearning_avg_vehicle_number.cfg'},
@@ -171,11 +177,10 @@ if __name__ == '__main__':
         {'prefix': 'delay_prq_', 'configFile': 'configs/single_basic_qlearning_delay_res_queue_penalty.cfg'},
         {'prefix': 'delay_pwtl_', 'configFile': 'configs/single_basic_qlearning_delay_wasted_time_penalty_log.cfg'},
         {'prefix': 'act_throughput_mqr_', 'configFile': 'configs/single_basic_qlearning_act_throughput_mqr.cfg'}]
+    numberOfRuns = 5
 
-
-    numberOfRuns = 10
-
-    experimentParams = readFiles(experimentPrefix, experimentParams, numberOfRuns)
+    experimentParams20p = readFiles(experimentPrefix, copy.deepcopy(experimentParams), fromRun = 5, toRun = 10)
+    experimentParams40p = readFiles(experimentPrefix40p, copy.deepcopy(experimentParams), fromRun = 5, toRun = 10)
 
     col_depart_delay = 'departDelay'
     col_duration = 'duration'
@@ -183,12 +188,17 @@ if __name__ == '__main__':
     col_waiting_count = 'waitingCount'
     col_time_loss = 'timeLoss'
 
-    generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Departure Delay', col_depart_delay)
+    ax = generateStatistics(experimentPrefix, experimentParams20p, numberOfRuns, 'Avg Departure Delay', col_depart_delay)
+    generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Departure Delay', col_depart_delay, input_ax = ax)
 
-    generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Travel Time', col_duration)
+    ax = generateStatistics(experimentPrefix, experimentParams20p, numberOfRuns, 'Avg Travel Time', col_duration)
+    generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Travel Time', col_duration, input_ax = ax)
 
-    generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Waiting Time', col_waiting_time)
+    ax = generateStatistics(experimentPrefix, experimentParams20p, numberOfRuns, 'Avg Waiting Time', col_waiting_time)
+    generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Waiting Time', col_waiting_time, input_ax = ax)
 
-    generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Waiting Count', col_waiting_count)
+    ax = generateStatistics(experimentPrefix, experimentParams20p, numberOfRuns, 'Avg Waiting Count', col_waiting_count)
+    generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Waiting Count', col_waiting_count, input_ax = ax)
 
-    generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Time Loss', col_time_loss)
+    ax = generateStatistics(experimentPrefix, experimentParams20p, numberOfRuns, 'Avg Time Loss', col_time_loss)
+    generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Time Loss', col_time_loss, input_ax = ax)

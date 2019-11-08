@@ -9,10 +9,10 @@ import stats_aggregator as sAgg
 
 PLOT_COLORS = ['blue', 'gray', 'orange', 'red', 'green', 'black', 'yellow', 'pink', 'magenta']
 
-def initSubPlots(label, row_labels, col_labels, x_label, y_label):
+def initSubPlots(label, row_labels, col_labels, x_label, y_label, size = (12, 8)):
     #plt.figure("queuelength_simulations")
 
-    fig, axes = plt.subplots(nrows=len(row_labels), ncols=len(col_labels), figsize=(12, 8), sharex=True, sharey=True)
+    fig, axes = plt.subplots(nrows=len(row_labels), ncols=len(col_labels), figsize=size, sharex=True, sharey=True)
     plt.setp(axes.flat, xlabel=x_label, ylabel=y_label)
     for ax in axes.flat:
         ax.label_outer()

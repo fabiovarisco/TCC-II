@@ -51,6 +51,19 @@ if __name__ == '__main__':
 #                        {'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.8999999999999999_0.7999999999999999', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'}
     ]
 
+    folder = 'exp21_rf_40p'
+    experimentParams = [
+        {'prefix': 'ql_', 'configFile': 'configs/single_basic_qlearning_avg_queue_length.cfg'},
+        {'prefix': 'veh_n_', 'configFile': 'configs/single_basic_qlearning_avg_vehicle_number.cfg'},
+        {'prefix': 'delay_', 'configFile': 'configs/single_basic_qlearning_delay.cfg'},
+        {'prefix': 'throughput_', 'configFile': 'configs/single_basic_qlearning_throughput.cfg'},
+        {'prefix': 'delay_prq_', 'configFile': 'configs/single_basic_qlearning_delay_res_queue_penalty.cfg'},
+        {'prefix': 'delay_pwtl_', 'configFile': 'configs/single_basic_qlearning_delay_wasted_time_penalty_log.cfg'},
+        {'prefix': 'act_throughput_mqr_', 'configFile': 'configs/single_basic_qlearning_act_throughput_mqr.cfg'}]
+
+    suffix = 'tripinfo_isolated.xml'
+    numberOfRuns = 10
+
     for p in experimentParams:
         for i in range(0, numberOfRuns):
             convertStatsFile(f"./output/{folder}/{p['prefix']}_{i}_{suffix}", f"./output/{folder}/sumo_{p['prefix']}_{i}.csv")
