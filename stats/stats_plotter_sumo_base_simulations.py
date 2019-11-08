@@ -139,7 +139,7 @@ def generateStatistics(folder, experimentParams, numberOfRuns, label, col, input
 
     #writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/sumo_stats_{col}.csv", col, numberOfRuns)
 
-    return createSinglePlotAveragesOnly(folder, f"{col}_avg", experimentParams, col, label, discretizeStepBy = 480, input_ax = input_ax, start_at = 2)
+    return createSinglePlotAveragesOnly(folder, f"{col}_avg", experimentParams, col, label, discretizeStepBy = 600, input_ax = input_ax, start_at = 2)
 
 
 if __name__ == '__main__':
@@ -169,6 +169,8 @@ if __name__ == '__main__':
 
     experimentPrefix = 'exp21_rf_20p'
     experimentPrefix40p = 'exp21_rf_40p'
+    experimentPrefix60p = 'exp21_rf_60p'
+    experimentPrefix80p = 'exp21_rf_80p'
     experimentParams = [
         {'prefix': 'ql_', 'configFile': 'configs/single_basic_qlearning_avg_queue_length.cfg'},
         {'prefix': 'veh_n_', 'configFile': 'configs/single_basic_qlearning_avg_vehicle_number.cfg'},
@@ -181,6 +183,8 @@ if __name__ == '__main__':
 
     experimentParams20p = readFiles(experimentPrefix, copy.deepcopy(experimentParams), fromRun = 5, toRun = 10)
     experimentParams40p = readFiles(experimentPrefix40p, copy.deepcopy(experimentParams), fromRun = 5, toRun = 10)
+    experimentParams60p = readFiles(experimentPrefix60p, copy.deepcopy(experimentParams), fromRun = 5, toRun = 10)
+    experimentParams80p = readFiles(experimentPrefix80p, copy.deepcopy(experimentParams), fromRun = 5, toRun = 10)
 
     col_depart_delay = 'departDelay'
     col_duration = 'duration'
@@ -189,16 +193,27 @@ if __name__ == '__main__':
     col_time_loss = 'timeLoss'
 
     ax = generateStatistics(experimentPrefix, experimentParams20p, numberOfRuns, 'Avg Departure Delay', col_depart_delay)
-    generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Departure Delay', col_depart_delay, input_ax = ax)
+    ax = generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Departure Delay', col_depart_delay, input_ax = ax)
+    ax = generateStatistics(experimentPrefix60p, experimentParams60p, numberOfRuns, 'Avg Departure Delay', col_depart_delay, input_ax = ax)
+    generateStatistics(experimentPrefix80p, experimentParams80p, numberOfRuns, 'Avg Departure Delay', col_depart_delay, input_ax = ax)
 
     ax = generateStatistics(experimentPrefix, experimentParams20p, numberOfRuns, 'Avg Travel Time', col_duration)
-    generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Travel Time', col_duration, input_ax = ax)
+    ax = generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Travel Time', col_duration, input_ax = ax)
+    ax = generateStatistics(experimentPrefix60p, experimentParams60p, numberOfRuns, 'Avg Travel Time', col_duration, input_ax = ax)
+    generateStatistics(experimentPrefix80p, experimentParams80p, numberOfRuns, 'Avg Travel Time', col_duration, input_ax = ax)
 
     ax = generateStatistics(experimentPrefix, experimentParams20p, numberOfRuns, 'Avg Waiting Time', col_waiting_time)
-    generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Waiting Time', col_waiting_time, input_ax = ax)
+    ax = generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Waiting Time', col_waiting_time, input_ax = ax)
+    ax = generateStatistics(experimentPrefix60p, experimentParams60p, numberOfRuns, 'Avg Waiting Time', col_waiting_time, input_ax = ax)
+    generateStatistics(experimentPrefix80p, experimentParams80p, numberOfRuns, 'Avg Waiting Time', col_waiting_time, input_ax = ax)
 
     ax = generateStatistics(experimentPrefix, experimentParams20p, numberOfRuns, 'Avg Waiting Count', col_waiting_count)
-    generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Waiting Count', col_waiting_count, input_ax = ax)
+    ax = generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Waiting Count', col_waiting_count, input_ax = ax)
+    ax = generateStatistics(experimentPrefix60p, experimentParams60p, numberOfRuns, 'Avg Waiting Count', col_waiting_count, input_ax = ax)
+    generateStatistics(experimentPrefix80p, experimentParams80p, numberOfRuns, 'Avg Waiting Count', col_waiting_count, input_ax = ax)
 
     ax = generateStatistics(experimentPrefix, experimentParams20p, numberOfRuns, 'Avg Time Loss', col_time_loss)
-    generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Time Loss', col_time_loss, input_ax = ax)
+    ax = generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Time Loss', col_time_loss, input_ax = ax)
+    ax = generateStatistics(experimentPrefix60p, experimentParams60p, numberOfRuns, 'Avg Time Loss', col_time_loss, input_ax = ax)
+    generateStatistics(experimentPrefix80p, experimentParams80p, numberOfRuns, 'Avg Time Loss', col_time_loss, input_ax = ax)
+    

@@ -51,7 +51,7 @@ if __name__ == '__main__':
 #                        {'experimentPrefix': 'exp14_hyperparam_tuning_2', 'prefix': 'rf_avg_veh_number_0.001_0.8999999999999999_0.7999999999999999', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'}
     ]
 
-    folder = 'exp21_rf_40p'
+    folder = 'exp21_rf_60p'
     experimentParams = [
         {'prefix': 'ql_', 'configFile': 'configs/single_basic_qlearning_avg_queue_length.cfg'},
         {'prefix': 'veh_n_', 'configFile': 'configs/single_basic_qlearning_avg_vehicle_number.cfg'},
