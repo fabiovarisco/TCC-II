@@ -137,7 +137,7 @@ def generateStatistics(folder, experimentParams, numberOfRuns, label, col, input
     #              groupRunsColumn = col, groupRunsFunc = 'mean', discretizeStepBy = 600)
 
 
-    #writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/sumo_stats_{col}.csv", col, numberOfRuns)
+    writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/sumo_stats_{col}.csv", col, numberOfRuns)
 
     return createSinglePlotAveragesOnly(folder, f"{col}_avg", experimentParams, col, label, discretizeStepBy = 600, input_ax = input_ax, start_at = 2)
 
@@ -216,4 +216,3 @@ if __name__ == '__main__':
     ax = generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Avg Time Loss', col_time_loss, input_ax = ax)
     ax = generateStatistics(experimentPrefix60p, experimentParams60p, numberOfRuns, 'Avg Time Loss', col_time_loss, input_ax = ax)
     generateStatistics(experimentPrefix80p, experimentParams80p, numberOfRuns, 'Avg Time Loss', col_time_loss, input_ax = ax)
-    
