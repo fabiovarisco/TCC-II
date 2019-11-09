@@ -194,17 +194,58 @@ class TrafficLightFactory(object):
                                                                 ))
         return trafficLight
 
+
+    @staticmethod
+    def __createAdaptiveRewardFunction(rewardFunctionParams, controller):
+        if (len(rewardFunctionParams) < 3):
+            raise Exception("Adaptive Reward Functions an undersaturated and an oversaturated reward functions to be specified afterwards.")
+
+        undersaturated, remainingRFParams = TrafficLightFactory.__createRewardFunction(
+                                                rewardFunctionParams[1:],
+                                                controller)
+        oversaturated, remainingRFParams = TrafficLightFactory.__createRewardFunction(
+                                                remainingRFParams,
+                                                controller)
+        try:
+            steepness = sm.SimulationManager.getCurrentSimulation().config.getFloat(QLEARNING_REWARD_ADAPTIVE_STEEPNESS)
+            inf_point = sm.SimulationManager.getCurrentSimulation().config.getFloat(QLEARNING_REWARD_ADAPTIVE_INFLECTION_POINT)
+            rf = TLC_QLEARNING_REWARD_FUNCTION[rewardFunctionParams[0]](controller,
+                                            activationFunction=AdaptiveRewardFunction.activationAdaptedSigmoid,
+                                            steepness = steepness,
+                                            inf_point = inf_point)
+        except:
+            rf = TLC_QLEARNING_REWARD_FUNCTION[rewardFunctionParams[0]](controller)
+
+        rf.addFunction(undersaturated, inverse = True)
+        rf.addFunction(oversaturated, inverse = False)
+        return rf, remainingRFParams
+
+    @staticmethod
+    def __createPenaltyRewardFunction(rewardFunctionParams, controller):
+        if (len(rewardFunctionParams) < 2):
+            raise Exception("The Reward Functions with penalty require a base reward function to be specified last.")
+        baseRF, remainingRFParams = TrafficLightFactory.__createRewardFunction(
+            rewardFunctionParams[1:],
+            controller)
+        return TLC_QLEARNING_REWARD_FUNCTION[rewardFunctionParams[0]](controller, baseRF), remainingRFParams
+
     @staticmethod
     def createRewardFunction(rewardFunctionParams, controller):
-        if (rewardFunctionParams[0] in TLC_QLEARNING_REWARDS_WITH_PENALTY):
-            if (len(rewardFunctionParams) < 2):
-                raise Exception("The Reward Functions with penalty require a base reward function to be specified last.")
-            baseRF = TrafficLightFactory.createRewardFunction(
-                rewardFunctionParams[1:],
-                controller)
-            return TLC_QLEARNING_REWARD_FUNCTION[rewardFunctionParams[0]](controller, baseRF)
+        rf, _ = TrafficLightFactory.__createRewardFunction(rewardFunctionParams, controller)
+        return rf
+
+    @staticmethod
+    def __createRewardFunction(rewardFunctionParams, controller):
+        if (rewardFunctionParams[0] in TLC_QLEARNING_REWARDS_ADAPTIVE):
+            return TrafficLightFactory.__createAdaptiveRewardFunction(rewardFunctionParams, controller)
+        elif (rewardFunctionParams[0] in TLC_QLEARNING_REWARDS_WITH_PENALTY):
+            return TrafficLightFactory.__createPenaltyRewardFunction(rewardFunctionParams, controller)
         else:
-            return TLC_QLEARNING_REWARD_FUNCTION[rewardFunctionParams[0]](controller)
+            if (len(rewardFunctionParams) > 1):
+                remaining = rewardFunctionParams[1:]
+            else:
+                remaining = []
+            return TLC_QLEARNING_REWARD_FUNCTION[rewardFunctionParams[0]](controller), remaining
 
     @staticmethod
     def createStateRepresentation(stateRepresentationParams, discretizeValueParams, controller, stateRepresentationType = StateRepresentation.STATE_REPRESENTATION_NP_ARRAY):
@@ -312,9 +353,13 @@ TLC_QLEARNING_REWARD_FUNCTION = {'AverageVehicleNumber' : RewardAverageVehicleNu
                             'ResidualQueuePenalty': RewardResidualQueuePenalty,
                             'WastedTimePenalty': RewardWastedTimePenalty,
                             'WastedTimePenaltyLogistic': RewardWastedTimePenaltyLogistic,
-                            'ActualThroughputMaxQueueRatio': RewardActualThroughputMaxQueueRatio }
+                            'ActualThroughputMaxQueueRatio': RewardActualThroughputMaxQueueRatio,
+                            'AdaptiveLaneOccupancyReward': AdaptiveLaneOccupancyReward,
+                            'AdaptiveArrivalToCapacityRatioReward': AdaptiveArrivalToCapacityRatioReward }
 
 TLC_QLEARNING_REWARDS_WITH_PENALTY = ['ResidualQueuePenalty', 'AdditionalStopsPenalty', 'WastedTimePenalty', 'WastedTimePenaltyLogistic']
+
+TLC_QLEARNING_REWARDS_ADAPTIVE = ['AdaptiveLaneOccupancyReward', 'AdaptiveArrivalToCapacityRatioReward']
 
 TLC_QLEARNING_STATE_REPRESENTATION = {'QueueLength' : StateQueueLength,
                                         'VehicleNumber' : StateVehicleNumber,

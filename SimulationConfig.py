@@ -29,6 +29,9 @@ TLC_QLEARNING_DISCRETIZE_QUEUE_LENGTH = 'tlc_qlearning_discretize_queue_length'
 QLEARNING_REWARD_WEIGHT_THROUGHPUT = 'qlearning_reward_weight_throughput'
 QLEARNING_REWARD_WEIGHT_QUEUE_RATIO = 'qlearning_reward_weight_queue_ratio'
 
+QLEARNING_REWARD_ADAPTIVE_STEEPNESS = 'qlearning_reward_adaptive_steepness'
+QLEARNING_REWARD_ADAPTIVE_INFLECTION_POINT = 'qlearning_reward_adaptive_inflection_point'
+
 LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY = 'lane_max_acceptable_queue_occupancy' # Max acceptable queue occupancy for each lane (used in QueueRatio reward function)
 VEHICLE_AVG_LENGTH = 'vehicle_avg_length'
 

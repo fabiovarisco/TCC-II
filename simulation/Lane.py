@@ -2,7 +2,7 @@ from traci import lane as tLane
 import SimulationManager as sm #import SimulationManager as simulationMgr
 from simulation.Vehicle import VehicleFactory
 import numpy as np
-from SimulationConfig import VEHICLE_AVG_LENGTH, LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY
+from SimulationConfig import VEHICLE_AVG_LENGTH, LANE_MAX_ACCEPTABLE_QUEUE_OCCUPANCY, CONSTANT_SATURATION_FLOW
 import SimulationManager as sm
 
 class Lane(object):
@@ -19,6 +19,8 @@ class Lane(object):
         self.vehicleLastSpeed = {}
         self.vehicleThroughput = 0
         self.queueLengthAtBeginningOfStage = 0
+        self.arrivingDuringStageNumber = 0
+        self.lastStageStartStep = 0
         #print(f"Lane Width: {self.getWidth()}")
 
     def getQueueLength(self):
@@ -36,7 +38,7 @@ class Lane(object):
         return tLane.getWaitingTime(self.id)
 
     def getLastStepOccupancy(self):
-        return tLane.getLastStepOccupancy(self.id)
+        return tLane.getLastStepOccupancy(self.id) / 0.7
 
     def getLastStepVehicleIDs(self):
         return tLane.getLastStepVehicleIDs(self.id)
@@ -51,6 +53,8 @@ class Lane(object):
         self.vehicleNumberAtBeginningOfStage = self.getVehicleNumber()
         self.queueLengthAtBeginningOfStage = self.getQueueLength()
         self.vehicleThroughput = 0
+        self.arrivingDuringStageNumber = 0
+        self.lastStageStartStep = sm.SimulationManager.getCurrentSimulationStep()
 
     def getVehicleNumberAtBeginningOfStage(self):
         return self.vehicleNumberAtBeginningOfStage
@@ -61,9 +65,25 @@ class Lane(object):
     def getVehicleThroughput(self):
         return self.vehicleThroughput
 
+    def getArrivalRate(self):
+        timeDelta = sm.SimulationManager.getCurrentSimulationStep() - self.lastStageStartStep
+        if (timeDelta < 20):
+            return -1
+        return self.arrivingDuringStageNumber / timeDelta
+
+    def getArrivalToCapacityRatio(self):
+        arrivalRate = self.getArrivalRate()
+        if (arrivalRate == -1): return 0
+        saturationFlow = self.getWidth() * sm.SimulationManager.getCurrentSimulation().config.getInt(CONSTANT_SATURATION_FLOW)
+        arrivalFlow = arrivalRate * 3600
+        ratio = arrivalFlow / saturationFlow
+        print(f"ArrF: {arrivalFlow}. SatF: {saturationFlow}. Ratio: {ratio}.")
+        return ratio
+
     def step(self, step):
         newVehicleIDs = self.getLastStepVehicleIDs()
         self.deltaNumber = np.sum(~np.isin(newVehicleIDs, self.previousStepVehicleIDs))
+        self.arrivingDuringStageNumber += self.deltaNumber
         self.vehicleThroughput += np.sum(~np.isin(self.previousStepVehicleIDs, newVehicleIDs))
         self.previousStepVehicleIDs = newVehicleIDs
 

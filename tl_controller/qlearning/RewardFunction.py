@@ -434,3 +434,10 @@ class AdaptiveLaneOccupancyReward(AdaptiveRewardFunction):
         maxOccupancy = self.controller.trafficLight.getMaxLaneccupancy()
         #print(f"Max occupancy: {maxOccupancy}")
         return maxOccupancy
+
+class AdaptiveArrivalToCapacityRatioReward(AdaptiveRewardFunction):
+
+    def getDynamicWeight(self):
+        maxRatio = self.controller.trafficLight.getMaxArrivalToCapacityRatio()
+        print(f"Max ratio: {maxRatio}")
+        return maxRatio

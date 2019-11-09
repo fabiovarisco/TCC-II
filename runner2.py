@@ -120,5 +120,10 @@ if __name__ == "__main__":
     experimentParams = [
         {'prefix': 'veh_n_pwtl', 'configFile': 'configs/single_basic_qlearning_veh_n_wasted_time_penalty_log.cfg'},
     ]
+    experimentPrefix = 'test_adaptive'
+    experimentParams = [
+        {'prefix': 'adapt_veh_n_thp', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+    ]
 
-    s = SimulationManager(options, experimentPrefix, experimentParams, 10)
+
+    s = SimulationManager(options, experimentPrefix, experimentParams, 1)

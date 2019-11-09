@@ -122,7 +122,7 @@ class TrafficLight(object):
 
         self.wastedTimeLastStage = wastedTime
         self.residualQueueLastStage = residualQueue
-        
+
         self.nextStageStartsAt = (sm.SimulationManager.getCurrentSimulationStep() + self.__stageLostTime)
         self.notifyStageChange(tl_id = self.id,
                                 start_at_step = sm.SimulationManager.getCurrentSimulationStep() - self.stageTimes[self.lastActiveStage],
@@ -257,9 +257,8 @@ class TrafficLight(object):
 
     def getMaxLaneccupancy(self):
         maxOccupancy = 0
-        for s in self.stages:
-            for sl in s.getSignalLanes():
-                maxOccupancy = max(maxOccupancy, sl.incoming.getLastStepOccupancy())
+        for l in self.incoming:
+            maxOccupancy = max(maxOccupancy, l.getLastStepOccupancy())
         return maxOccupancy
 
     def resetArrivingVehiclesIndicator(self):
@@ -306,6 +305,12 @@ class TrafficLight(object):
         for sl in self.controller.trafficLight.stages[stage_index].getSignalLanes():
             acceptable_queue_length += sl.incoming.getMaxAcceptableQueueLength()
         return acceptable_queue_length
+
+    def getMaxArrivalToCapacityRatio(self):
+        ratio = 0
+        for l in self.incoming:
+            ratio = max(ratio, l.getArrivalToCapacityRatio())
+        return ratio
 
     @staticmethod
     def calculateVehiclesNotDispatched(veh_number_now, approaching_at_stage_start, arriving_current_stage):
