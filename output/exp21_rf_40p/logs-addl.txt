@@ -1,8 +1,8 @@
 ====== Starting Experiment exp21_rf_40p ======
 ====== Starting Simulation runs ======
 
-====== Starting Trial veh_n_pwtl ======
-Reading config file configs/single_basic_qlearning_veh_n_wasted_time_penalty_log.cfg...
+====== Starting Trial throughput_pwtl ======
+Reading config file configs/single_basic_qlearning_throughput_wasted_time_penalty_log.cfg...
 {'prefix': ''}
 ========= Starting SIMULATION with params ============
 Starting simulation 1 of 10...
