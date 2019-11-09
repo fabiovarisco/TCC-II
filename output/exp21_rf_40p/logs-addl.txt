@@ -1,0 +1,139 @@
+====== Starting Experiment exp21_rf_40p ======
+====== Starting Simulation runs ======
+
+====== Starting Trial throughput_pwtl ======
+Reading config file configs/single_basic_qlearning_throughput_wasted_time_penalty_log.cfg...
+{'prefix': ''}
+========= Starting SIMULATION with params ============
+Starting simulation 1 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.7; gamma_value 0.6; alpha_value 0.001.
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+
+
+
+Starting simulation 2 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.48999999999999994; gamma_value 0.6; alpha_value 0.001.
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+
+
+
+Starting simulation 3 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.3429999999999999; gamma_value 0.6; alpha_value 0.001.
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+
+
+
+Starting simulation 4 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.24009999999999992; gamma_value 0.6; alpha_value 0.001.
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+
+
+
+Starting simulation 5 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.16806999999999994; gamma_value 0.6; alpha_value 0.001.
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+
+
+
+Starting simulation 6 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.11764899999999995; gamma_value 0.6; alpha_value 0.001.
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+
+
+
+Starting simulation 7 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+
+
+
+Starting simulation 8 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+
+
+
+Starting simulation 9 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+
+
+
+Starting simulation 10 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+
+
+
+
+

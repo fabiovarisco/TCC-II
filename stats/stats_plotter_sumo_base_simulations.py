@@ -178,8 +178,11 @@ if __name__ == '__main__':
         {'prefix': 'throughput_', 'configFile': 'configs/single_basic_qlearning_throughput.cfg'},
         {'prefix': 'delay_prq_', 'configFile': 'configs/single_basic_qlearning_delay_res_queue_penalty.cfg'},
         {'prefix': 'delay_pwtl_', 'configFile': 'configs/single_basic_qlearning_delay_wasted_time_penalty_log.cfg'},
-        {'prefix': 'act_throughput_mqr_', 'configFile': 'configs/single_basic_qlearning_act_throughput_mqr.cfg'}]
-    numberOfRuns = 10
+        {'prefix': 'act_throughput_mqr_', 'configFile': 'configs/single_basic_qlearning_act_throughput_mqr.cfg'},
+        {'prefix': 'veh_n_pwtl_', 'configFile': 'configs/single_basic_qlearning_veh_n_wasted_time_penalty_log.cfg'},
+        {'prefix': 'throughput_pwtl_', 'configFile': 'configs/single_basic_qlearning_throughput_wasted_time_penalty_log.cfg'}
+    ]
+    numberOfRuns = 5
 
     experimentParams20p = readFiles(experimentPrefix, copy.deepcopy(experimentParams), fromRun = 0, toRun = 10)
     experimentParams40p = readFiles(experimentPrefix40p, copy.deepcopy(experimentParams), fromRun = 0, toRun = 10)
