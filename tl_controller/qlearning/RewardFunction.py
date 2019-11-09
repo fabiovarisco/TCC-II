@@ -34,6 +34,7 @@ class AdaptiveRewardFunction(RewardFunction, ABC):
         self.functions = []
         self.activationFunction = activationFunction
         self.kwargs = {'steepness' : steepness, 'inf_point' : inf_point}
+        print(f"Creating adaptive RF with kwargs: {self.kwargs}")
 
     def addFunction(self, rewardFunction, weight = 1, inverse = False):
         self.functions.append([rewardFunction, weight, inverse])
