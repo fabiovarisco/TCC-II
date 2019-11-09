@@ -1,0 +1,1423 @@
+====== Starting Experiment exp22 ======
+====== Starting Simulation runs ======
+
+====== Starting Trial adapt_veh_n_thp ======
+Reading config file configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg...
+{'qlearning_reward_adaptive_inflection_point': -0.2, 'prefix': '-0.2'}
+{'qlearning_reward_adaptive_inflection_point': -0.1, 'prefix': '-0.1'}
+{'qlearning_reward_adaptive_inflection_point': 0.0, 'prefix': '0.0'}
+{'qlearning_reward_adaptive_inflection_point': 0.1, 'prefix': '0.1'}
+{'qlearning_reward_adaptive_inflection_point': 0.2, 'prefix': '0.2'}
+{'qlearning_reward_adaptive_inflection_point': 0.30000000000000004, 'prefix': '0.30000000000000004'}
+{'qlearning_reward_adaptive_inflection_point': 0.4, 'prefix': '0.4'}
+{'qlearning_reward_adaptive_inflection_point': 0.5, 'prefix': '0.5'}
+========= Starting SIMULATION with params ============
+qlearning_reward_adaptive_inflection_point: -0.2
+Starting simulation 1 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.7; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.2}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 2 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.48999999999999994; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.2}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 3 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.3429999999999999; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.2}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 4 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.24009999999999992; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.2}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 5 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.16806999999999994; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.2}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 6 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.11764899999999995; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.2}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 7 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.2}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 8 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.2}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 9 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.2}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 10 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.2}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+
+
+========= Starting SIMULATION with params ============
+qlearning_reward_adaptive_inflection_point: -0.1
+Starting simulation 1 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 2 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 3 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+
+
+
+Starting simulation 4 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 5 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 6 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+
+
+
+Starting simulation 7 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 8 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 9 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 10 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': -0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+
+
+========= Starting SIMULATION with params ============
+qlearning_reward_adaptive_inflection_point: 0.0
+Starting simulation 1 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.0}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 2 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.0}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 3 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.0}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 4 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.0}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 5 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.0}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+
+
+
+Starting simulation 6 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.0}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 7 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.0}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+
+
+
+Starting simulation 8 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.0}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 9 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.0}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+
+
+
+Starting simulation 10 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.0}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+
+
+========= Starting SIMULATION with params ============
+qlearning_reward_adaptive_inflection_point: 0.1
+Starting simulation 1 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 2 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 3 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 4 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 5 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+
+
+
+Starting simulation 6 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 7 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+
+
+
+Starting simulation 8 of 10...
+Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
+Creating adaptive RF with kwargs: {'steepness': 15.0, 'inf_point': 0.1}
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
