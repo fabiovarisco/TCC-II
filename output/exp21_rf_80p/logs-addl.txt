@@ -1,8 +1,8 @@
 ====== Starting Experiment exp21_rf_80p ======
 ====== Starting Simulation runs ======
 
-====== Starting Trial veh_n_pwtl ======
-Reading config file configs/single_basic_qlearning_veh_n_wasted_time_penalty_log.cfg...
+====== Starting Trial throughput_pwtl ======
+Reading config file configs/single_basic_qlearning_throughput_wasted_time_penalty_log.cfg...
 {'prefix': ''}
 ========= Starting SIMULATION with params ============
 Starting simulation 1 of 10...
@@ -44,6 +44,7 @@ Executing step 5000 .
 Executing step 6000 .
 Executing step 7000 .
 Executing step 8000 .
+Executing step 9000 .
 
 
 
@@ -86,7 +87,6 @@ Executing step 5000 .
 Executing step 6000 .
 Executing step 7000 .
 Executing step 8000 .
-Executing step 9000 .
 
 
 
@@ -101,7 +101,6 @@ Executing step 5000 .
 Executing step 6000 .
 Executing step 7000 .
 Executing step 8000 .
-Executing step 9000 .
 
 
 
