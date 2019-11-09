@@ -33,12 +33,12 @@ class SimulationManager(object):
         if not os.path.exists(f"./output/{experimentPrefix}"):
             os.mkdir(f"./output/{experimentPrefix}")
 
-        sys.stdout = open(f"./output/{experimentPrefix}/logs-addl.txt", "w")
+        sys.stdout = open(f"./output/{experimentPrefix}/logs-addl-2.txt", "w")
 
         print(f"====== Starting Experiment {experimentPrefix} ======")
         self.simulations = []
         print('====== Starting Simulation runs ======\n')
-        traci.init(port=8813)
+        #traci.init(port=8813)
 
         for e in experimentParams:
             print(f"====== Starting Trial {e['prefix']} ======")

@@ -46,13 +46,13 @@ class Simulation(object):
         #traci.start([sumoBinary, "-c", "simulation_files/sumocfgs/grid5.sumocfg",
         #                 "--tripinfo-output", "tripinfo_grid5.xml",
         #                 "--step-length", "1"])
-        #traci.start([sumoBinary, "-c", self.config.get(SUMO_SIMULATION_CONFIGURATION_FILE),
-        #                 "--tripinfo-output", self.config.get(SUMO_SIMULATION_OUTPUT_FILE),
-        #                 "--step-length", self.config.get(SUMO_SIMULATION_STEP_LENGTH)])
-
-        traci.load(["-c", self.config.get(SUMO_SIMULATION_CONFIGURATION_FILE),
+        traci.start([sumoBinary, "-c", self.config.get(SUMO_SIMULATION_CONFIGURATION_FILE),
                          "--tripinfo-output", f"./output/{self.experimentPrefix}/{self.runID}_{self.config.get(SUMO_SIMULATION_OUTPUT_FILE)}",
                          "--step-length", self.config.get(SUMO_SIMULATION_STEP_LENGTH)])
+
+        #traci.load(["-c", self.config.get(SUMO_SIMULATION_CONFIGURATION_FILE),
+        #                 "--tripinfo-output", f"./output/{self.experimentPrefix}/{self.runID}_{self.config.get(SUMO_SIMULATION_OUTPUT_FILE)}",
+        #                 "--step-length", self.config.get(SUMO_SIMULATION_STEP_LENGTH)])
         self._preRun()
         self._run()
 
