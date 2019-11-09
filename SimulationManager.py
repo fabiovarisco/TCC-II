@@ -33,7 +33,7 @@ class SimulationManager(object):
         if not os.path.exists(f"./output/{experimentPrefix}"):
             os.mkdir(f"./output/{experimentPrefix}")
 
-        #sys.stdout = open(f"./output/{experimentPrefix}/logs-addl.txt", "w")
+        sys.stdout = open(f"./output/{experimentPrefix}/logs-addl.txt", "w")
 
         print(f"====== Starting Experiment {experimentPrefix} ======")
         self.simulations = []
