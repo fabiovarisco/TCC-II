@@ -86,7 +86,7 @@ class Simulation(object):
                 kpi.save()
                 #kpi.createPlot()
 
-        #traci.close()
+        traci.close()
 
         sys.stdout.flush()
 
