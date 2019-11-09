@@ -4,7 +4,7 @@
 
     <input>
         <net-file value="../networks/isolated_3_lanes_4_stages.net.xml"/>
-        <route-files value="../routes/isolated_3_lanes_60p.rou.xml"/>
+        <route-files value="../routes/isolated_3_lanes_80p.rou.xml"/>
       <!--   <route-files value="../routes/isolated_3_lanes_half_day.rou.xml"/>
        <net-file value="../networks/single.net.xml"/>
         <route-files value="../routes/isolated_half_day.rou.xml"/>
