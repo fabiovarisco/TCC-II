@@ -63,6 +63,7 @@ if __name__ == '__main__':
     folder = 'exp21_rf_80p' 
     experimentParams = [
         {'prefix': 'veh_n_pwtl_', 'configFile': 'configs/single_basic_qlearning_veh_n_wasted_time_penalty_log.cfg'},
+        {'prefix': 'throughput_pwtl_', 'configFile': 'configs/single_basic_qlearning_throughput_wasted_time_penalty_log.cfg'}
     ]
 
     suffix = 'tripinfo_isolated.xml'
