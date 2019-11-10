@@ -135,15 +135,19 @@ if __name__ == "__main__":
     experimentPrefix = 'exp23'
     experimentParams = [
         {'prefix': 'adap_vehn', 'configFile': 'configs/single_final_qlearning_adaptative_veh_n_throughput.cfg'},
-        {'prefix': 'veh_n', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'},
-        {'prefix': 'fxm', 'configFile': 'configs/single_final_fixed_time.cfg'}
+        {'prefix': 'veh_n', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'}
     ]
 
     #experimentPrefix = 'exp23_2'
     #experimentParams = [
     #    {'prefix': 'adap_dwtp', 'configFile': 'configs/single_final_qlearning_adaptative_delay_throughput.cfg'},
     #    {'prefix': 'dwtp', 'configFile': 'configs/single_final_qlearning_delay_wasted_time_penalty_log.cfg'},
-    #    {'prefix': 'thp', 'configFile': 'configs/single_final_qlearning_throughput.cfg'}
+    #]
+    
+    #experimentPrefix = 'exp23_3'
+    #experimentParams = [
+    #    {'prefix': 'thp', 'configFile': 'configs/single_final_qlearning_throughput.cfg'},
+    #    {'prefix': 'fxm', 'configFile': 'configs/single_final_fixed_time.cfg'}
     #]
 
     s = SimulationManager(options, experimentPrefix, experimentParams, 15)
