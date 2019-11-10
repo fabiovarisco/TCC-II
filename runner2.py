@@ -146,7 +146,7 @@ if __name__ == "__main__":
     
     experimentPrefix = 'exp23_3'
     experimentParams = [
-        {'prefix': 'thp', 'configFile': 'configs/single_final_qlearning_throughput.cfg'},
+        #{'prefix': 'thp', 'configFile': 'configs/single_final_qlearning_throughput.cfg'},
         {'prefix': 'fxm', 'configFile': 'configs/single_final_fixed_time.cfg'}
     ]
 
