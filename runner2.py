@@ -129,7 +129,7 @@ if __name__ == "__main__":
     experimentPrefix = 'exp22'
     experimentParams = [
         {'prefix': 'adapt_veh_n_thp', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg',
-        'params': [{'key': QLEARNING_REWARD_ADAPTIVE_INFLECTION_POINT, 'from': 0.2, 'to': 0.5, 'increment_value': 0.1}]},
+        'params': [{'key': QLEARNING_REWARD_ADAPTIVE_INFLECTION_POINT, 'from': 0.5, 'to': 0.5, 'increment_value': 0.1}]},
     ]
 
 
