@@ -144,10 +144,10 @@ if __name__ == "__main__":
         {'prefix': 'dwtp', 'configFile': 'configs/single_final_qlearning_delay_wasted_time_penalty_log.cfg'},
     ]
     
-    #experimentPrefix = 'exp23_3'
-    #experimentParams = [
-    #    {'prefix': 'thp', 'configFile': 'configs/single_final_qlearning_throughput.cfg'},
-    #    {'prefix': 'fxm', 'configFile': 'configs/single_final_fixed_time.cfg'}
-    #]
+    experimentPrefix = 'exp23_3'
+    experimentParams = [
+        {'prefix': 'thp', 'configFile': 'configs/single_final_qlearning_throughput.cfg'},
+        {'prefix': 'fxm', 'configFile': 'configs/single_final_fixed_time.cfg'}
+    ]
 
     s = SimulationManager(options, experimentPrefix, experimentParams, 15)
