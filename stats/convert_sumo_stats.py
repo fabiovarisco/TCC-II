@@ -65,6 +65,18 @@ if __name__ == '__main__':
         {'prefix': 'veh_n_pwtl_', 'configFile': 'configs/single_basic_qlearning_veh_n_wasted_time_penalty_log.cfg'},
         {'prefix': 'throughput_pwtl_', 'configFile': 'configs/single_basic_qlearning_throughput_wasted_time_penalty_log.cfg'}
     ]
+    folder = 'exp22' 
+    
+    experimentParams = [
+        {'prefix': 'adapt_veh_n_thp_-0.2', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_-0.1', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_0.0', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_0.1', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_0.2', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_0.30000000000000004', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_0.4', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_0.5', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+    ]
 
     suffix = 'tripinfo_isolated.xml'
     numberOfRuns = 10

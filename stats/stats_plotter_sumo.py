@@ -6,16 +6,16 @@ import pandas as pd
 import stats_aggregator as sAgg
 import stats_plotter as sPlotter
 
-def readFile(folder, prefix, numberOfRuns):
+def readFile(folder, prefix, fromRun, toRun):
     results = []
-    for n in range(0, numberOfRuns):
+    for n in range(fromRun, toRun):
         df = pd.read_csv(f"output/{folder}/sumo_{prefix}_{n}.csv")
         results.append(df)
     return results
 
-def readFiles(folder, params, numberOfRuns):
+def readFiles(folder, params, fromRun, toRun):
     for p in params:
-        p['results'] = readFile(folder, p['prefix'], numberOfRuns)
+        p['results'] = readFile(folder, p['prefix'], fromRun, toRun)
     return params
 
 def aggregateDFs(results, base_column, groupColumn, groupFunc, discretizeStepBy = None):
@@ -156,9 +156,22 @@ if __name__ == '__main__':
                         #{'experimentPrefix': 'exp14_hyperparam_tuning', 'prefix': 'rf_avg_veh_number_0.001_0.7999999999999999_0.7999999999999999', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'},
                         #{'experimentPrefix': 'exp14_hyperparam_tuning', 'prefix': 'rf_avg_veh_number_0.001_0.8999999999999999_0.7999999999999999', 'configFile': 'configs/simple_qlearning_avg_vehicle_number.cfg'}
     ]
+
+    experimentPrefix = 'exp22'  
+    experimentParams = [
+        {'prefix': 'adapt_veh_n_thp_-0.2', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_-0.1', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_0.0', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_0.1', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_0.2', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_0.30000000000000004', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_0.4', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'adapt_veh_n_thp_0.5', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
+    ]
+
     numberOfRuns = 5
 
-    experimentParams = readFiles(experimentPrefix, experimentParams, numberOfRuns)
+    experimentParams = readFiles(experimentPrefix, experimentParams, 5, 10)
 
     col_depart_delay = 'departDelay'
     col_duration = 'duration'
