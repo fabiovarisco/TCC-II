@@ -126,11 +126,11 @@ if __name__ == "__main__":
         {'prefix': 'adapt_veh_n_thp', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg'},
     ]
 
-    experimentPrefix = 'exp22'
+    experimentPrefix = 'dummy'
     experimentParams = [
         {'prefix': 'adapt_veh_n_thp', 'configFile': 'configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg',
         'params': [{'key': QLEARNING_REWARD_ADAPTIVE_INFLECTION_POINT, 'from': 0.5, 'to': 0.5, 'increment_value': 0.1}]},
     ]
 
 
-    s = SimulationManager(options, experimentPrefix, experimentParams, 10)
+    s = SimulationManager(options, experimentPrefix, experimentParams, 1)

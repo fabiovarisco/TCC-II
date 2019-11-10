@@ -1,0 +1,12 @@
+====== Starting Experiment dummy ======
+====== Starting Simulation runs ======
+
+====== Starting Trial adapt_veh_n_thp ======
+Reading config file configs/single_basic_qlearning_adaptative_veh_n_throughput.cfg...
+{'qlearning_reward_adaptive_inflection_point': 0.5, 'prefix': '0.5'}
+========= Starting SIMULATION with params ============
+qlearning_reward_adaptive_inflection_point: 0.5
+Starting simulation 1 of 1...
+ Retrying in 1 seconds
+Could not connect to TraCI server at localhost:36449 [Errno 111] Connection refused
+ Retrying in 2 seconds
