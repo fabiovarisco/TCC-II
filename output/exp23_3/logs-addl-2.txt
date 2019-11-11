@@ -1,597 +1,6 @@
 ====== Starting Experiment exp23_3 ======
 ====== Starting Simulation runs ======
 
-====== Starting Trial thp ======
-Reading config file configs/single_final_qlearning_throughput.cfg...
-{'prefix': ''}
-========= Starting SIMULATION with params ============
-Starting simulation 1 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.7; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 2 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.48999999999999994; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 3 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.3429999999999999; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 4 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.24009999999999992; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 5 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.16806999999999994; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 6 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.11764899999999995; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 7 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 8 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 9 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 10 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 11 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 12 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 13 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 14 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-Starting simulation 15 of 15...
- Retrying in 1 seconds
-Get QLearning algorithm with params: e-greedy-rate 0.1; gamma_value 0.6; alpha_value 0.001.
-Executing step 0 .
-Executing step 1000 .
-Executing step 2000 .
-Executing step 3000 .
-Executing step 4000 .
-Executing step 5000 .
-Executing step 6000 .
-Executing step 7000 .
-Executing step 8000 .
-Executing step 9000 .
-Executing step 10000 .
-Executing step 11000 .
-Executing step 12000 .
-Executing step 13000 .
-Executing step 14000 .
-Executing step 15000 .
-Executing step 16000 .
-Executing step 17000 .
-Executing step 18000 .
-Executing step 19000 .
-Executing step 20000 .
-Executing step 21000 .
-Executing step 22000 .
-Executing step 23000 .
-Executing step 24000 .
-Executing step 25000 .
-Executing step 26000 .
-Executing step 27000 .
-Executing step 28000 .
-Executing step 29000 .
-Executing step 30000 .
-Executing step 31000 .
-Executing step 32000 .
-
-
-
-
-
 ====== Starting Trial fxm ======
 Reading config file configs/single_final_fixed_time.cfg...
 {'prefix': ''}
@@ -631,6 +40,540 @@ Executing step 29000 .
 Executing step 30000 .
 Executing step 31000 .
 Executing step 32000 .
+
+
+
+Starting simulation 2 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
+
+Starting simulation 3 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
+
+Starting simulation 4 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
+
+Starting simulation 5 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
+
+Starting simulation 6 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
+
+Starting simulation 7 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
+
+Starting simulation 8 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
+
+Starting simulation 9 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
+
+Starting simulation 10 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
+
+Starting simulation 11 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
+
+Starting simulation 12 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
+
+Starting simulation 13 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
+
+Starting simulation 14 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
+
+Starting simulation 15 of 15...
+ Retrying in 1 seconds
+Executing step 0 .
+Executing step 1000 .
+Executing step 2000 .
+Executing step 3000 .
+Executing step 4000 .
+Executing step 5000 .
+Executing step 6000 .
+Executing step 7000 .
+Executing step 8000 .
+Executing step 9000 .
+Executing step 10000 .
+Executing step 11000 .
+Executing step 12000 .
+Executing step 13000 .
+Executing step 14000 .
+Executing step 15000 .
+Executing step 16000 .
+Executing step 17000 .
+Executing step 18000 .
+Executing step 19000 .
+Executing step 20000 .
+Executing step 21000 .
+Executing step 22000 .
+Executing step 23000 .
+Executing step 24000 .
+Executing step 25000 .
+Executing step 26000 .
+Executing step 27000 .
+Executing step 28000 .
+Executing step 29000 .
+Executing step 30000 .
+Executing step 31000 .
+Executing step 32000 .
+
+
 
 
 
