@@ -3,7 +3,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import copy
-
+import os
+import numpy as np
 import stats_aggregator as sAgg
 import stats_plotter as sPlotter
 
@@ -87,23 +88,13 @@ def createPlot(folder, label, experimentParams, numberOfRuns, y_columns, kinds, 
 
 def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, title, aggFunc = 'mean', discretizeStepBy = None, input_ax = None, start_at = 0, x_column = 'start_at_step'):
 
-    result = None
-    y_columns = []
-    for e in experimentParams:
-        dfAll = aggregateDFs(e['results'], x_column, y_column, aggFunc)
-        new_y_col = f"{y_column}_{e['prefix']}"
-        dfAll.rename(columns={y_column: new_y_col}, inplace=True)
-        y_columns.append(new_y_col)
-        if (result is None): result = dfAll
-        else:  result = pd.merge(result, dfAll, on=x_column, sort = False)
-
     base_column = x_column
     if (discretizeStepBy is not None):
         base_column = 'disc_step'
         result = sPlotter.discretizeStep(result, discretizeStepBy, base_column)
 
-    result = sAgg.aggregate(result, base_column, {col:aggFunc for col in y_columns})
-
+    result = None
+    y_columns = []
     if (input_ax is None):
         fig = plt.figure(label)
         fig.suptitle(title, fontsize=16)
@@ -112,8 +103,12 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, titl
         print('Reusing ax')
         ax = input_ax
 
-    for i, y in enumerate(y_columns):
-        ax.plot(result[base_column].iloc[start_at:], result[y].iloc[start_at:], color=sPlotter.PLOT_COLORS[i % len(sPlotter.PLOT_COLORS)], label=y)
+    for i, e in enumerate(experimentParams):
+        result = e['results'][0]
+        ax.plot(result[base_column], result[y_column], color=sPlotter.PLOT_COLORS[i % len(sPlotter.PLOT_COLORS)], label=e['prefix'])
+
+    print(result.head())
+    print(y_columns)
 
     if (input_ax is None):
         # Shrink current axis's height by 10% on the bottom
@@ -127,7 +122,7 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, titl
         ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.075),
             fancybox=True, ncol=2, fontsize='xx-small')
 
-    plt.savefig(f"output/{folder}/plot_{label}_single.png")
+    plt.savefig(f"output/{folder}/stats/plot_{label}_single.png")
 
     return ax
 
@@ -136,10 +131,12 @@ def generateStatistics(folder, experimentParams, numberOfRuns, label, col, input
     #createPlot(folder, col, experimentParams, numberOfRuns, [col], [sAgg.PLOT_KIND_LINE], aggregateDFsBy = ['step'],
     #              groupRunsColumn = col, groupRunsFunc = 'mean', discretizeStepBy = 600)
 
+    if not os.path.exists(f"./output/{folder}/stats/"):
+        os.makedirs(f"./output/{folder}/stats/")
 
-    writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/full_stats_{col}.csv", col, numberOfRuns)
+    writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/stats/full_stats_{col}_10.csv", col, numberOfRuns)
 
-    return createSinglePlotAveragesOnly(folder, f"{col}_avg", experimentParams, col, label, discretizeStepBy = None, input_ax = input_ax, start_at = 0, x_column = 'start_at_step')
+    return createSinglePlotAveragesOnly(folder, f"{col}_avg_10", experimentParams, col, label, discretizeStepBy = None, input_ax = input_ax, start_at = 0, x_column = x_column)
 
 
 if __name__ == '__main__':
@@ -182,15 +179,15 @@ if __name__ == '__main__':
         {'prefix': 'veh_n_pwtl_', 'configFile': 'configs/single_basic_qlearning_veh_n_wasted_time_penalty_log.cfg'},
         {'prefix': 'throughput_pwtl_', 'configFile': 'configs/single_basic_qlearning_throughput_wasted_time_penalty_log.cfg'}
     ]
-    numberOfRuns = 5
+    numberOfRuns = 10
 
     stats_cycle = 'cycle_time'
     stats_stage = 'stage_time'
 
-    experimentParams20p = readFiles(experimentPrefix, copy.deepcopy(experimentParams), stats_stage, fromRun = 9, toRun = 10)
-    experimentParams40p = readFiles(experimentPrefix40p, copy.deepcopy(experimentParams), stats_stage, fromRun = 9, toRun = 10)
-    experimentParams60p = readFiles(experimentPrefix60p, copy.deepcopy(experimentParams), stats_stage, fromRun = 9, toRun = 10)
-    experimentParams80p = readFiles(experimentPrefix80p, copy.deepcopy(experimentParams), stats_stage, fromRun = 9, toRun = 10)
+    experimentParams20p = readFiles(experimentPrefix, copy.deepcopy(experimentParams), stats_stage, fromRun = 0, toRun = 10)
+    experimentParams40p = readFiles(experimentPrefix40p, copy.deepcopy(experimentParams), stats_stage, fromRun = 0, toRun = 10)
+    experimentParams60p = readFiles(experimentPrefix60p, copy.deepcopy(experimentParams), stats_stage, fromRun = 0, toRun = 10)
+    experimentParams80p = readFiles(experimentPrefix80p, copy.deepcopy(experimentParams), stats_stage, fromRun = 0, toRun = 10)
 
     col_depart_delay = 'departDelay'
     col_duration = 'duration'
@@ -202,7 +199,7 @@ if __name__ == '__main__':
     col_stage = 'stage_time'
     col_wasted_time = 'time_beyond_queue_clearance'
 
-    ax = generateStatistics(experimentPrefix, experimentParams20p, numberOfRuns, 'Stage Time', col_depart_delay, x_column = 'start_at_step')
-    ax = generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Stage Time', col_depart_delay, input_ax = ax, x_column = 'start_at_step')
-    ax = generateStatistics(experimentPrefix60p, experimentParams60p, numberOfRuns, 'Stage Time', col_depart_delay, input_ax = ax, x_column = 'start_at_step')
-    generateStatistics(experimentPrefix80p, experimentParams80p, numberOfRuns, 'Stage Time', col_depart_delay, input_ax = ax, x_column = 'start_at_step')
+    ax = generateStatistics(experimentPrefix, experimentParams20p, numberOfRuns, 'Wasted Time', col_wasted_time, x_column = 'step')
+    ax = generateStatistics(experimentPrefix40p, experimentParams40p, numberOfRuns, 'Wasted Time', col_wasted_time, input_ax = None, x_column = 'start_at_step')
+    ax = generateStatistics(experimentPrefix60p, experimentParams60p, numberOfRuns, 'Wasted Time', col_wasted_time, input_ax = None, x_column = 'start_at_step')
+    generateStatistics(experimentPrefix80p, experimentParams80p, numberOfRuns, 'Wasted Time', col_wasted_time, input_ax = None, x_column = 'start_at_step')
