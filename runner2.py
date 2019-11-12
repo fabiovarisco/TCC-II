@@ -138,11 +138,11 @@ if __name__ == "__main__":
         {'prefix': 'veh_n', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'}
     ]
 
-    #experimentPrefix = 'exp23_2'
-    #experimentParams = [
-    #    {'prefix': 'adap_dwtp', 'configFile': 'configs/single_final_qlearning_adaptative_delay_throughput.cfg'},
-    #    {'prefix': 'dwtp', 'configFile': 'configs/single_final_qlearning_delay_wasted_time_penalty_log.cfg'},
-    #]
+    experimentPrefix = 'exp23_2'
+    experimentParams = [
+        {'prefix': 'adap_dwtp', 'configFile': 'configs/single_final_qlearning_adaptative_delay_throughput.cfg'},
+        {'prefix': 'dwtp', 'configFile': 'configs/single_final_qlearning_delay_wasted_time_penalty_log.cfg'},
+    ]
     
     #experimentPrefix = 'exp23_3'
     #experimentParams = [
