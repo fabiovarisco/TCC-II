@@ -140,26 +140,26 @@ def generateStatistics(folder, experimentParams, numberOfRuns, label, col, input
     #              groupRunsColumn = col, groupRunsFunc = 'mean', discretizeStepBy = 600)
 
 
-    writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/stats/sumo_full_stats_vehn_{col}.csv", col, numberOfRuns)
+    writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/stats/sumo_full_stats_dwtp_{col}.csv", col, numberOfRuns)
 
-    return createSinglePlotAveragesOnly(folder, f"vehn_{col}_avg", experimentParams, col, label, discretizeStepBy = 600, input_ax = input_ax, start_at = 2)
+    return createSinglePlotAveragesOnly(folder, f"dwtp_{col}_avg", experimentParams, col, label, discretizeStepBy = 600, input_ax = input_ax, start_at = 2)
 
 
 if __name__ == '__main__':
-    
+
     experimentPrefix = 'exp23'
     experimentParams = [
-        {'prefix': 'adap_vehn_', 'configFile': 'configs/single_final_qlearning_adaptative_veh_n_throughput.cfg'},
-        {'prefix': 'veh_n_', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'},
+        #{'prefix': 'adap_vehn_', 'configFile': 'configs/single_final_qlearning_adaptative_veh_n_throughput.cfg'},
+        #{'prefix': 'veh_n_', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'},
+        {'prefix': 'adap_dwtp_', 'configFile': 'configs/single_final_qlearning_adaptative_delay_throughput.cfg'},
+        {'prefix': 'dwtp_', 'configFile': 'configs/single_final_qlearning_delay_wasted_time_penalty_log.cfg'},
         {'prefix': 'thp_', 'configFile': 'configs/single_final_qlearning_throughput.cfg'},
         {'prefix': 'fxm_', 'configFile': 'configs/single_final_fixed_time.cfg'},
-        #{'prefix': 'adap_dwtp_', 'configFile': 'configs/single_final_qlearning_adaptative_delay_throughput.cfg'},
-        #{'prefix': 'dwtp_', 'configFile': 'configs/single_final_qlearning_delay_wasted_time_penalty_log.cfg'}
     ]
     numberOfRuns = 10
 
     experimentParams = readFiles(experimentPrefix, copy.deepcopy(experimentParams), fromRun = 5, toRun = 15)
-    
+
     col_depart_delay = 'departDelay'
     col_duration = 'duration'
     col_waiting_time = 'waitingTime'
@@ -167,12 +167,11 @@ if __name__ == '__main__':
     col_time_loss = 'timeLoss'
 
     ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Departure Delay', col_depart_delay)
-    
+
     ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Travel Time', col_duration)
-    
+
     ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Waiting Time', col_waiting_time)
-    
+
     ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Waiting Count', col_waiting_count)
-    
+
     ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Time Loss', col_time_loss)
-    
