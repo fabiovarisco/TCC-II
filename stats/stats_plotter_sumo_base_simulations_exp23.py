@@ -1,5 +1,6 @@
 
 from scipy.interpolate import make_interp_spline, BSpline
+from scipy.interpolate import interp1d
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -141,14 +142,19 @@ def plotDemand(ax, fig, output_file, discretizeBy = 600, start_at = 0):
     x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18])
     y = np.array([10, 10, 20, 20, 40, 40, 60, 80, 100, 80, 60, 60, 40, 40, 20, 20, 20, 20])
     x = (x * factor)
-    x_new = np.linspace(x.min(), x.max(), 1500)
+    x_new = np.linspace(x.min(), x.max(), 100, endpoint=True)
     spl = make_interp_spline(x, y, k = 3)
-    y_smooth = spl(x_new)
-
+    f2 = interp1d(x, y, kind='cubic')
+    #y_smooth = spl(x_new)
+    y_smooth = f2(x_new)
     ax2 = ax.twinx()
-    ax2.set_ylabel('demand', color='#DCDCDC')
-    ax2.plot(x_new[start_at:], y_smooth[start_at:], color='#DCDCDC')
-    fig.tight_layout()
+    ax2.set_ylabel('demand', color='#A9A9A9')
+    ax2.plot(x_new, y_smooth, color='#A9A9A9')
+    #fig.tight_layout()
+    # Shrink current axis's height by 10% on the bottom
+    box = ax2.get_position()
+    ax2.set_position([box.x0, box.y0 + box.height * 0.1,
+                    box.width, box.height * 0.9])
     plt.savefig(output_file)
 
 def generateStatistics(folder, experimentParams, numberOfRuns, label, col, input_ax = None):
@@ -156,20 +162,20 @@ def generateStatistics(folder, experimentParams, numberOfRuns, label, col, input
     #              groupRunsColumn = col, groupRunsFunc = 'mean', discretizeStepBy = 600)
 
 
-    writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/stats/sumo_full_stats_dwtp_{col}.csv", col, numberOfRuns)
+    writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/stats/sumo_full_stats_vehn_{col}.csv", col, numberOfRuns)
 
-    ax, fig = createSinglePlotAveragesOnly(folder, f"dwtp_{col}_avg", experimentParams, col, label, discretizeStepBy = 600, input_ax = input_ax, start_at = 2)
-    plotDemand(ax, fig, f"output/{folder}/stats/sumo_full_{col}_single_w_demand.png", discretizeBy = 600, start_at=int(1500 * 2 / 54))
+    ax, fig = createSinglePlotAveragesOnly(folder, f"vehn_{col}_avg", experimentParams, col, label, discretizeStepBy = 600, input_ax = input_ax, start_at = 2)
+    plotDemand(ax, fig, f"output/{folder}/stats/sumo_full_vehn_{col}_single_w_demand.png", discretizeBy = 600, start_at=int(1500 * 2 / 54))
     return ax
 
 if __name__ == '__main__':
 
     experimentPrefix = 'exp23'
     experimentParams = [
-        #{'prefix': 'adap_vehn_', 'configFile': 'configs/single_final_qlearning_adaptative_veh_n_throughput.cfg'},
-        #{'prefix': 'veh_n_', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'},
-        {'prefix': 'adap_dwtp_', 'configFile': 'configs/single_final_qlearning_adaptative_delay_throughput.cfg'},
-        {'prefix': 'dwtp_', 'configFile': 'configs/single_final_qlearning_delay_wasted_time_penalty_log.cfg'},
+        {'prefix': 'adap_vehn_', 'configFile': 'configs/single_final_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'veh_n_', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'},
+        #{'prefix': 'adap_dwtp_', 'configFile': 'configs/single_final_qlearning_adaptative_delay_throughput.cfg'},
+        #{'prefix': 'dwtp_', 'configFile': 'configs/single_final_qlearning_delay_wasted_time_penalty_log.cfg'},
         {'prefix': 'thp_', 'configFile': 'configs/single_final_qlearning_throughput.cfg'},
         {'prefix': 'fxm_', 'configFile': 'configs/single_final_fixed_time.cfg'},
     ]
