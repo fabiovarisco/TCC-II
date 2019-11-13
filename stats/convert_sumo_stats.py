@@ -81,6 +81,18 @@ if __name__ == '__main__':
     suffix = 'tripinfo_isolated.xml'
     numberOfRuns = 10
 
+    experimentParams = [
+        {'prefix': 'adap_vehn_', 'configFile': 'configs/single_final_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'veh_n_', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'},
+        {'prefix': 'thp_', 'configFile': 'configs/single_final_qlearning_throughput.cfg'},
+        {'prefix': 'fxm_', 'configFile': 'configs/single_final_fixed_time.cfg'},
+        {'prefix': 'adap_dwtp_', 'configFile': 'configs/single_final_qlearning_adaptative_delay_throughput.cfg'},
+        {'prefix': 'dwtp_', 'configFile': 'configs/single_final_qlearning_delay_wasted_time_penalty_log.cfg'}
+    ]
+    folder = 'exp23'
+    numberOfRuns = 15
+
+
     for p in experimentParams:
         for i in range(0, numberOfRuns):
             convertStatsFile(f"./output/{folder}/{p['prefix']}_{i}_{suffix}", f"./output/{folder}/sumo_{p['prefix']}_{i}.csv")
