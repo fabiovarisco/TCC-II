@@ -1,11 +1,15 @@
 
+from scipy.interpolate import make_interp_spline, BSpline
 
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 import copy
 
 import stats_aggregator as sAgg
 import stats_plotter as sPlotter
+
+PLOT_COLORS = ['blue', 'orange', 'red', 'green', 'yellow', 'pink', 'black', 'magenta']
 
 def readFile(folder, prefix, fromRun = 0, toRun = 0):
     results = []
@@ -113,7 +117,7 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, titl
         ax = input_ax
 
     for i, y in enumerate(y_columns):
-        ax.plot(result[base_column].iloc[start_at:], result[y].iloc[start_at:], color=sPlotter.PLOT_COLORS[i % len(sPlotter.PLOT_COLORS)], label=y)
+        ax.plot(result[base_column].iloc[start_at:], result[y].iloc[start_at:], color=PLOT_COLORS[i % len(PLOT_COLORS)], label=y)
 
     if (input_ax is None):
         # Shrink current axis's height by 10% on the bottom
@@ -129,11 +133,23 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, titl
 
     plt.savefig(f"output/{folder}/stats/sumo_full_{label}_single.png")
 
-    return ax
+    return ax, fig
 
-#def plotDemand(ax, output_file, demand):
+def plotDemand(ax, fig, output_file, discretizeBy = 600, start_at = 0):
+    print(f"Start At: {start_at}")
+    factor = 1800 / discretizeBy
+    x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18])
+    y = np.array([10, 10, 20, 20, 40, 40, 60, 80, 100, 80, 60, 60, 40, 40, 20, 20, 20, 20])
+    x = (x * factor)
+    x_new = np.linspace(x.min(), x.max(), 1500)
+    spl = make_interp_spline(x, y, k = 3)
+    y_smooth = spl(x_new)
 
-
+    ax2 = ax.twinx()
+    ax2.set_ylabel('demand', color='#DCDCDC')
+    ax2.plot(x_new[start_at:], y_smooth[start_at:], color='#DCDCDC')
+    fig.tight_layout()
+    plt.savefig(output_file)
 
 def generateStatistics(folder, experimentParams, numberOfRuns, label, col, input_ax = None):
     #createPlot(folder, col, experimentParams, numberOfRuns, [col], [sAgg.PLOT_KIND_LINE], aggregateDFsBy = ['step'],
@@ -142,8 +158,9 @@ def generateStatistics(folder, experimentParams, numberOfRuns, label, col, input
 
     writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/stats/sumo_full_stats_dwtp_{col}.csv", col, numberOfRuns)
 
-    return createSinglePlotAveragesOnly(folder, f"dwtp_{col}_avg", experimentParams, col, label, discretizeStepBy = 600, input_ax = input_ax, start_at = 2)
-
+    ax, fig = createSinglePlotAveragesOnly(folder, f"dwtp_{col}_avg", experimentParams, col, label, discretizeStepBy = 600, input_ax = input_ax, start_at = 2)
+    plotDemand(ax, fig, f"output/{folder}/stats/sumo_full_{col}_single_w_demand.png", discretizeBy = 600, start_at=int(1500 * 2 / 54))
+    return ax
 
 if __name__ == '__main__':
 
