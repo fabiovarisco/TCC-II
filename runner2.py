@@ -153,8 +153,8 @@ if __name__ == "__main__":
     experimentPrefix = 'exp25_1'
     experimentParams = [{'prefix': 'adap_vehn', 'configFile': 'configs/single_final_qlearning_adaptative_veh_n_throughput.cfg'}]
 
-    #experimentPrefix = 'exp25_2'
-    #experimentParams = [{'prefix': 'veh_n', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'}]
+    experimentPrefix = 'exp25_2'
+    experimentParams = [{'prefix': 'veh_n', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'}]
 
     #experimentPrefix = 'exp25_3'
     #experimentParams = [{'prefix': 'thp', 'configFile': 'configs/single_final_qlearning_throughput.cfg'}]
