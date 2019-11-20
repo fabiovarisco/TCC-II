@@ -45,6 +45,8 @@ class SimulationManager(object):
             print(f"Reading config file {e['configFile']}...")
             self.config = SimulationConfig(e['configFile'])
 
+            initialEpsilon = self.config.getFloat(QLEARNING_EPSILON_GREEDY_RATE)
+
             if ('params' in e):
                 simulationParams = SimulationManager.__getSimulationParams(e['params'])
             else:
@@ -61,10 +63,11 @@ class SimulationManager(object):
                     print(f"{key}: {value}")
 
                 for i in range(0, numberOfRuns):
+                    self.config.set(QLEARNING_EPSILON_GREEDY_RATE, ((0.97**i) * initialEpsilon) )
                     print(f'Starting simulation {i + 1} of {numberOfRuns}...')
                     simulations.append(self._run(f"{e['prefix']}_{prefix}_{i}", options))
                     print('\n\n')
-                    self.config.set(QLEARNING_EPSILON_GREEDY_RATE, max(0.1, (self.config.getFloat(QLEARNING_EPSILON_GREEDY_RATE) * 0.7)))
+                    #self.config.set(QLEARNING_EPSILON_GREEDY_RATE, max(0.1, (self.config.getFloat(QLEARNING_EPSILON_GREEDY_RATE) * 0.7)))
 
                 e['simulations'] = {'prefix': prefix, 'simulations': simulations}
                 print('\n')

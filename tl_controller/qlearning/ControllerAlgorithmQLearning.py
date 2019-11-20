@@ -129,8 +129,8 @@ class ControllerAlgorithmQLearning(GreedyQLearning):
         else:
             state = controller.getCurrentState()
             next_action_list = self.extract_possible_actions(state)
-            next_action = self.predict_next_action(state, next_action_list)
-            next_max_q = self.extract_q_df(state, next_action)
+            #next_action = self.predict_next_action(state, next_action_list)
+            #next_max_q = self.extract_q_df(state, next_action)
 
         # Normalize.
         self.normalize_q_value()
