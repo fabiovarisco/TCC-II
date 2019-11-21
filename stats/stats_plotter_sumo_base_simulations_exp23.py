@@ -149,7 +149,7 @@ def plotDemand(ax, fig, output_file, discretizeBy = 600, start_at = 0):
     y_smooth = f2(x_new)
     ax2 = ax.twinx()
     ax2.set_ylabel('demand', color='#A9A9A9')
-    ax2.plot(x_new, y_smooth, color='#A9A9A9')
+    ax2.plot(x_new, y_smooth, color='#A9A9A9', linestyle='--')
     #fig.tight_layout()
     # Shrink current axis's height by 10% on the bottom
     box = ax2.get_position()
@@ -165,7 +165,7 @@ def generateStatistics(folder, experimentParams, numberOfRuns, label, col, input
     writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/stats/sumo_full_stats_vehn_{col}.csv", col, numberOfRuns)
 
     ax, fig = createSinglePlotAveragesOnly(folder, f"vehn_{col}_avg", experimentParams, col, label, discretizeStepBy = 600, input_ax = input_ax, start_at = 2)
-    plotDemand(ax, fig, f"output/{folder}/stats/sumo_full_vehn_{col}_single_w_demand.png", discretizeBy = 600, start_at=int(1500 * 2 / 54))
+    plotDemand(ax, fig, f"output/{folder}/stats/sumo_full_vehn_{col}_single_w_demand.png", discretizeBy = 600, start_at=2)
     return ax
 
 if __name__ == '__main__':
@@ -181,7 +181,14 @@ if __name__ == '__main__':
     ]
     numberOfRuns = 10
 
-    experimentParams = readFiles(experimentPrefix, copy.deepcopy(experimentParams), fromRun = 5, toRun = 15)
+    experimentPrefix = 'exp25'
+    experimentParams = [{'prefix': 'adap_vehn_', 'configFile': 'configs/single_final_qlearning_adaptative_veh_n_throughput.cfg'},
+                {'prefix': 'veh_n_', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'},
+                {'prefix': 'thp_', 'configFile': 'configs/single_final_qlearning_throughput.cfg'}]
+    
+    numberOfRuns = 25
+
+    experimentParams = readFiles(experimentPrefix, copy.deepcopy(experimentParams), fromRun = 50, toRun = 75)
 
     col_depart_delay = 'departDelay'
     col_duration = 'duration'

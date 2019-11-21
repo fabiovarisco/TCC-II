@@ -92,6 +92,12 @@ if __name__ == '__main__':
     folder = 'exp23'
     numberOfRuns = 15
 
+    folder = 'exp25'
+    experimentParams = [{'prefix': 'adap_vehn_', 'configFile': 'configs/single_final_qlearning_adaptative_veh_n_throughput.cfg'},
+                {'prefix': 'veh_n_', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'},
+                {'prefix': 'thp_', 'configFile': 'configs/single_final_qlearning_throughput.cfg'}]
+    
+    numberOfRuns = 75
 
     for p in experimentParams:
         for i in range(0, numberOfRuns):
