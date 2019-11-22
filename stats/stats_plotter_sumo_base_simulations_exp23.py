@@ -94,11 +94,13 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, titl
 
     result = None
     y_columns = []
+    y_labels = []
     for e in experimentParams:
         dfAll = aggregateDFs(e['results'], 'step', y_column, aggFunc)
         new_y_col = f"{y_column}_{e['prefix']}"
         dfAll.rename(columns={y_column: new_y_col}, inplace=True)
         y_columns.append(new_y_col)
+        y_labels.append(e['label'])
         if (result is None): result = dfAll
         else:  result = pd.merge(result, dfAll, on='step', sort = False)
 
@@ -118,7 +120,7 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, titl
         ax = input_ax
 
     for i, y in enumerate(y_columns):
-        ax.plot(result[base_column].iloc[start_at:], result[y].iloc[start_at:], color=PLOT_COLORS[i % len(PLOT_COLORS)], label=y)
+        ax.plot(result[base_column].iloc[start_at:], result[y].iloc[start_at:], color=PLOT_COLORS[i % len(PLOT_COLORS)], label=y_labels[i])
 
     if (input_ax is None):
         # Shrink current axis's height by 10% on the bottom
@@ -130,7 +132,7 @@ def createSinglePlotAveragesOnly(folder, label, experimentParams, y_column, titl
 
         # Put a legend below current axis
         ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.075),
-            fancybox=True, ncol=2, fontsize='xx-small')
+            fancybox=True, ncol=2, fontsize='medium')
 
     plt.savefig(f"output/{folder}/stats/sumo_full_{label}_single.png")
 
@@ -162,7 +164,7 @@ def generateStatistics(folder, experimentParams, numberOfRuns, label, col, input
     #              groupRunsColumn = col, groupRunsFunc = 'mean', discretizeStepBy = 600)
 
 
-    writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/stats/sumo_full_stats_vehn_{col}.csv", col, numberOfRuns)
+    #writeTableMinMaxMeanStd(experimentParams, f"./output/{folder}/stats/sumo_full_stats_vehn_{col}.csv", col, numberOfRuns)
 
     ax, fig = createSinglePlotAveragesOnly(folder, f"vehn_{col}_avg", experimentParams, col, label, discretizeStepBy = 600, input_ax = input_ax, start_at = 2)
     plotDemand(ax, fig, f"output/{folder}/stats/sumo_full_vehn_{col}_single_w_demand.png", discretizeBy = 600, start_at=2)
@@ -172,23 +174,23 @@ if __name__ == '__main__':
 
     experimentPrefix = 'exp23'
     experimentParams = [
-        {'prefix': 'adap_vehn_', 'configFile': 'configs/single_final_qlearning_adaptative_veh_n_throughput.cfg'},
-        {'prefix': 'veh_n_', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'},
-        #{'prefix': 'adap_dwtp_', 'configFile': 'configs/single_final_qlearning_adaptative_delay_throughput.cfg'},
-        #{'prefix': 'dwtp_', 'configFile': 'configs/single_final_qlearning_delay_wasted_time_penalty_log.cfg'},
-        {'prefix': 'thp_', 'configFile': 'configs/single_final_qlearning_throughput.cfg'},
-        {'prefix': 'fxm_', 'configFile': 'configs/single_final_fixed_time.cfg'},
+        {'prefix': 'adap_vehn_', 'label': 'AdapVehNo', 'configFile': 'configs/single_final_qlearning_adaptative_veh_n_throughput.cfg'},
+        {'prefix': 'veh_n_', 'label': 'VehNo', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'},
+        #{'prefix': 'adap_dwtp_', 'label': 'AdapDWTP', 'configFile': 'configs/single_final_qlearning_adaptative_delay_throughput.cfg'},
+        #{'prefix': 'dwtp_', 'label': 'DWTP', 'configFile': 'configs/single_final_qlearning_delay_wasted_time_penalty_log.cfg'},
+        {'prefix': 'thp_', 'label': 'Thp', 'configFile': 'configs/single_final_qlearning_throughput.cfg'},
+        {'prefix': 'fxm_', 'label': 'FXM', 'configFile': 'configs/single_final_fixed_time.cfg'},
     ]
     numberOfRuns = 10
 
-    experimentPrefix = 'exp25'
-    experimentParams = [{'prefix': 'adap_vehn_', 'configFile': 'configs/single_final_qlearning_adaptative_veh_n_throughput.cfg'},
-                {'prefix': 'veh_n_', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'},
-                {'prefix': 'thp_', 'configFile': 'configs/single_final_qlearning_throughput.cfg'}]
-    
-    numberOfRuns = 25
+    #experimentPrefix = 'exp25'
+    #experimentParams = [{'prefix': 'adap_vehn_', 'configFile': 'configs/single_final_qlearning_adaptative_veh_n_throughput.cfg'},
+    #            {'prefix': 'veh_n_', 'configFile': 'configs/single_final_qlearning_avg_vehicle_number.cfg'},
+    #            {'prefix': 'thp_', 'configFile': 'configs/single_final_qlearning_throughput.cfg'}]
 
-    experimentParams = readFiles(experimentPrefix, copy.deepcopy(experimentParams), fromRun = 50, toRun = 75)
+    #numberOfRuns = 25
+
+    experimentParams = readFiles(experimentPrefix, copy.deepcopy(experimentParams), fromRun = 5, toRun = 15)
 
     col_depart_delay = 'departDelay'
     col_duration = 'duration'
@@ -196,12 +198,12 @@ if __name__ == '__main__':
     col_waiting_count = 'waitingCount'
     col_time_loss = 'timeLoss'
 
-    ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Departure Delay', col_depart_delay)
+    ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Average Departure Delay', col_depart_delay)
 
-    ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Travel Time', col_duration)
+    ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Average Travel Time', col_duration)
 
-    ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Waiting Time', col_waiting_time)
+    ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Average Waiting Time', col_waiting_time)
 
-    ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Waiting Count', col_waiting_count)
+    ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Average Number of Stops', col_waiting_count)
 
-    ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Avg Time Loss', col_time_loss)
+    ax = generateStatistics(experimentPrefix, experimentParams, numberOfRuns, 'Average Time Loss', col_time_loss)
